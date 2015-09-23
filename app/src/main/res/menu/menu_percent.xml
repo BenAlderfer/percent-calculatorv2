@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.alderferstudios.percentcalculatorv2.PercentActivity">
+		  
+	<item android:id="@+id/bar_limits"
+          android:icon="@drawable/percent_bar"
+          android:title="@string/bar_limits"
+          android:showAsAction="ifRoom" />
+	
+	<item
+        android:id="@+id/settings"
+        android:title="@string/settingsText"
+        android:showAsAction="never"
+    />	
+	
+</menu>

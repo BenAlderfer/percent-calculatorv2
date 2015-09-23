@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen 
+	xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:key="splitPopUp">
+		 
+	<ListPreference
+	 android:defaultValue="Split tip"
+	 android:entries="@array/splitOptions"
+	 android:entryValues="@array/splitValues"
+	 android:key="splitList"
+	 android:summary="@string/splitDesc"
+	 android:title="@string/splitLabel" />	
+	 
+</PreferenceScreen>

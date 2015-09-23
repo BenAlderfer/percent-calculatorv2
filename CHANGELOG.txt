@@ -1,0 +1,10 @@
+Remade all layouts
+Changed default theme to green to match guidelines (all options still available in settings)
+Added action buttons
+Improved material themes
+Changed swipe direction and transitions: you now swipe up to move forward and swipe down to move backwards (to prevent accidental swiping on the slider)
+Percent input cannot be above or below slider limits
+Fixed percent limits in the settings to catch incorrect input: it now makes sure the min < max
+Improved percent text and slider live updates on percent screen
+Remade some graphics
+Squashed bugs

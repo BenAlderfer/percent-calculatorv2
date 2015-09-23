@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Standard colors (IDK what some of these are)-->
+	 <color name="white">#FFFFFF</color>
+	 <color name="yellow">#FFFF00</color>
+	 <color name="fuchsia">#FF00FF</color>
+	 <color name="red">#FF0000</color>
+	 <color name="silver">#C0C0C0</color>
+	 <color name="grey">#808080</color>
+	 <color name="olive">#808000</color>
+	 <color name="purple">#800080</color>
+	 <color name="maroon">#800000</color>
+	 <color name="aqua">#00FFFF</color>
+	 <color name="lime">#00FF00</color>
+	 <color name="teal">#008080</color>
+	 <color name="green">#008000</color>
+	 <color name="blue">#0000FF</color>
+	 <color name="navy">#000080</color>
+	 <color name="black">#000000</color>
+	 
+	<!-- Custom colors -->
+	<color name="greenBar">#0F9D58</color>
+	<color name="greenDark">#0B8043</color>
+	
+	<color name="orangeBar">#FF9800</color>
+	<color name="orangeDark">#F57C00</color>
+	
+	<color name="redBar">#DB4437</color>
+	<color name="redDark">#BC3A31</color>
+	
+	<color name="blueBar">#4285F4</color>
+	<color name="blueDark">#3367D6</color>
+	
+	<color name="blackBar">#ff212121</color>
+	<color name="blackDark">#ff000000</color>
+	
+</resources>

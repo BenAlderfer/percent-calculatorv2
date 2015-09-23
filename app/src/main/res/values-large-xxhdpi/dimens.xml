@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="side_margin">20dp</dimen>
+	<dimen name="top_margin">40dp</dimen>
+	<dimen name="between_margin">20dp</dimen>
+	<dimen name="button_spacing">10dp</dimen>
+	<dimen name="button_padding">5dp</dimen>
+	<dimen name="inner_spacing">10dp</dimen>	<!-- small spacing inside row or between rows -->
+	<dimen name="money_sign_spacing">5dp</dimen>	<!-- space between money sign and number -->
+	<dimen name="below_percent_sign">5dp</dimen>	<!-- raises up percent sign to match number -->
+	<dimen name="button_centering">200dp</dimen>	<!-- trimming down sides of buttons -->
+	
+	<style name="NormalText">
+         <item name="android:textSize">20sp</item>
+		 <item name="android:textStyle">bold</item>
+    </style>
+	
+	<style name="MediumText">
+         <item name="android:textSize">26sp</item>
+		 <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LargeText">
+         <item name="android:textSize">32sp</item>
+		 <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/splitView"
+    android:screenOrientation="portrait"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
+    tools:context=".SplitActivity" >
+
+    <TextView
+        android:id="@+id/splitText"
+        style="@style/LargeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/side_margin"
+        android:layout_marginStart="@dimen/side_margin"
+        android:layout_marginTop="@dimen/top_margin"
+        android:text="@string/splitTitle"/>
+
+    <com.alderferstudios.percentcalculatorv2.NumPicker
+        android:id="@+id/numPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/side_margin"
+        android:layout_marginEnd="@dimen/side_margin"
+        android:layout_marginTop="@dimen/picker_margin"
+        style="@style/NormalText"
+        max="100"
+        min="2" />
+
+    <Button
+        android:id="@+id/add"
+        style="@style/NormalText"
+        android:layout_below="@+id/numPicker"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/button_padding"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/top_margin"
+        android:onClick="add"
+        android:text="@string/splitText" />
+
+</RelativeLayout>

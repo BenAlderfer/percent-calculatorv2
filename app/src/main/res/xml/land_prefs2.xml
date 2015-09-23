@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:key="prefScreen2">
+	 
+	<ListPreference
+		 android:defaultValue="Split tip"
+		 android:entries="@array/splitOptions"
+		 android:entryValues="@array/splitValues"
+		 android:key="splitList"
+		 android:summary="@string/splitDesc"
+		 android:title="@string/splitLabel" />	
+	 
+	<PreferenceCategory
+		android:title="Design Tweaks"
+        android:key="des_tweaks">
+		
+		<CheckBoxPreference
+		 android:defaultValue="false"
+		 android:key="combinedBox"
+		 android:summary="@string/disabledCombinedDesc"
+		 android:title="@string/combinedLabel" />
+
+		<ListPreference
+		 android:defaultValue="Light"
+		 android:entries="@array/themeOptions"
+		 android:entryValues="@array/themeValues"
+		 android:key="themeList"
+		 android:summary="@string/themeDesc"
+		 android:title="@string/themeLabel" />	
+		 
+		<ListPreference
+		 android:defaultValue="Green"
+		 android:entries="@array/colorOptions"
+		 android:entryValues="@array/colorValues"
+		 android:key="colorList"
+		 android:summary="@string/colorDesc"
+		 android:title="@string/colorLabel" />	
+		 
+	</PreferenceCategory>
+	 
+</PreferenceScreen>

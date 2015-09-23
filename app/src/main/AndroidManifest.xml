@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.alderferstudios.percentcalculatorv2" >
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".CostActivity"
+            android:label="@string/title_activity_cost"
+            android:theme="@style/GreenLight" >
+        </activity>
+        <activity
+            android:name=".PercentActivity"
+            android:label="@string/title_activity_percent"
+            android:theme="@style/OrangeLight" >
+        </activity>
+        <activity
+            android:name=".SplitActivity"
+            android:label="@string/title_activity_split"
+            android:theme="@style/RedLight" >
+        </activity>
+        <activity
+            android:name=".ResultsActivity"
+            android:label="@string/title_activity_results"
+            android:theme="@style/BlueLight" >
+        </activity>
+        <activity
+            android:name=".PrefsActivity"
+            android:label="@string/title_activity_prefs"
+            android:noHistory="true"
+            android:theme="@style/GreenLight" >
+        </activity>
+        <activity
+            android:name=".CombinedActivity"
+            android:label="@string/app_name"
+            android:theme="@style/GreenLight" >
+        </activity>
+        <activity
+            android:name=".Launcher"
+            android:label="@string/app_name"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SplitPopUp"
+            android:label="@string/title_activity_split_pop_up" 
+			android:theme="@style/GreenLightPopUp">
+        </activity>
+		 <activity
+            android:name=".PercentLimitPopUp"
+            android:label="@string/title_activity_percent_limit_pop_up" 
+			android:theme="@style/GreenLightPopUp">
+        </activity>
+    </application>
+
+</manifest>
