@@ -1,6 +1,6 @@
 # Percent Calculator
 
-Copyright (c) 2015 Ben Alderfer
+Copyright (c) 2015 Ben Alderfer.
 See the file license.txt for copying permission.
 
 A tip and discount calculator for Android. 
