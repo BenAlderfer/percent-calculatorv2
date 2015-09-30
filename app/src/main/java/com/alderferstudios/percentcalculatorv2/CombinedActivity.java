@@ -220,7 +220,7 @@ public class CombinedActivity extends PCActivity implements SeekBar.OnSeekBarCha
 
         //cost value
         String costString = costBox.getText().toString();
-        double cost = PercentCalculator.round(Double.parseDouble(costString), 2);
+        double cost = PercentCalculator.round(Double.parseDouble(costString));
         editor = PreferenceDoubles.putDouble(editor, "cost", cost);
 
         //percent value
@@ -270,23 +270,24 @@ public class CombinedActivity extends PCActivity implements SeekBar.OnSeekBarCha
         {
             text = "";                                                                            //clears previous results
 
-            if ((shared.getString("button", null)).equals("add"))
+            if (shared.getString("button", null) != null &&
+                    (shared.getString("button", null)).equals("add"))
             {
-                text = String.format("Tip: " + getString(R.string.money_sign) + change + spacing);
+                text = "Tip: " + getString(R.string.money_sign) + change + spacing;
 
                 if (willSplit && didEnterSplit(false) && willSplitTip)                            //if split was clicked, number is entered, and split tip is selected in prefs
-                    text += String.format("Each tips: " + getString(R.string.money_sign) + eachTip + spacing);                    //adds the split tip part of the text
+                    text += "Each tips: " + getString(R.string.money_sign) + eachTip + spacing;                              //adds the split tip part of the text
             }
             else
-                text = String.format("Discount: " + getString(R.string.money_sign) + change + spacing);
+                text = "Discount: " + getString(R.string.money_sign) + change + spacing;
 
             if (willTax)                                                                          //makes the tax part of the text
-                text += String.format("Tax: " + getString(R.string.money_sign) + shared.getString("taxAmount", "") + spacing);
+                text += "Tax: " + getString(R.string.money_sign) + shared.getString("taxAmount", "") + spacing;
 
-            text += String.format("Final cost: " + getString(R.string.money_sign) + shared.getString("total", ""));               //makes the cost total part of the text
+            text += "Final cost: " + getString(R.string.money_sign) + shared.getString("total", "");                         //makes the cost total part of the text
 
             if (willSplit && didEnterSplit(false) && willSplitTotal)                              //if split was clicked, number is entered, and split total is selected in prefs
-                text += String.format(spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal);                      //adds the split tip part of the text
+                text += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal;                                //adds the split tip part of the text
 
             setResults();
         }
@@ -301,34 +302,37 @@ public class CombinedActivity extends PCActivity implements SeekBar.OnSeekBarCha
 
             if (!willSplit || !didEnterSplit(false))                                              //if not splitting, use both sides
             {
-                if ((shared.getString("button", null)).equals("add"))
-                    text1 = String.format("Tip: " + getString(R.string.money_sign) + change);
+                if ((shared.getString("button", null) != null &&
+                        (shared.getString("button", null)).equals("add"))) {
+                    text1 = "Tip: " + getString(R.string.money_sign) + change;
+                }
                 else
-                    text1 = String.format("Discount: " + getString(R.string.money_sign) + change);
+                    text1 = "Discount: " + getString(R.string.money_sign) + change;
 
                 if (willTax)                                                                      //makes the tax part of the text
-                    text1 += String.format(spacing + "Tax: " + getString(R.string.money_sign) + shared.getString("taxAmount", ""));
+                    text1 += spacing + "Tax: " + getString(R.string.money_sign) + shared.getString("taxAmount", "");
 
-                text2 = String.format("Final cost: " + getString(R.string.money_sign) + shared.getString("total", ""));          //makes the cost total part of the text
+                text2 = "Final cost: " + getString(R.string.money_sign) + shared.getString("total", "");                     //makes the cost total part of the text
             }
 
             else                                                                                  //otherwise, splits are on right
             {
-                if ((shared.getString("button", null)).equals("add"))
-                    text1 = String.format("Tip: " + getString(R.string.money_sign) + change + spacing);
+                if ((shared.getString("button", null) != null &&
+                        (shared.getString("button", null)).equals("add")))
+                    text1 = "Tip: " + getString(R.string.money_sign) + change + spacing;
                 else
-                    text1 = String.format("Discount: " + getString(R.string.money_sign) + change + spacing);
+                    text1 = "Discount: " + getString(R.string.money_sign) + change + spacing;
 
                 if (willTax)                                                                      //makes the tax part of the text
-                    text1 += String.format("Tax: " + getString(R.string.money_sign) + shared.getString("taxAmount", "") + spacing);
+                    text1 += "Tax: " + getString(R.string.money_sign) + shared.getString("taxAmount", "") + spacing;
 
-                text1 += String.format("Final cost: " + getString(R.string.money_sign) + shared.getString("total", ""));          //makes the cost total part of the text
+                text1 += "Final cost: " + getString(R.string.money_sign) + shared.getString("total", "");                    //makes the cost total part of the text
 
                 if (willSplit && didEnterSplit(false) && willSplitTip)                            //if split was clicked, number is entered, and split tip is checked in prefs
-                    text2 = String.format("Each tips: " + getString(R.string.money_sign) + eachTip);                              //adds the split tip part of the text
+                    text2 = "Each tips: " + getString(R.string.money_sign) + eachTip;                                        //adds the split tip part of the text
 
                 if (willSplit && didEnterSplit(false) && willSplitTotal)                          //if split was clicked, number is entered, and split total is checked in prefs
-                    text2 += String.format(spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal);                 //adds the split tip part of the text
+                    text2 += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal;                          //adds the split tip part of the text
             }
 
             setLandscapeResults();
@@ -389,10 +393,12 @@ public class CombinedActivity extends PCActivity implements SeekBar.OnSeekBarCha
      * Sets the text in results
      * Makes the text visible
      * Centers the text
+     *
+     * While the warning says String.format is not needed, it is
      */
     private void setResults()
     {
-        resultsText.setText(text);
+        resultsText.setText(String.format(text));
         resultsText.setVisibility(View.VISIBLE);                                                  //shows results text
         resultsText.setGravity(Gravity.CENTER_HORIZONTAL);
     }
@@ -402,14 +408,16 @@ public class CombinedActivity extends PCActivity implements SeekBar.OnSeekBarCha
      * Sets the text in results
      * Makes the text visible
      * Centers the text
+     *
+     * While the warning says String.format is not needed, it is
      */
     private void setLandscapeResults()
     {
-        resultsText1.setText(text1);
+        resultsText1.setText(String.format(text1));
         resultsText1.setVisibility(View.VISIBLE);                                                 //shows results text #1
         resultsText1.setGravity(Gravity.CENTER_HORIZONTAL);
 
-        resultsText2.setText(text2);
+        resultsText2.setText(String.format(text2));
         resultsText2.setVisibility(View.VISIBLE);                                                 //shows results text #2
         resultsText2.setGravity(Gravity.CENTER_HORIZONTAL);
     }

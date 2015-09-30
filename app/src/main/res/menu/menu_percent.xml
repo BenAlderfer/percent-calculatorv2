@@ -4,13 +4,15 @@
 		  
 	<item android:id="@+id/bar_limits"
           android:icon="@drawable/percent_bar"
-          android:title="@string/bar_limits"
-          android:showAsAction="ifRoom" />
+        android:orderInCategory="1"
+        android:showAsAction="ifRoom"
+        android:title="@string/bar_limits" />
 	
 	<item
         android:id="@+id/settings"
-        android:title="@string/settingsText"
+        android:orderInCategory="100"
         android:showAsAction="never"
+        android:title="@string/settingsText"
     />	
 	
 </menu>

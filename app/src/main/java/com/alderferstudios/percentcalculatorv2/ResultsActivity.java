@@ -37,7 +37,11 @@ public class ResultsActivity extends PCActivity implements SharedPreferences.OnS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+
+        }
 
         shared.registerOnSharedPreferenceChangeListener(this);
 
@@ -119,7 +123,10 @@ public class ResultsActivity extends PCActivity implements SharedPreferences.OnS
         String cost = decimalFormat.format(PreferenceDoubles.getDouble(shared, "cost", 0.00));
         String subtotal = decimalFormat.format(PreferenceDoubles.getDouble(shared, "subtotal", 0.00));
 
-        boolean didAdd = (shared.getString("button", null)).equals("add");
+        boolean didAdd = false;
+        if (shared.getString("button", null) != null) {
+            didAdd = (shared.getString("button", null)).equals("add");
+        }
         String total = shared.getString("total", "");
 
         /**
@@ -134,12 +141,6 @@ public class ResultsActivity extends PCActivity implements SharedPreferences.OnS
 
         String change = shared.getString("percentAmount", "");
         String eachTip = shared.getString("eachTip", "");
-        if (eachTip.equals("0.00")){
-            eachTip = "<" + getString(R.string.money_sign) + "0.00";
-        }
-        else{
-            eachTip = getString(R.string.money_sign) + "0.00";
-        }
 
         boolean didSplit = shared.getBoolean("didSplit", false);
 
@@ -154,7 +155,7 @@ public class ResultsActivity extends PCActivity implements SharedPreferences.OnS
         if (didAdd)
             if (didSplit && willSplitTip)                              //if they split and chose to split the tip, tip amount + split cost
                 totalText.setText(String.format("Tip: " + getString(R.string.money_sign) + change + spacing +
-                                                 eachTip + " each"));
+                        getString(R.string.money_sign) + eachTip + " each"));
 
             else                                                                                  //tip, tip amount + final cost
                 totalText.setText(String.format("Tip: " + getString(R.string.money_sign) + change + spacing +
@@ -189,7 +190,8 @@ public class ResultsActivity extends PCActivity implements SharedPreferences.OnS
                                      "The tip is: " + getString(R.string.money_sign) + change + spacing);                    //adds tip amount $
 
             if (didSplit && willSplitTip)                                                         //if they split and chose to split the tip
-                    results += String.format("Each person tips: " + eachTip + spacing);     //add line for each person tips
+                results += String.format("Each person tips: " +
+                        getString(R.string.money_sign) + eachTip + spacing);//add line for each person tips
 
             if (willTax && !willTaxFirst)
                 results += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +         //adds the subtotal

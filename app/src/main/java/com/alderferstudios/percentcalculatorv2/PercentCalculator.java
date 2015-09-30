@@ -10,8 +10,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class PercentCalculator
@@ -35,6 +33,16 @@ public class PercentCalculator
     }
 
     /**
+     * Rounds the value
+     * @param value the thing to round
+     * @return the rounded value
+     */
+    public static double round(double value)
+    {
+        return Math.ceil(value * 100) / 100;
+    }
+
+    /**
      * Calculates and saves the numbers formatted as Strings
      */
     protected void calculate()
@@ -54,11 +62,11 @@ public class PercentCalculator
             PreferenceDoubles.putDouble(editor, "subtotal", totalNum);
         }
 
-        double percentNum = round(totalNum * (percent / 100.0), 2);
+        double percentNum = round(totalNum * (percent / 100.0));
 
-        if (button.equals("add"))
+        if (button != null && button.equals("add"))
         {
-            totalNum = round(totalNum + percentNum, 2);
+            totalNum = round(totalNum + percentNum);
 
             if (willTax && !willTaxFirst)                                                         //if will tax and tax comes after the tip
             {
@@ -69,7 +77,7 @@ public class PercentCalculator
 
         else	//button.equals("subtract")
         {
-            totalNum = round(totalNum - percentNum, 2);
+            totalNum = round(totalNum - percentNum);
 
             if (willTax && !willTaxFirst)                                                         //if will tax and tax comes after the discount
             {
@@ -98,9 +106,9 @@ public class PercentCalculator
         if (didSplit)
         {
             if (willSplitTip)                                                                     //if they chose to split the tip
-                eachTip = decimalFormat.format(round((percentNum / split), 2));                   //figures out the tip for each person
+                eachTip = decimalFormat.format(round(percentNum / split));                        //figures out the tip for each person
             if (willSplitTotal)                                                                   //if they chose to split the total
-                eachTotal = decimalFormat.format(round((totalNum / split), 2));                   //figures out the total for each person
+                eachTotal = decimalFormat.format(round(totalNum / split));                        //figures out the total for each person
         }
 
         editor.putString("percentAmount", percentAmount);
@@ -126,20 +134,5 @@ public class PercentCalculator
         taxNum = (tax / 100.0) * price;
 
         return taxNum;
-    }
-
-    /**
-     * Rounds the value
-     * @param value the thing to round
-     * @param places how many decimal places
-     * @return the rounded value
-     */
-    public static double round(double value, int places)
-    {
-        if (places < 0) throw new IllegalArgumentException();
-
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
     }
 }

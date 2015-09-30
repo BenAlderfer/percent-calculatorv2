@@ -7,4 +7,7 @@ Percent input cannot be above or below slider limits
 Fixed percent limits in the settings to catch incorrect input: it now makes sure the min < max
 Improved percent text and slider live updates on percent screen
 Remade some graphics
+All values are rounded up (nothing smaller than 2 decimals, this will likely overcharge a little but its better than undercharging)
+Trimmed the code
+More safeguards for possible crashes
 Squashed bugs

@@ -96,7 +96,7 @@ public class CostActivity extends PCActivity
         }
         else
         {
-            double cost = PercentCalculator.round(Double.parseDouble(costString), 2);			  //saves the cost
+            double cost = PercentCalculator.round(Double.parseDouble(costString));                  //saves the cost
             editor = PreferenceDoubles.putDouble(editor, "cost", cost);
             editor.putBoolean("didJustGoBack", false);                                            //clears back action and remakes editor for later use
             editor.apply();
@@ -152,10 +152,7 @@ public class CostActivity extends PCActivity
      */
     private boolean containsAnError(){
         String text = costText.getText().toString();
-        if (text.equals("") || text.equals("0")){
-            return true;
-        }
+        return text.equals("") || text.equals("0");
 
-        return false;
     }
 }
