@@ -19,19 +19,19 @@
 	 <color name="black">#000000</color>
 	 
 	<!-- Custom colors -->
-	<color name="greenBar">#0F9D58</color>
-	<color name="greenDark">#0B8043</color>
-	
-	<color name="orangeBar">#FF9800</color>
-	<color name="orangeDark">#F57C00</color>
-	
-	<color name="redBar">#DB4437</color>
-	<color name="redDark">#BC3A31</color>
-	
-	<color name="blueBar">#4285F4</color>
-	<color name="blueDark">#3367D6</color>
-	
-	<color name="blackBar">#ff212121</color>
-	<color name="blackDark">#ff000000</color>
+	<color name="greenPrimary">#0F9D58</color>
+	<color name="greenPrimaryDark">#0B8043</color>
+
+	<color name="orangePrimary">#FF9800</color>
+	<color name="orangePrimaryDark">#F57C00</color>
+
+	<color name="redPrimary">#DB4437</color>
+	<color name="redPrimaryDark">#BC3A31</color>
+
+	<color name="bluePrimary">#4285F4</color>
+	<color name="bluePrimaryDark">#3367D6</color>
+
+	<color name="blackPrimary">#ff212121</color>
+	<color name="blackPrimaryDark">#ff000000</color>
 	
 </resources>

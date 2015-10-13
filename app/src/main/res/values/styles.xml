@@ -14,223 +14,299 @@
 	<!-- Style for EditText error text -->
 	<style name="ErrorText" parent="TextAppearance.AppCompat.Small">
 		<item name="android:textStyle">bold|italic</item>
-		<item name="android:textColor">@color/greenBar</item>
+		<item name="android:textColor">@color/greenPrimary</item>
 	</style>
 	
 	<!-- Black and White theme, same for all activities -->
 	<style name="EditTextBlack" parent="@android:style/Widget.EditText">
-		<item name="android:textColor">@color/blackBar</item>
+		<item name="android:textColor">@color/blackPrimary</item>
 	</style>
 	
 	<style name="BlackAndWhite" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorAccent">@color/blackBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorAccent">@color/blackPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
-		<item name="android:textColor">@color/blackBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/blackPrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/EditTextBlack</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<style name="BlackAndWhitePopUp" parent="Theme.AppCompat.Dialog">
-		<item name="colorAccent">@color/blackBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorAccent">@color/blackPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
-		<item name="android:textColor">@color/blackBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/blackPrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/EditTextBlack</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- green theme -->	
 	<style name="greenEditText" parent="@android:style/Widget.EditText">
-		<item name="android:textColor">@color/greenBar</item>
+		<item name="android:textColor">@color/greenPrimary</item>
 	</style>
 	
 	<style name="GreenLight" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorPrimary">@color/greenBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/greenDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/greenBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/greenPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/greenPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/greenPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColor">@color/greenBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/greenPrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/greenEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="GreenLightPopUp" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorPrimary">@color/greenBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/greenDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/greenBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/greenPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/greenPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/greenPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColorSecondary">@color/greenBar </item> <!-- summary text color -->
-		<item name="android:textColor">@color/greenDark</item> <!-- header color -->
+		<item name="android:textColorSecondary">@color/greenPrimary</item>
+		<!-- summary text color -->
+		<item name="android:textColor">@color/greenPrimaryDark</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/greenEditText</item> <!-- EditText color -->
 	</style>
 	
 	<style name="GreenDark" parent="Theme.AppCompat">
-		<item name="colorPrimary">@color/greenBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/greenDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/greenBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/greenPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/greenPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/greenPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
-		<item name="android:textColor">@color/greenBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/greenPrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/greenEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="GreenDarkPopUp" parent="Theme.AppCompat.Dialog">
-		<item name="colorPrimary">@color/greenBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/greenDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/greenBar </item> <!-- checkboxes and text fields border-->
-		<item name="android:textColorPrimary">@color/greenBar </item> <!-- activity name text color -->
+		<item name="colorPrimary">@color/greenPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/greenPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/greenPrimary</item>
+		<!-- checkboxes and text fields border-->
+		<item name="android:textColorPrimary">@color/greenPrimary</item>
+		<!-- activity name text color -->
 		<item name="android:textColorSecondary">@color/white </item> <!-- summary text color -->
-		<item name="android:textColor">@color/greenBar</item> <!-- header color -->
+		<item name="android:textColor">@color/greenPrimary</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/greenEditText</item> <!-- EditText color -->
 	</style>
 
 	<!-- orange theme -->
 	<style name="orangeEditText" parent="@android:style/Widget.EditText">
-		<item name="android:textColor">@color/orangeBar</item>
+		<item name="android:textColor">@color/orangePrimary</item>
 	</style>
 	
 	<style name="OrangeLight" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorPrimary">@color/orangeBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/orangeDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/orangeBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/orangePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/orangePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/orangePrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColor">@color/orangeBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/orangePrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/orangeEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="OrangeLightPopUp" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorPrimary">@color/orangeBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/orangeDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/orangeBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/orangePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/orangePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/orangePrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColorSecondary">@color/orangeBar </item> <!-- summary text color -->
-		<item name="android:textColor">@color/orangeDark</item> <!-- header color -->
+		<item name="android:textColorSecondary">@color/orangePrimary</item>
+		<!-- summary text color -->
+		<item name="android:textColor">@color/orangePrimaryDark</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/orangeEditText</item> <!-- EditText color -->
 	</style>
 	
 	<style name="OrangeDark" parent="Theme.AppCompat">
-		<item name="colorPrimary">@color/orangeBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/orangeDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/orangeBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/orangePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/orangePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/orangePrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
-		<item name="android:textColor">@color/orangeBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/orangePrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/orangeEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="OrangeDarkPopUp" parent="Theme.AppCompat.Dialog">
-		<item name="colorPrimary">@color/orangeBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/orangeDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/orangeBar </item> <!-- checkboxes and text fields border-->
-		<item name="android:textColorPrimary">@color/orangeBar </item> <!-- activity name text color -->
+		<item name="colorPrimary">@color/orangePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/orangePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/orangePrimary</item>
+		<!-- checkboxes and text fields border-->
+		<item name="android:textColorPrimary">@color/orangePrimary</item>
+		<!-- activity name text color -->
 		<item name="android:textColorSecondary">@color/white </item> <!-- summary text color -->
-		<item name="android:textColor">@color/orangeBar</item> <!-- header color -->
+		<item name="android:textColor">@color/orangePrimary</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/orangeEditText</item> <!-- EditText color -->
 	</style>
   
 	<!-- red theme -->
 	<style name="redEditText" parent="@android:style/Widget.EditText">
-		<item name="android:textColor">@color/redBar</item>
+		<item name="android:textColor">@color/redPrimary</item>
 	</style>
 	
 	<style name="RedLight" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorPrimary">@color/redBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/redDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/redBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/redPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/redPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/redPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/black </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColor">@color/redBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/redPrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/redEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="RedLightPopUp" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorPrimary">@color/redBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/redDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/redBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/redPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/redPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/redPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColorSecondary">@color/redBar </item> <!-- summary text color -->
-		<item name="android:textColor">@color/redDark</item> <!-- header color -->
+		<item name="android:textColorSecondary">@color/redPrimary</item>
+		<!-- summary text color -->
+		<item name="android:textColor">@color/redPrimaryDark</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/redEditText</item> <!-- EditText color -->
 	</style>
 	
 	<style name="RedDark" parent="Theme.AppCompat">
-		<item name="colorPrimary">@color/redBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/redDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/redBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/redPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/redPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/redPrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
-		<item name="android:textColor">@color/redBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/redPrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/redEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="RedDarkPopUp" parent="Theme.AppCompat.Dialog">
-		<item name="colorPrimary">@color/redBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/redDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/redBar </item> <!-- checkboxes and text fields border-->
-		<item name="android:textColorPrimary">@color/redBar </item> <!-- activity name text color -->
+		<item name="colorPrimary">@color/redPrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/redPrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/redPrimary</item>
+		<!-- checkboxes and text fields border-->
+		<item name="android:textColorPrimary">@color/redPrimary</item>
+		<!-- activity name text color -->
 		<item name="android:textColorSecondary">@color/white </item> <!-- summary text color -->
-		<item name="android:textColor">@color/redBar</item> <!-- header color -->
+		<item name="android:textColor">@color/redPrimary</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/redEditText</item> <!-- EditText color -->
 	</style>
   
 	<!-- blue theme -->
 	<style name="blueEditText" parent="@android:style/Widget.EditText">
-		<item name="android:textColor">@color/blueBar</item>
+		<item name="android:textColor">@color/bluePrimary</item>
 	</style>
 	
 	<style name="BlueLight" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorPrimary">@color/blueBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/blueDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/blueBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/bluePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/bluePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/bluePrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColor">@color/blueBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/bluePrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/blueEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="BlueLightPopUp" parent="Theme.AppCompat.Light.Dialog">
-		<item name="colorPrimary">@color/blueBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/blueDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/blueBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/bluePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/bluePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/bluePrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
 		<item name="android:windowBackground">@color/white </item> <!-- background color -->
-		<item name="android:textColorSecondary">@color/blueBar </item> <!-- summary text color -->
-		<item name="android:textColor">@color/blueDark</item> <!-- header color -->
+		<item name="android:textColorSecondary">@color/bluePrimary</item>
+		<!-- summary text color -->
+		<item name="android:textColor">@color/bluePrimaryDark</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/blueEditText</item> <!-- EditText color -->
 	</style>
 	
 	<style name="BlueDark" parent="Theme.AppCompat">
-		<item name="colorPrimary">@color/blueBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/blueDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/blueBar </item> <!-- checkboxes and text fields border-->
+		<item name="colorPrimary">@color/bluePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/bluePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/bluePrimary</item>
+		<!-- checkboxes and text fields border-->
 		<item name="android:textColorPrimary">@color/white </item> <!-- activity name text color -->
-		<item name="android:textColor">@color/blueBar</item> <!-- TextView color -->
+		<item name="android:textColor">@color/bluePrimary</item>
+		<!-- TextView color -->
 		<item name="android:editTextStyle">@style/blueEditText</item> <!-- EditText color -->
 		<item name="android:actionMenuTextColor">@color/white</item>  <!-- Action button color -->
 	</style>
 	
 	<!-- pop-up preferences theme -->	
 	<style name="BlueDarkPopUp" parent="Theme.AppCompat.Dialog">
-		<item name="colorPrimary">@color/blueBar </item>	<!-- action bar -->
-		<item name="colorPrimaryDark">@color/blueDark </item> <!-- status bar -->
-		<item name="colorAccent">@color/blueBar </item> <!-- checkboxes and text fields border-->
-		<item name="android:textColorPrimary">@color/blueBar </item> <!-- activity name text color -->
+		<item name="colorPrimary">@color/bluePrimary</item>
+		<!-- action bar -->
+		<item name="colorPrimaryDark">@color/bluePrimaryDark</item>
+		<!-- status bar -->
+		<item name="colorAccent">@color/bluePrimary</item>
+		<!-- checkboxes and text fields border-->
+		<item name="android:textColorPrimary">@color/bluePrimary</item>
+		<!-- activity name text color -->
 		<item name="android:textColorSecondary">@color/white </item> <!-- summary text color -->
-		<item name="android:textColor">@color/blueBar</item> <!-- header color -->
+		<item name="android:textColor">@color/bluePrimary</item>
+		<!-- header color -->
 		<item name="android:editTextStyle">@style/blueEditText</item> <!-- EditText color -->
 	</style>
   
