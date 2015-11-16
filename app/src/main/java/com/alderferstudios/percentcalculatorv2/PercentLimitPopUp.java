@@ -7,6 +7,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+/**
+ * Percent Calculator
+ * The pop up for choosing percent limits
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 public class PercentLimitPopUp extends PopUpPreference
 {
     protected static SharedPreferences.Editor editor;

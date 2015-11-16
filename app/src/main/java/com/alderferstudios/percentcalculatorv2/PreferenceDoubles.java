@@ -1,16 +1,14 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- * Updated: 12/29/14
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
 import android.content.SharedPreferences;
 
 /**
+ * Percent Calculator
  * Utility class for putting and getting doubles in SharedPreferences
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
  */
 public class PreferenceDoubles
 {

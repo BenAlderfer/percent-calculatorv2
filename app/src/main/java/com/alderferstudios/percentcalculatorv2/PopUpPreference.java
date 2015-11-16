@@ -6,8 +6,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
 /**
+ * Percent Calculator
  * Like PCActivity, but for preferences
- * The most generic preference class
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
  */
 public abstract class PopUpPreference extends AppCompatActivity
 {

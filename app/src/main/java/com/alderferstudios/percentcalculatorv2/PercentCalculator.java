@@ -1,9 +1,3 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
 import android.content.Context;
@@ -12,6 +6,14 @@ import android.preference.PreferenceManager;
 
 import java.text.DecimalFormat;
 
+/**
+ * Percent Calculator
+ * The internal calculator
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 public class PercentCalculator
 {
     private SharedPreferences shared;

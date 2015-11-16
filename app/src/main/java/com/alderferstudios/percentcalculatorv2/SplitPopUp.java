@@ -6,6 +6,14 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+/**
+ * Percent Calculator
+ * The pop up for choosing the split mode
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 public class SplitPopUp extends PopUpPreference
 {
     @Override

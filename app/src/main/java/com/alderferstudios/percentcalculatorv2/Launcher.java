@@ -1,10 +1,3 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- * Updated: 2/2/15
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
 import android.app.Activity;
@@ -15,6 +8,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+/**
+ * Percent Calculator
+ * The launcher
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 public class Launcher extends Activity
 {
     private SharedPreferences.Editor editor;

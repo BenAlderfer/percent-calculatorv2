@@ -1,10 +1,3 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- * Remade: 11/8/14
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
 import android.annotation.TargetApi;
@@ -13,6 +6,14 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
+/**
+ * Percent Calculator
+ * The custom number picker
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class NumPicker extends NumberPicker
 {
