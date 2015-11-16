@@ -44,8 +44,7 @@ public class SplitPopUp extends PopUpPreference
         /**
          * Sets the summaries on start
          */
-        protected void setSummary()
-        {
+        protected void setSummary() {
             setSplitSummary();                                                                    //Split list
         }
 
