@@ -29,8 +29,7 @@ public class SplitPopUp extends PopUpPreference
     /**
      * The pop up fragment
      */
-    public static class PopUpFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener
-    {
+    public static class PopUpFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
