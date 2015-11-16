@@ -1,4 +1,4 @@
-# Percent Calculator
+# Percent Calculator V2
 
 Copyright (c) 2015 Benjamin Alderfer.
 See the license file for copying permission.
