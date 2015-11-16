@@ -52,10 +52,8 @@ public class SplitPopUp extends PopUpPreference
          * Sets the summaries on change
          */
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-        {
-            switch (key)
-            {
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 case "splitList": setSplitSummary(); break;                                       //Split list
             }
         }
