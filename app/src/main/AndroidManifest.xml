@@ -56,13 +56,17 @@
         </activity>
         <activity
             android:name=".SplitPopUp"
-            android:label="@string/title_activity_split_pop_up" 
-			android:theme="@style/GreenLightPopUp">
+            android:label="@string/title_activity_split_pop_up"
+            android:theme="@style/GreenLightPopUp">
         </activity>
-		 <activity
+        <activity
             android:name=".PercentLimitPopUp"
-            android:label="@string/title_activity_percent_limit_pop_up" 
-			android:theme="@style/GreenLightPopUp">
+            android:label="@string/title_activity_percent_limit_pop_up"
+            android:theme="@style/GreenLightPopUp"></activity>
+        <activity
+            android:name=".OneItemActivity"
+            android:label="@string/title_activity_one_item"
+            android:theme="@style/GreenLight">
         </activity>
     </application>
 

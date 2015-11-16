@@ -1,13 +1,5 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- * Updated: 2/7/15
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -15,6 +7,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+/**
+ * Percent Calculator
+ * The settings screen
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 public class PrefsActivity extends PCActivity implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static boolean needsActRestart, needsFullRestart;
@@ -29,7 +29,11 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_settings);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         needsActRestart = shared.getBoolean("needsActRestart", false);
         needsFullRestart = shared.getBoolean("needsFullRestart", false);
@@ -84,6 +88,54 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
             editor.apply();
             editor = shared.edit();
         }
+    }
+
+    /**
+     * Overridden to apply activity specific themes
+     * Applies the correct colors based on the theme
+     * Makes some changes on Lollipop
+     */
+    @Override
+    protected void applyTheme() {
+        themeChoice = shared.getString("themeList", "Light");
+        colorChoice = shared.getString("colorList", "Green");
+
+        if (colorChoice.equals("Dynamic"))
+            switch (themeChoice) {
+                case "Dark":
+                    setTheme(R.style.GreenDark);
+                    break;
+                case "Black and White":
+                    setTheme(R.style.BlackAndWhite);
+                    break;
+                default:
+                    setTheme(R.style.GreenLight);
+                    break;
+            }
+        else
+            super.applyTheme();
+    }
+
+    /**
+     * Removes any leading zeros
+     *
+     * @param s the String to edit
+     * @return s the String without leading zeros
+     */
+    private String removeLeadingZeroes(String s) {
+        while (s.substring(0, 1).equals("0"))
+            s = s.substring(1);
+
+        return s;
+    }
+
+    @Override
+    protected void onRestart() {
+        editor.putBoolean("needsActRestart", needsActRestart);                                    //saves variables in case it needs to restart for color/theme change
+        editor.putBoolean("needsFullRestart", needsFullRestart);
+        editor.apply();
+
+        super.onRestart();
     }
 
     public static class PCFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -385,6 +437,43 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         }
     }
 
+    /*@Override
+    public void onBackPressed()
+    {
+        editor.putBoolean("didJustGoBack", true);                                                 //saves back action
+        editor.apply();
+
+        if (needsFullRestart)                                                                     //if combined pref was changed, restart app
+        {
+            editor.putBoolean("needsFullRestart", false);                                         //resets variable
+            editor.apply();
+
+            Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
+            startActivity(i);
+        }
+        else if (needsActRestart)
+        {
+            Intent last = new Intent(this, CostActivity.class);	                                  //remakes last activity, defaults to Cost
+            switch (caller)
+            {
+                case "percent": last = new Intent(this, PercentActivity.class); break;
+                case "split": last = new Intent(this, SplitActivity.class); break;
+                case "results": last = new Intent(this, ResultsActivity.class); break;
+                case "combined": last = new Intent(this, CombinedActivity.class); break;
+            }
+
+            editor.putBoolean("needsActRestart", false);                                          //resets variable
+            editor.apply();
+
+            last.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(last);
+        }
+        else
+            super.onBackPressed();
+    }*/
+
     /**
      * Right landscape fragment, contains split and design tweaks
      */
@@ -424,87 +513,5 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
                 case "colorList": setColorListSummary(); break;                                   //Color box
             }
         }
-    }
-
-    /**
-     * Overridden to apply activity specific themes
-     * Applies the correct colors based on the theme
-     * Makes some changes on Lollipop
-     */
-    @Override
-    protected void applyTheme()
-    {
-        themeChoice = shared.getString("themeList", "Light");
-        colorChoice = shared.getString("colorList", "Green");
-
-        if (colorChoice.equals("Dynamic"))
-            switch (themeChoice)
-            {
-                case "Dark": setTheme(R.style.GreenDark); break;
-                case "Black and White": setTheme(R.style.BlackAndWhite); break;
-                default: setTheme(R.style.GreenLight); break;
-            }
-        else
-            super.applyTheme();
-    }
-
-    /**
-     * Removes any leading zeros
-     * @param s the String to edit
-     * @return s the String without leading zeros
-     */
-    private String removeLeadingZeroes(String s)
-    {
-        while (s.substring(0, 1).equals("0"))
-            s = s.substring(1);
-
-        return s;
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        editor.putBoolean("didJustGoBack", true);                                                 //saves back action
-        editor.apply();
-
-        if (needsFullRestart)                                                                     //if combined pref was changed, restart app
-        {
-            editor.putBoolean("needsFullRestart", false);                                         //resets variable
-            editor.apply();
-
-            Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            finish();
-            startActivity(i);
-        }
-        else if (needsActRestart)
-        {
-            Intent last = new Intent(this, CostActivity.class);	                                  //remakes last activity, defaults to Cost
-            switch (caller)
-            {
-                case "percent": last = new Intent(this, PercentActivity.class); break;
-                case "split": last = new Intent(this, SplitActivity.class); break;
-                case "results": last = new Intent(this, ResultsActivity.class); break;
-                case "combined": last = new Intent(this, CombinedActivity.class); break;
-            }
-
-            editor.putBoolean("needsActRestart", false);                                          //resets variable
-            editor.apply();
-
-            last.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(last);
-        }
-        else
-            super.onBackPressed();
-    }
-
-    @Override
-    protected void onRestart()
-    {
-        editor.putBoolean("needsActRestart", needsActRestart);                                    //saves variables in case it needs to restart for color/theme change
-        editor.putBoolean("needsFullRestart", needsFullRestart);
-        editor.apply();
-
-        super.onRestart();
     }
 }

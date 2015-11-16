@@ -1,9 +1,3 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
 import android.content.Context;
@@ -24,6 +18,14 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+/**
+ * Percent Calculator
+ * The combined screen
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
 public class CombinedActivity extends PCActivity implements SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener
 {
     private TextView resultsText, resultsText1, resultsText2;                                     //where results are displayed

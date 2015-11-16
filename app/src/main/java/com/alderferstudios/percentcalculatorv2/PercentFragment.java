@@ -1,29 +1,30 @@
-/**
- * @author Ben Alderfer
- * Alderfer Studios
- * Percent Calculator
- * Updated: 2/5/15
- */
-
 package com.alderferstudios.percentcalculatorv2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
-public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChangeListener
-{
+/**
+ * Percent Calculator
+ * The percent screen
+ * <p>
+ * Alderfer Studios
+ *
+ * @author Ben Alderfer
+ */
+public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChangeListener {
     private EditText percentage;
     private int percent, percentStart, percentMax;
     private SharedPreferences.Editor editor;
@@ -32,33 +33,24 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
     private boolean needsToRestart;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        shared = PreferenceManager.getDefaultSharedPreferences(this);
-        PreferenceManager.setDefaultValues(this, R.xml.prefs, false);                             //sets default values if the preferences have not yet been used
-        editor = shared.edit();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        layout = (RelativeLayout) inflater.inflate(R.layout.activity_percent, container, false);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_percent);
-
-        buttons.add((Button) findViewById(R.id.add));
-        buttons.add((Button) findViewById(R.id.split));
-        buttons.add((Button) findViewById(R.id.subtract));
+        buttons.add((Button) layout.findViewById(R.id.add));
+        buttons.add((Button) layout.findViewById(R.id.split));
+        buttons.add((Button) layout.findViewById(R.id.subtract));
         adjustButtons();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        bar = (SeekBar)findViewById(R.id.percentBar);
+        bar = (SeekBar) layout.findViewById(R.id.percentBar);
         bar.setOnSeekBarChangeListener(this);
 
-        percentage = (EditText)findViewById(R.id.percentNum);
+        percentage = (EditText) layout.findViewById(R.id.percentNum);
         percentage.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 String percentText = percentage.getText().toString();
                 if (!percentText.equals("") &&
                         Integer.parseInt(percentText) <= percentMax &&
-                        Integer.parseInt(percentText) >= percentStart) {                              //only update bar if its within the limits
+                        Integer.parseInt(percentText) >= percentStart) {                          //only update bar if its within the limits
 
                     if (percentText.equals("")) {
                         bar.setProgress(percentStart);
@@ -66,7 +58,7 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
                         bar.setProgress(Integer.parseInt((percentage.getText().toString())) - percentStart);
                     }
 
-                    percentage.setSelection(percentage.getText().length());                           //returns focus to end of text
+                    percentage.setSelection(percentage.getText().length());                       //returns focus to end of text
                 }
             }
 
@@ -80,7 +72,8 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
         //shared.registerOnSharedPreferenceChangeListener(this);
         applyPrefs();
 
-        findViewById(R.id.percentView).setOnTouchListener(new OnSwipeTouchListener(this)          //swipe listeners for activity movement
+        ////////////////////////////// move this to the activity /////////////////////////////////////////////////////////
+        /*findViewById(R.id.percentView).setOnTouchListener(new OnSwipeTouchListener(this)        //swipe listeners for activity movement
         {
             public void onSwipeTop()
             {
@@ -111,20 +104,21 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
             public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
             }
-        });
+        });*/
+
+        return layout;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_percent, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_cost, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //////////////////////////// finish this ////////////////////////////////////////////////////
+        /*switch (item.getItemId())
         {
             case R.id.settings:
                 Intent settingsActivity = new Intent(this, PrefsActivity.class);
@@ -141,14 +135,14 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
             default:
                 onBackPressed();
                 return true;
-        }
+        }*/
+        return true;
     }
 
     /**
      * Applies preference settings
      */
-    private void applyPrefs()
-    {
+    private void applyPrefs() {
         percentStart = Integer.parseInt(shared.getString("percentStart", "0"));
         percentMax = Integer.parseInt(shared.getString("percentMax", "30"));
         if (bar.getMax() != percentMax)
@@ -165,9 +159,9 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
             percentage.setSelection(percentage.getText().length());                               //puts focus at end of percent text
         }
 
-        if (findViewById(R.id.numPicker) != null)                                                 //fills in last or default value for split picker if it is there
+        if (layout.findViewById(R.id.numPicker) != null)                                          //fills in last or default value for split picker if it is there
         {
-            numPick = (NumPicker) findViewById(R.id.numPicker);
+            numPick = (NumPicker) layout.findViewById(R.id.numPicker);
             if (shared.getBoolean("saveBox", false))                                              //fills in last value if save is enabled
                 if (shared.getInt("split", 4) >= 2 && shared.getInt("split", 4) <= 100)           //makes sure the number is in the correct range
                     numPick.setValue(shared.getInt("split", 4));
@@ -193,9 +187,10 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
     /**
      * Checks if the percent input is wrong
      * Looks to see if it is greater or less than a limit
+     *
      * @return true if it exceeds a limit; false otherwise
      */
-    private boolean percentIsWrong(){
+    private boolean percentIsWrong() {
         String percentText = percentage.getText().toString();
         if (percentText.equals("")) {                                                             //updates bar if nothing was entered
             bar.setProgress(percentStart);
@@ -203,12 +198,11 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
             percentText = percentage.getText().toString();
         }
 
-        if(Integer.parseInt(percentText) > percentMax) {
+        if (Integer.parseInt(percentText) > percentMax) {
             percentage.setText(percentMax + "");
             showToast("The percent cannot be greater than the max percent");
             return true;
-        }
-        else if(Integer.parseInt(percentText) < percentStart) {
+        } else if (Integer.parseInt(percentText) < percentStart) {
             percentage.setText(percentStart + "");
             showToast("The percent cannot be less than the start percent");
             return true;
@@ -216,21 +210,37 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
         return false;
     }
 
+    @Override
+    protected void performAction(Button b) {
+        switch (b.getId()) {
+            case R.id.split:
+                split(b);
+                break;
+            case R.id.subtract:
+                subtract(b);
+                break;
+            default:   //portrait add
+                add(b);
+                break;
+        }
+    }
+
     /**
      * When the add button is hit
      * Saves button type and
      * Moves on to save data and
      * Switch to results activity
+     *
      * @param view the View
      */
-    public void add(View view)
-    {
+    public void add(View view) {
         if (!percentIsWrong()) {
             editor.putString("button", "add");
             editor.putBoolean("didSplit", false);
             editor.putString("lastAction", "tip");
-            Intent results = new Intent(this, ResultsActivity.class);
-            saveAndSwitch(results);
+            ////////////////////// implement new switch /////////////////////////////////////
+            /*Intent results = new Intent(this, ResultsActivity.class);
+            saveAndSwitch(results);*/
         }
     }
 
@@ -239,16 +249,17 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
      * Saves button type and
      * Moves on to save data and
      * Switch to results activity
+     *
      * @param view the View
      */
-    public void subtract(View view)
-    {
+    public void subtract(View view) {
         if (!percentIsWrong()) {
             editor.putString("button", "subtract");
             editor.putBoolean("didSplit", false);
             editor.putString("lastAction", "discount");
-            Intent results = new Intent(this, ResultsActivity.class);
-            saveAndSwitch(results);
+            ////////////////////// implement new switch /////////////////////////////////////
+            /*Intent results = new Intent(this, ResultsActivity.class);
+            saveAndSwitch(results);*/
         }
     }
 
@@ -257,16 +268,17 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
      * Saves button type and
      * Moves on to save data and
      * Switch to split activity
+     *
      * @param view the View
      */
-    public void split(View view)
-    {
+    public void split(View view) {
         if (!percentIsWrong()) {
             editor.putString("button", "add");
             editor.putBoolean("didSplit", false);
             editor.putString("lastAction", "split");
-            Intent split = new Intent(this, SplitActivity.class);
-            saveAndSwitch(split);
+            ////////////////////// implement new switch /////////////////////////////////////
+            /*Intent split = new Intent(this, SplitActivity.class);
+            saveAndSwitch(split);*/
         }
     }
 
@@ -277,30 +289,30 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
      * Switch to results activity
      * ***Does not go to split screen since the number
      * ***picker is on the same screen in landscape
+     *
      * @param view the View
      */
-    public void splitLandscape(View view)
-    {
+    public void splitLandscape(View view) {
         editor.putString("button", "add");
         editor.putBoolean("didSplit", true);
         editor.putString("lastAction", "split");
-        Intent results = new Intent(this, ResultsActivity.class);
-        saveAndSwitch(results);
+        ////////////////////// implement new switch /////////////////////////////////////
+        /*Intent results = new Intent(this, ResultsActivity.class);
+        saveAndSwitch(results);*/
     }
 
     /**
      * Saves the data
      * Switches to the given Intent
+     *
      * @param nextIntent the Intent to switch to
      */
-    private void saveAndSwitch(Intent nextIntent)
-    {
-        if (didChangePercent())
-        {
+    private void saveAndSwitch(Intent nextIntent) {
+        if (didChangePercent()) {
             editor.putInt("percent", percent);
 
-            if (findViewById(R.id.numPicker) != null)                                             //if there is a numpicker, save the value
-                editor.putInt("split", ((NumPicker) findViewById(R.id.numPicker)).getValue());
+            if (layout.findViewById(R.id.numPicker) != null)                                             //if there is a numpicker, save the value
+                editor.putInt("split", ((NumPicker) layout.findViewById(R.id.numPicker)).getValue());
 
             editor.putBoolean("didJustGoBack", false);                                            //clears back action and remakes editor for later use
             editor.apply();
@@ -310,13 +322,13 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
 
     /**
      * Checks if the user changed the percentage
+     *
      * @return true if it was changed, false if its unchanged
      */
-    private boolean didChangePercent()
-    {
+    private boolean didChangePercent() {
         if (percent == 0 &&
                 (((percentage.getText().toString()).equals("")) ||
-                ((percentage.getText().toString()).equals("0"))))	                              //if the percent is untouched
+                        ((percentage.getText().toString()).equals("0"))))                                  //if the percent is untouched
         {
             showToast("The percent has not been entered");
             return false;
@@ -329,8 +341,7 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
      * Updates the percent text as the bar changes
      */
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
-    {
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         percent = progress + percentStart;
         if (percent > percentMax)
             percent = percentMax;
@@ -339,31 +350,11 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
 
     @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
-
-    /**
-     * Overridden to apply activity specific themes
-     * Applies the correct colors based on the theme
-     * Makes some changes on Lollipop
-     */
-    @Override
-    protected void applyTheme()
-    {
-        themeChoice = shared.getString("themeList", "Light");
-        colorChoice = shared.getString("colorList", "Green");
-
-        if (colorChoice.equals("Dynamic"))
-            switch (themeChoice)
-            {
-                case "Dark": setTheme(R.style.OrangeDark); break;
-                case "Black and White": setTheme(R.style.BlackAndWhite); break;
-                default: setTheme(R.style.OrangeLight); break;
-            }
-        else
-            super.applyTheme();
+    public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
     /**
@@ -372,11 +363,9 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
      * Others get regular buttons using setBackgroundDrawable
      * To prevent having to raise the min api
      */
-    protected void adjustButtons()
-    {
+    protected void adjustButtons() {
         if (colorChoice.equals("Dynamic"))
-            for (Button b: buttons)
-            {
+            for (Button b : buttons) {
                 if (isLollipop())
                     b.setBackgroundResource(R.drawable.ripple_orange_button);
                 else
@@ -386,24 +375,13 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
             super.adjustButtons();
     }
 
-    public void onResume()
-    {
-        super.onResume();
-
-        if (needsToRestart)
-        {
-            needsToRestart = false;
-            resetAfterPrefChange();
-            onRestart();
-        }
-    }
-
     /**
      * Checks if the percent input is wrong
      * Looks to see if it is greater or less than a limit
+     *
      * @return true if it exceeds a limit; false otherwise
      */
-    private void resetAfterPrefChange(){
+    private void resetAfterPrefChange() {
         String percentText = percentage.getText().toString();
         if (percentText.equals("")) {                                                             //updates bar if nothing was entered
             bar.setProgress(percentStart);
@@ -411,10 +389,9 @@ public class PercentActivity extends PCActivity implements SeekBar.OnSeekBarChan
             percentText = percentage.getText().toString();
         }
 
-        if(Integer.parseInt(percentText) > percentMax) {
+        if (Integer.parseInt(percentText) > percentMax) {
             percentage.setText(percentMax + "");
-        }
-        else if(Integer.parseInt(percentText) < percentStart) {
+        } else if (Integer.parseInt(percentText) < percentStart) {
             percentage.setText(percentStart + "");
         }
     }

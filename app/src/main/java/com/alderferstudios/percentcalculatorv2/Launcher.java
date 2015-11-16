@@ -19,6 +19,18 @@ public class Launcher extends Activity
 {
     private SharedPreferences.Editor editor;
 
+    /**
+     * Checks if the device is a tablet
+     *
+     * @param context the Context
+     * @return true if a tablet
+     */
+    private static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,7 +49,7 @@ public class Launcher extends Activity
             firstActivity = new Intent(this, CombinedActivity.class);
 
         else
-            firstActivity = new Intent(this, CostActivity.class);
+            firstActivity = new Intent(this, OneItemActivity.class);
 
         startActivity(firstActivity);
     }
@@ -54,17 +66,5 @@ public class Launcher extends Activity
             size = "phone";
 
         editor.putString("screenSize", size);
-    }
-
-    /**
-     * Checks if the device is a tablet
-     * @param context the Context
-     * @return true if a tablet
-     */
-    private static boolean isTablet(Context context)
-    {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }

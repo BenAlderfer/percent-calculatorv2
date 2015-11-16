@@ -19,21 +19,49 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * @author Ben Alderfer
- * Alderfer Studios
  * Percent Calculator
  * The generic class for all Activities in this app
+ *
+ * Alderfer Studios
+ * @author Ben Alderfer
  */
 public abstract class PCActivity extends AppCompatActivity
 {
     protected static SharedPreferences shared;
     protected static SharedPreferences.Editor editor;
-
+    protected static Toast t;
+    private static Context c;
     protected String themeChoice, colorChoice;
     protected ArrayList<Button> buttons = new ArrayList<>();                                      //Stores the buttons for restyling
 
-    protected static Toast t;
-    private static Context c;
+    /**
+     * Checks if the current api is Lollipop or greater
+     *
+     * @return true if is Lollipop
+     */
+    protected static boolean isLollipop() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    /**
+     * Displays a toast on the screen
+     * Uses Toast t to save last toast
+     * Checks if a toast is currently visible
+     * If so it sets the new text
+     * Else it makes the new text
+     *
+     * @param s the string to be toasted
+     */
+    protected static void showToast(String s) {
+        if (t == null)
+            t = Toast.makeText(c, s, Toast.LENGTH_SHORT);
+        else if (t.getView().isShown())
+            t.setText(s);
+        else
+            t = Toast.makeText(c, s, Toast.LENGTH_SHORT);
+
+        t.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -175,41 +203,12 @@ public abstract class PCActivity extends AppCompatActivity
    }
 
     /**
-     * Checks if the current api is Lollipop or greater
-     * @return true if is Lollipop
-     */
-    protected static boolean isLollipop()
-    {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
-    }
-
-    /**
      * Checks if the device is in landscape
      * @return true if in landscape
      */
     protected boolean isLandscape()
     {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-    }
-
-    /**
-     * Displays a toast on the screen
-     * Uses Toast t to save last toast
-     * Checks if a toast is currently visible
-     * If so it sets the new text
-     * Else it makes the new text
-     * @param s the string to be toasted
-     */
-    protected static void showToast (String s)
-    {
-        if (t == null)
-            t = Toast.makeText(c, s, Toast.LENGTH_SHORT);
-        else if (t.getView().isShown())
-            t.setText(s);
-        else
-            t = Toast.makeText(c, s, Toast.LENGTH_SHORT);
-
-        t.show();
     }
 
     @Override

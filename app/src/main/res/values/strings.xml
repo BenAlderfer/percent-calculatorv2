@@ -109,5 +109,7 @@
 	
 	<string name="colorLabel">Color</string>
 	<string name="colorDesc">The color is:</string>
+	<string name="title_activity_one_item">Percent Calculator</string>
+	<string name="section_format">Hello World from section: %1$d</string>
 
 </resources>
