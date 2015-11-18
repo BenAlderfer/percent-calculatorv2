@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
  * @author Ben Alderfer
  */
 public class SplitFragment extends PCFragment {
+
     private NumPicker numPick;
 
     @Override
@@ -65,13 +66,15 @@ public class SplitFragment extends PCFragment {
      * Applies preference settings
      */
     private void applyPrefs() {
-        if (shared.getBoolean("saveBox", false))                                                  //fills in last value if save is enabled
-            if (shared.getInt("split", 4) >= 2 && shared.getInt("split", 4) <= 100)               //makes sure the number is in the correct range
+        if (shared.getBoolean("saveBox", false)) {                                                //fills in last value if save is enabled
+            if (shared.getInt("split", 4) >= 2 && shared.getInt("split", 4) <= 100) {             //makes sure the number is in the correct range
                 numPick.setValue(shared.getInt("split", 4));
-            else
+            } else {
                 numPick.setValue(4);
-        else                                               //default value is 4
+            }
+        } else {                                              //default value is 4
             numPick.setValue(4);
+        }
     }
 
     @Override
@@ -102,14 +105,16 @@ public class SplitFragment extends PCFragment {
      * To prevent having to raise the min api
      */
     protected void adjustButtons() {
-        if (colorChoice.equals("Dynamic"))
+        if (colorChoice.equals("Dynamic")) {
             for (Button b : buttons) {
-                if (isLollipop())
+                if (isLollipop()) {
                     b.setBackgroundResource(R.drawable.ripple_red_button);
-                else
+                } else {
                     b.setBackgroundResource(R.drawable.red_button);
+                }
             }
-        else
+        } else {
             super.adjustButtons();
+        }
     }
 }

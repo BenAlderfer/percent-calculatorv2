@@ -15,13 +15,12 @@ import android.widget.Toast;
  *
  * @author Ben Alderfer
  */
-public class PercentLimitPopUp extends PopUpPreference
-{
+public class PercentLimitPopUp extends PopUpPreference {
+
     protected static SharedPreferences.Editor editor;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pref_pop_up);
 
@@ -34,8 +33,7 @@ public class PercentLimitPopUp extends PopUpPreference
     /**
      * The pop up fragment
      */
-    public static class PopUpFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener
-    {
+    public static class PopUpFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -50,8 +48,7 @@ public class PercentLimitPopUp extends PopUpPreference
         /**
          * Sets the summaries on start
          */
-        protected void setSummaries()
-        {
+        protected void setSummaries() {
             setPercentStartSummary();                                                             //starting percent
             setPercentMaxSummary();                                                               //max percent
         }
@@ -60,10 +57,8 @@ public class PercentLimitPopUp extends PopUpPreference
          * Sets the summaries on change
          */
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-        {
-            switch (key)
-            {
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 case "percentStart": setPercentStartSummary(); break;                             //starting percent
                 case "percentMax": setPercentMaxSummary(); break;                                 //max percent
             }
@@ -73,10 +68,8 @@ public class PercentLimitPopUp extends PopUpPreference
          * Sets the summary for the starting percent
          * String needs to be acquired differently since its being added
          */
-        protected void setPercentStartSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setPercentStartSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("percentStart");
                 if (p != null) {
                     String percentStart = shared.getString("percentStart", "0");
@@ -105,12 +98,10 @@ public class PercentLimitPopUp extends PopUpPreference
          * Sets the summary for the max percent
          * String needs to be acquired differently since its being added
          */
-        protected void setPercentMaxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setPercentMaxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("percentMax");
-                if (p != null){
+                if (p != null) {
                     String percentStart = shared.getString("percentStart", "0");
                     String percentMax = shared.getString("percentMax", "0");
                     if (percentStart.equals("")) {

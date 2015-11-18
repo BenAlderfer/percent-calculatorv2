@@ -25,8 +25,8 @@ import java.util.ArrayList;
  * Alderfer Studios
  * @author Ben Alderfer
  */
-public abstract class PCActivity extends AppCompatActivity
-{
+public abstract class PCActivity extends AppCompatActivity {
+
     protected static SharedPreferences shared;
     protected static SharedPreferences.Editor editor;
     protected static Toast t;
@@ -53,19 +53,19 @@ public abstract class PCActivity extends AppCompatActivity
      * @param s the string to be toasted
      */
     protected static void showToast(String s) {
-        if (t == null)
+        if (t == null) {
             t = Toast.makeText(c, s, Toast.LENGTH_SHORT);
-        else if (t.getView().isShown())
+        } else if (t.getView().isShown()) {
             t.setText(s);
-        else
+        } else {
             t = Toast.makeText(c, s, Toast.LENGTH_SHORT);
+        }
 
         t.show();
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         shared = PreferenceManager.getDefaultSharedPreferences(this);
         PreferenceManager.setDefaultValues(this, R.xml.prefs, false);                             //sets default values if the preferences have not yet been used
         editor = shared.edit();
@@ -74,8 +74,9 @@ public abstract class PCActivity extends AppCompatActivity
         changeLollipopIcon();                                                                     //changes the Lollipop overview icon
 
         super.onCreate(savedInstanceState);
-        if ((shared.getString("screenSize", "phone")).equals("phone"))                            //lock orientation if its a phone
+        if ((shared.getString("screenSize", "phone")).equals("phone")) {                          //lock orientation if its a phone
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
 
         c = this;
     }
@@ -84,45 +85,38 @@ public abstract class PCActivity extends AppCompatActivity
      * Applies the correct colors based on the theme
      * Makes some changes on Lollipop
      */
-    protected void applyTheme()
-    {
+    protected void applyTheme() {
         /**
          * This section assumes they chose a color
          * Will be overridden in class if not
          */
-        switch (themeChoice)
-        {
+        switch (themeChoice) {
             case "Black and White": setTheme(R.style.BlackAndWhite); break;                               //everything looks the same in Black and White
 
             case "Dark":
-            {
-                switch (colorChoice)
-                {
+                switch (colorChoice) {
                     case "Green": setTheme(R.style.GreenDark); break;
                     case "Orange": setTheme(R.style.OrangeDark); break;
                     case "Red": setTheme(R.style.RedDark); break;
                     case "Blue": setTheme(R.style.BlueDark); break;
                 }
-            } break;
+                break;
 
             default:
-            {
-                switch (colorChoice)
-                {
+                switch (colorChoice) {
                     case "Green": setTheme(R.style.GreenLight); break;
                     case "Orange": setTheme(R.style.OrangeLight); break;
                     case "Red": setTheme(R.style.RedLight); break;
                     case "Blue": setTheme(R.style.BlueLight); break;
                 }
-            } break;
+                break;
         }
     }
 
     /**
      * Restarts the activity when it gets back from settings
      */
-    protected void onRestart()
-    {
+    protected void onRestart() {
         super.onRestart();
         recreate();
     }
@@ -131,10 +125,8 @@ public abstract class PCActivity extends AppCompatActivity
      * Changes the overview icon in Lollipop
      * **Must be called from child class to work
      */
-    protected void changeLollipopIcon()
-    {
-        if (isLollipop())                                                                         //sets an alternate icon for the overview (recent apps)
-        {
+    protected void changeLollipopIcon() {
+        if (isLollipop()) {                                                                       //sets an alternate icon for the overview (recent apps)
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getTheme();
             theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
@@ -155,48 +147,47 @@ public abstract class PCActivity extends AppCompatActivity
      * To prevent having to raise the min api
      * Will be overridden if no color is chosen
      */
-   protected void adjustButtons()
-   {
-       for (Button b : buttons)
-       {
-           if (themeChoice.equals("Black and White"))
-           {
-               if (isLollipop())
+    protected void adjustButtons() {
+        for (Button b : buttons) {
+            if (themeChoice.equals("Black and White")) {
+                if (isLollipop()) {
                    b.setBackground(getResources().getDrawable(R.drawable.ripple_black_button));
-               else
+                } else {
                    b.setBackgroundDrawable(getResources().getDrawable(R.drawable.black_button));
-           }
-           else
-           {
+                }
+            } else {
                switch (colorChoice) {
-                   case "Green": {
-                       if (isLollipop())
+                   case "Green":
+                       if (isLollipop()) {
                            b.setBackground(getResources().getDrawable(R.drawable.ripple_green_button));
-                       else
+                       } else {
                            b.setBackgroundDrawable(getResources().getDrawable(R.drawable.green_button));
+                       }
                        break;
-                   }
-                   case "Orange": {
-                       if (isLollipop())
+
+                   case "Orange":
+                       if (isLollipop()) {
                            b.setBackground(getResources().getDrawable(R.drawable.ripple_orange_button));
-                       else
+                       } else {
                            b.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange_button));
+                       }
                        break;
-                   }
-                   case "Red": {
-                       if (isLollipop())
+
+                   case "Red":
+                       if (isLollipop()) {
                            b.setBackground(getResources().getDrawable(R.drawable.ripple_red_button));
-                       else
+                       } else {
                            b.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_button));
+                       }
                        break;
-                   }
-                   case "Blue": {
-                       if (isLollipop())
+
+                   case "Blue":
+                       if (isLollipop()) {
                            b.setBackground(getResources().getDrawable(R.drawable.ripple_blue_button));
-                       else
+                       } else {
                            b.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button));
+                       }
                        break;
-                   }
                }
            }
        }
@@ -206,14 +197,12 @@ public abstract class PCActivity extends AppCompatActivity
      * Checks if the device is in landscape
      * @return true if in landscape
      */
-    protected boolean isLandscape()
-    {
+    protected boolean isLandscape() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         editor.putBoolean("didJustGoBack", true);                                                 //saves back action
         editor.apply();
 

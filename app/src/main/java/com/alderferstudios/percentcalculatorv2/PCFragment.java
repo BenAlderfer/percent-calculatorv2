@@ -25,6 +25,7 @@ import java.util.ArrayList;
  * @author Ben Alderfer
  */
 public abstract class PCFragment extends Fragment {
+
     protected static SharedPreferences shared;
     protected static SharedPreferences.Editor editor;
     protected static Toast t;
@@ -83,38 +84,43 @@ public abstract class PCFragment extends Fragment {
     protected void adjustButtons() {
         for (Button b : buttons) {
             if (themeChoice.equals("Black and White")) {
-                if (isLollipop())
+                if (isLollipop()) {
                     b.setBackground(getResources().getDrawable(R.drawable.ripple_black_button));
-                else
+                } else {
                     b.setBackgroundDrawable(getResources().getDrawable(R.drawable.black_button));
+                }
             } else {
                 switch (colorChoice) {
                     case "Green": {
-                        if (isLollipop())
+                        if (isLollipop()) {
                             b.setBackground(getResources().getDrawable(R.drawable.ripple_green_button));
-                        else
+                        } else {
                             b.setBackgroundDrawable(getResources().getDrawable(R.drawable.green_button));
+                        }
                         break;
                     }
                     case "Orange": {
-                        if (isLollipop())
+                        if (isLollipop()) {
                             b.setBackground(getResources().getDrawable(R.drawable.ripple_orange_button));
-                        else
+                        } else {
                             b.setBackgroundDrawable(getResources().getDrawable(R.drawable.orange_button));
+                        }
                         break;
                     }
                     case "Red": {
-                        if (isLollipop())
+                        if (isLollipop()) {
                             b.setBackground(getResources().getDrawable(R.drawable.ripple_red_button));
-                        else
+                        } else {
                             b.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_button));
+                        }
                         break;
                     }
                     case "Blue": {
-                        if (isLollipop())
+                        if (isLollipop()) {
                             b.setBackground(getResources().getDrawable(R.drawable.ripple_blue_button));
-                        else
+                        } else {
                             b.setBackgroundDrawable(getResources().getDrawable(R.drawable.blue_button));
+                        }
                         break;
                     }
                 }

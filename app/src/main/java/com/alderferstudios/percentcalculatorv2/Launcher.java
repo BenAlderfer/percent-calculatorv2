@@ -16,8 +16,8 @@ import android.preference.PreferenceManager;
  *
  * @author Ben Alderfer
  */
-public class Launcher extends Activity
-{
+public class Launcher extends Activity {
+
     private SharedPreferences.Editor editor;
 
     /**
@@ -33,8 +33,7 @@ public class Launcher extends Activity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
@@ -46,11 +45,11 @@ public class Launcher extends Activity
         editor.apply();
 
         Intent firstActivity;
-        if (shared.getBoolean("combinedBox", false))
+        if (shared.getBoolean("combinedBox", false)) {
             firstActivity = new Intent(this, CombinedActivity.class);
-
-        else
+        } else {
             firstActivity = new Intent(this, OneItemActivity.class);
+        }
 
         startActivity(firstActivity);
     }
@@ -58,13 +57,13 @@ public class Launcher extends Activity
     /**
      * Gets the screen size and saves it for later
      */
-    private void saveScreenSize()
-    {
+    private void saveScreenSize() {
         String size;
-        if (isTablet(this))
+        if (isTablet(this)) {
             size = "tablet";
-        else
+        } else {
             size = "phone";
+        }
 
         editor.putString("screenSize", size);
     }

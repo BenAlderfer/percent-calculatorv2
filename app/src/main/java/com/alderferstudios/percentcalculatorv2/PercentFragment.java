@@ -25,6 +25,7 @@ import android.widget.SeekBar;
  * @author Ben Alderfer
  */
 public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChangeListener {
+
     private EditText percentage;
     private int percent, percentStart, percentMax;
     private SharedPreferences.Editor editor;
@@ -145,30 +146,32 @@ public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChan
     private void applyPrefs() {
         percentStart = Integer.parseInt(shared.getString("percentStart", "0"));
         percentMax = Integer.parseInt(shared.getString("percentMax", "30"));
-        if (bar.getMax() != percentMax)
+        if (bar.getMax() != percentMax) {
             bar.setMax(percentMax - percentStart);
+        }
 
-        if (shared.getBoolean("saveBox", false))                                                  //fills in last value if save is enabled
-        {
+        if (shared.getBoolean("saveBox", false)) {                                                //fills in last value if save is enabled
             int lastPercent = shared.getInt("percent", 0);
-            if (Integer.parseInt(percentage.getText().toString()) > percentMax)
+            if (Integer.parseInt(percentage.getText().toString()) > percentMax) {
                 percentage.setText(Integer.toString(percentMax));
-            else
+            } else {
                 percentage.setText(Integer.toString(lastPercent));
+            }
 
             percentage.setSelection(percentage.getText().length());                               //puts focus at end of percent text
         }
 
-        if (layout.findViewById(R.id.numPicker) != null)                                          //fills in last or default value for split picker if it is there
-        {
+        if (layout.findViewById(R.id.numPicker) != null) {                                         //fills in last or default value for split picker if it is there
             numPick = (NumPicker) layout.findViewById(R.id.numPicker);
-            if (shared.getBoolean("saveBox", false))                                              //fills in last value if save is enabled
-                if (shared.getInt("split", 4) >= 2 && shared.getInt("split", 4) <= 100)           //makes sure the number is in the correct range
+            if (shared.getBoolean("saveBox", false)) {                                             //fills in last value if save is enabled
+                if (shared.getInt("split", 4) >= 2 && shared.getInt("split", 4) <= 100) {          //makes sure the number is in the correct range
                     numPick.setValue(shared.getInt("split", 4));
-                else
+                } else {
                     numPick.setValue(4);
-            else                                                                                  //default value is 4
+                }
+            } else {                                                                              //default value is 4
                 numPick.setValue(4);
+            }
         }
     }
 
@@ -178,8 +181,7 @@ public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChan
      * @param key the name of the pref
      */
     /*@Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-    {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals("percentStart") || key.equals("percentMax"))
             needsToRestart = true;
     }*/
@@ -311,8 +313,9 @@ public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChan
         if (didChangePercent()) {
             editor.putInt("percent", percent);
 
-            if (layout.findViewById(R.id.numPicker) != null)                                             //if there is a numpicker, save the value
+            if (layout.findViewById(R.id.numPicker) != null) {                                    //if there is a numpicker, save the value
                 editor.putInt("split", ((NumPicker) layout.findViewById(R.id.numPicker)).getValue());
+            }
 
             editor.putBoolean("didJustGoBack", false);                                            //clears back action and remakes editor for later use
             editor.apply();
@@ -328,8 +331,7 @@ public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChan
     private boolean didChangePercent() {
         if (percent == 0 &&
                 (((percentage.getText().toString()).equals("")) ||
-                        ((percentage.getText().toString()).equals("0"))))                                  //if the percent is untouched
-        {
+                        ((percentage.getText().toString()).equals("0")))) {                       //if the percent is untouched
             showToast("The percent has not been entered");
             return false;
         }
@@ -343,8 +345,9 @@ public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChan
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         percent = progress + percentStart;
-        if (percent > percentMax)
+        if (percent > percentMax) {
             percent = percentMax;
+        }
 
         percentage.setText(String.valueOf(percent));
     }
@@ -364,15 +367,17 @@ public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChan
      * To prevent having to raise the min api
      */
     protected void adjustButtons() {
-        if (colorChoice.equals("Dynamic"))
+        if (colorChoice.equals("Dynamic")) {
             for (Button b : buttons) {
-                if (isLollipop())
+                if (isLollipop()) {
                     b.setBackgroundResource(R.drawable.ripple_orange_button);
-                else
+                } else {
                     b.setBackgroundResource(R.drawable.orange_button);
+                }
             }
-        else
+        } else {
             super.adjustButtons();
+        }
     }
 
     /**

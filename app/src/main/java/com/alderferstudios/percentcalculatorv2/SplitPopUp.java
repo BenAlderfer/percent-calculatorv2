@@ -14,11 +14,10 @@ import android.preference.PreferenceManager;
  *
  * @author Ben Alderfer
  */
-public class SplitPopUp extends PopUpPreference
-{
+public class SplitPopUp extends PopUpPreference {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pref_pop_up);
 
@@ -61,14 +60,13 @@ public class SplitPopUp extends PopUpPreference
         /**
          * Sets the summary for the split list
          */
-        protected void setSplitSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setSplitSummary() {
+            if (isAdded()) {                                                                      //must check if the fragment is added to the activity
                 Preference p = findPreference("splitList");
-                if (p != null)
+                if (p != null) {
                     p.setSummary(getResources().getString(R.string.splitDesc)
                             + " " + shared.getString("splitList", "Split tip"));
+                }
             }
         }
     }

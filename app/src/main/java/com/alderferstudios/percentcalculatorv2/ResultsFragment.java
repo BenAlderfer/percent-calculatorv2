@@ -28,7 +28,6 @@ public class ResultsFragment extends PCFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.activity_results, container, false);
-
         makeResults();
 
         return layout;
@@ -62,9 +61,10 @@ public class ResultsFragment extends PCFragment {
      * Puts all the values together with text
      */
     private void makeResults() {
-        String layout = "portrait";
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-            layout = "landscape";
+        String orientation = "portrait";
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            orientation = "landscape";
+        }
 
         PercentCalculator pc = new PercentCalculator(getActivity(), getString(R.string.money_separator));
         pc.calculate();                                                                           //calculates the numbers
@@ -89,10 +89,11 @@ public class ResultsFragment extends PCFragment {
          */
         TextView totalText = (TextView) layout.findViewById(R.id.total);
         String spacing;
-        if (layout.equals("portrait"))
+        if (orientation.equals("portrait")) {
             spacing = String.format("%n");
-        else//(layout.equals("landscape"))
+        } else { //(orientation.equals("landscape"))
             spacing = String.format("%n%n");                                                      //extra space in landscape
+        }
 
         String change = shared.getString("percentAmount", "");
         String eachTip = shared.getString("eachTip", "");
@@ -115,25 +116,27 @@ public class ResultsFragment extends PCFragment {
                 break;
         }
 
-        if (didAdd)
-            if (didSplit && willSplitTip)                              //if they split and chose to split the tip, tip amount + split cost
+        if (didAdd) {
+            if (didSplit && willSplitTip) {                                                       //if they split and chose to split the tip, tip amount + split cost
                 totalText.setText(String.format("Tip: " + getString(R.string.money_sign) + change + spacing +
                         getString(R.string.money_sign) + eachTip + " each"));
 
-            else                                                                                  //tip, tip amount + final cost
+            } else {                                                                               //tip, tip amount + final cost
                 totalText.setText(String.format("Tip: " + getString(R.string.money_sign) + change + spacing +
                         "Final cost: " + getString(R.string.money_sign) + total));
+            }
 
-        else                                                                                      //discount, discount amount + final cost
+        } else {                                                                                  //discount, discount amount + final cost
             totalText.setText(String.format("Discount: " + getString(R.string.money_sign) + change + spacing +
                     "Final cost: " + getString(R.string.money_sign) + total));
+        }
 
         totalText.setGravity(Gravity.CENTER);
 
         /**
          * Body Section
          */
-        TextView resultsText = (TextView) layout.findViewById(R.id.results);                              //where results are displayed
+        TextView resultsText = (TextView) layout.findViewById(R.id.results);                      //where results are displayed
         spacing = String.format("%n");
         boolean willTaxFirst = shared.getBoolean("afterBox", false);                              //if the tax will be added before or after the tip is calculated
         boolean willTax = shared.getBoolean("taxBox", false);                                     //if the tax will be added
@@ -141,41 +144,47 @@ public class ResultsFragment extends PCFragment {
         String taxAmount = shared.getString("taxAmount", "");
         String eachTotal = shared.getString("eachTotal", "");
 
-        String results = String.format("The original cost is: " + getString(R.string.money_sign) + cost + spacing); //adds cost
+        String results = String.format("The original cost is: " + getString(R.string.money_sign) + cost + spacing);          //adds cost
 
         if (didAdd) {
-            if (willTax && willTaxFirst)
+            if (willTax && willTaxFirst) {
                 results += String.format("The tax is: " + getString(R.string.money_sign) + taxAmount + spacing +             //adds the tax first if needed
-                        "The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing);         //adds the subtotal
+                        "The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing);                         //adds the subtotal
+            }
 
             results += String.format("The tip percent is: " + percent + "%%" + spacing +          //adds tip percent
-                    "The tip is: " + getString(R.string.money_sign) + change + spacing);                    //adds tip amount $
+                    "The tip is: " + getString(R.string.money_sign) + change + spacing);                                     //adds tip amount $
 
-            if (didSplit && willSplitTip)                                                         //if they split and chose to split the tip
+            if (didSplit && willSplitTip) {                                                       //if they split and chose to split the tip
                 results += String.format("Each person tips: " +
                         getString(R.string.money_sign) + eachTip + spacing);//add line for each person tips
+            }
 
-            if (willTax && !willTaxFirst)
+            if (willTax && !willTaxFirst) {
                 results += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +         //adds the subtotal
-                        "The tax is: " + getString(R.string.money_sign) + taxAmount + spacing);             //adds the tax afterwards if needed
+                        "The tax is: " + getString(R.string.money_sign) + taxAmount + spacing);                              //adds the tax afterwards if needed
+            }
         } else {
-            if (willTax && willTaxFirst)
+            if (willTax && willTaxFirst) {
                 results += String.format("The tax is: " + getString(R.string.money_sign) + taxAmount + spacing +             //adds the tax first if needed
-                        "The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing);          //adds the subtotal
+                        "The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing);                          //adds the subtotal
+            }
 
             results += String.format("The discount percent is: " + percent + "%%" + spacing +     //adds discount percent
-                    "The discount is: " + getString(R.string.money_sign) + change + spacing);               //adds discount amount $
+                    "The discount is: " + getString(R.string.money_sign) + change + spacing);                                //adds discount amount $
 
-            if (willTax && !willTaxFirst)
+            if (willTax && !willTaxFirst) {
                 results += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +         //adds the subtotal
-                        "The tax is: " + getString(R.string.money_sign) + taxAmount + spacing);             //adds the tax afterwards if needed
+                        "The tax is: " + getString(R.string.money_sign) + taxAmount + spacing);                              //adds the tax afterwards if needed
+            }
 
         }
 
-        results += String.format("The final cost is: " + getString(R.string.money_sign) + total);                              //adds line for total
+        results += String.format("The final cost is: " + getString(R.string.money_sign) + total);                            //adds line for total
 
-        if (didSplit && willSplitTotal)                                                           //if they split and chose to split the total
+        if (didSplit && willSplitTotal) {                                                         //if they split and chose to split the total
             results += String.format(spacing + "Each person pays: " + getString(R.string.money_sign) + eachTotal);           //add line for each person pays (of total)
+        }
 
         resultsText.setText(results);
         resultsText.setGravity(Gravity.CENTER);

@@ -15,21 +15,18 @@ import android.widget.NumberPicker;
  * @author Ben Alderfer
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class NumPicker extends NumberPicker
-{
-    public NumPicker(Context context)
-    {
+public class NumPicker extends NumberPicker {
+
+    public NumPicker(Context context) {
         super(context);
     }
 
-    public NumPicker(Context context, AttributeSet attrs)
-    {
+    public NumPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         processAttributeSet(attrs);
     }
 
-    public NumPicker(Context context, AttributeSet attrs, int defStyle)
-    {
+    public NumPicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         processAttributeSet(attrs);
     }
@@ -37,8 +34,7 @@ public class NumPicker extends NumberPicker
     /**
      * Reads the xml, sets the properties
      */
-    private void processAttributeSet(AttributeSet attrs)
-    {
+    private void processAttributeSet(AttributeSet attrs) {
         setMinValue(attrs.getAttributeIntValue(null, "min", 0));
         setMaxValue(attrs.getAttributeIntValue(null, "max", 0));
     }

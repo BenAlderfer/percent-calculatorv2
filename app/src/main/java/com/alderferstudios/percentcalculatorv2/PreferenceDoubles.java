@@ -10,8 +10,8 @@ import android.content.SharedPreferences;
  *
  * @author Ben Alderfer
  */
-public class PreferenceDoubles
-{
+public class PreferenceDoubles {
+
     /**
      * Converts a Double to a Long and puts it into the editor
      * @param edit the editor
@@ -19,8 +19,7 @@ public class PreferenceDoubles
      * @param value the double to put
      * @return the editor with the Double added
      */
-    public static SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value)
-    {
+    public static SharedPreferences.Editor putDouble(final SharedPreferences.Editor edit, final String key, final double value) {
         return edit.putLong(key, Double.doubleToRawLongBits(value));
     }
 
@@ -31,10 +30,10 @@ public class PreferenceDoubles
      * @param defaultValue the defaultValue if nothing is there
      * @return the double value
      */
-    public static double getDouble(final SharedPreferences prefs, final String key, final double defaultValue)
-    {
-        if ( !prefs.contains(key))
+    public static double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
+        if (!prefs.contains(key)) {
             return defaultValue;
+        }
 
         return Double.longBitsToDouble(prefs.getLong(key, 0));
     }

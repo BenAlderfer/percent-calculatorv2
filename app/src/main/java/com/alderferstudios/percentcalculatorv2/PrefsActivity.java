@@ -15,14 +15,12 @@ import android.view.MenuItem;
  *
  * @author Ben Alderfer
  */
-public class PrefsActivity extends PCActivity implements SharedPreferences.OnSharedPreferenceChangeListener
-{
+public class PrefsActivity extends PCActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
     private static boolean needsActRestart, needsFullRestart;
-    private String caller;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         shared = PreferenceManager.getDefaultSharedPreferences(this);
         editor = shared.edit();
 
@@ -37,27 +35,23 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
 
         needsActRestart = shared.getBoolean("needsActRestart", false);
         needsFullRestart = shared.getBoolean("needsFullRestart", false);
-        caller = getIntent().getStringExtra("caller");
 
-        if (isLandscape())
-        {
+        if (isLandscape()) {
             getFragmentManager().beginTransaction()
                     .replace(R.id.frame1, new LandscapePrefsFragment1()).commit();
 
             getFragmentManager().beginTransaction()
                     .replace(R.id.frame2, new LandscapePrefsFragment2()).commit();
-        }
-
-        else
-           getFragmentManager().beginTransaction()
+        } else {
+            getFragmentManager().beginTransaction()
                     .replace(R.id.framePort, new PrefsFragment()).commit();
+        }
 
         shared.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
     }
@@ -70,20 +64,18 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
      * @param key the name of the pref
      */
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-    {
-        if (key.equals("themeList") || key.equals("colorList"))
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals("themeList") || key.equals("colorList")) {
             onRestart();
+        }
 
-        if (key.equals("percentInput"))                                                           //removes leading zeros and puts it back, remakes edit for use later
-        {
+        if (key.equals("percentInput")) {                                                         //removes leading zeros and puts it back, remakes edit for use later
             editor.putString("percentInput", removeLeadingZeroes(shared.getString("percentInput", "")));
             editor.apply();
             editor = shared.edit();
         }
 
-        if (key.equals("taxInput"))                                                               //removes leading zeros and puts it back, remakes edit for use later
-        {
+        if (key.equals("taxInput")) {                                                             //removes leading zeros and puts it back, remakes edit for use later
             editor.putString("taxInput", removeLeadingZeroes(shared.getString("taxInput", "")));
             editor.apply();
             editor = shared.edit();
@@ -100,7 +92,7 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         themeChoice = shared.getString("themeList", "Light");
         colorChoice = shared.getString("colorList", "Green");
 
-        if (colorChoice.equals("Dynamic"))
+        if (colorChoice.equals("Dynamic")) {
             switch (themeChoice) {
                 case "Dark":
                     setTheme(R.style.GreenDark);
@@ -112,8 +104,9 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
                     setTheme(R.style.GreenLight);
                     break;
             }
-        else
+        } else {
             super.applyTheme();
+        }
     }
 
     /**
@@ -123,8 +116,9 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
      * @return s the String without leading zeros
      */
     private String removeLeadingZeroes(String s) {
-        while (s.substring(0, 1).equals("0"))
+        while (s.substring(0, 1).equals("0")) {
             s = s.substring(1);
+        }
 
         return s;
     }
@@ -138,8 +132,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         super.onRestart();
     }
 
-    public static class PCFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener
-    {
+    public static class PCFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
@@ -148,8 +142,7 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         /**
          * Sets the summaries on start
          */
-        protected void setSummaries()
-        {
+        protected void setSummaries() {
             setPercentStartSummary();                                                             //starting percent
             setPercentMaxSummary();                                                               //max percent
             setTaxBoxSummary();                                                                   //Tax box
@@ -166,10 +159,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summaries on change
          */
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-        {
-            switch (key)
-            {
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 case "percentStart": setPercentStartSummary(); break;                             //starting percent
                 case "percentMax": setPercentMaxSummary(); break;                                 //max percent
                 case "taxBox": setTaxBoxSummary(); break;                                         //Tax box
@@ -187,10 +178,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summary for the starting percent
          * String needs to be acquired differently since its being added
          */
-        protected void setPercentStartSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setPercentStartSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("percentStart");
                 if (p != null) {
                     String percentStart = shared.getString("percentStart", "0");
@@ -219,10 +208,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summary for the max percent
          * String needs to be acquired differently since its being added
          */
-        protected void setPercentMaxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setPercentMaxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("percentMax");
                 if (p != null){
                     String percentStart = shared.getString("percentStart", "0");
@@ -250,16 +237,16 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         /**
          * Sets the summary for the tax box
          */
-        protected void setTaxBoxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setTaxBoxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("taxBox");
-                if (p != null)
-                    if (shared.getBoolean("taxBox", false))
+                if (p != null) {
+                    if (shared.getBoolean("taxBox", false)) {
                         p.setSummary(R.string.enabledTaxDesc);
-                    else
+                    } else {
                         p.setSummary(R.string.disabledTaxDesc);
+                    }
+                }
             }
         }
 
@@ -267,76 +254,74 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summary for the tax
          * String needs to be acquired differently since its being added
          */
-        protected void setTaxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setTaxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("taxInput");
-                if (p != null)
+                if (p != null) {
                     p.setSummary(getResources().getString(R.string.taxDesc)
                             + " " + shared.getString("taxInput", "6") + "%");
+                }
             }
         }
 
         /**
          * Sets the summary for the after box
          */
-        protected void setAfterBoxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setAfterBoxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("afterBox");
-                if (p != null)
-                    if (shared.getBoolean("afterBox", false))
+                if (p != null) {
+                    if (shared.getBoolean("afterBox", false)) {
                         p.setSummary(R.string.enabledAfterTaxDesc);
-                    else
+                    } else {
                         p.setSummary(R.string.disabledAfterTaxDesc);
+                    }
+                }
             }
         }
 
         /**
          * Sets the summary for the save box
          */
-        protected void setSaveBoxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setSaveBoxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("saveBox");
-                if (p != null)
-                    if (shared.getBoolean("saveBox", false))
+                if (p != null) {
+                    if (shared.getBoolean("saveBox", false)) {
                         p.setSummary(R.string.enabledSaveDesc);
-                    else
+                    } else {
                         p.setSummary(R.string.disabledSaveDesc);
+                    }
+                }
             }
         }
 
         /**
          * Sets the summary for the split list
          */
-        protected void setSplitSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setSplitSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("splitList");
-                if (p != null)
+                if (p != null) {
                     p.setSummary(getResources().getString(R.string.splitDesc)
                             + " " + shared.getString("splitList", "Split tip"));
+                }
             }
         }
 
         /**
          * Sets the summary for the combined box
          */
-        protected void setCombinedBoxSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setCombinedBoxSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("combinedBox");
-                if (p != null)
-                    if (shared.getBoolean("combinedBox", false))
+                if (p != null) {
+                    if (shared.getBoolean("combinedBox", false)) {
                         p.setSummary(R.string.enabledCombinedDesc);
-                    else
+                    } else {
                         p.setSummary(R.string.disabledCombinedDesc);
+                    }
+                }
             }
         }
 
@@ -344,14 +329,13 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summary for the theme list
          * String needs to be acquired differently since its being added
          */
-        protected void setThemeListSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setThemeListSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("themeList");
-                if (p != null)
+                if (p != null) {
                     p.setSummary(getResources().getString(R.string.themeDesc)
                             + " " + shared.getString("themeList", "Light"));
+                }
             }
         }
 
@@ -360,14 +344,13 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summary for the color list
          * String needs to be acquired differently since its being added
          */
-        protected void setColorListSummary()
-        {
-            if (isAdded())                                                                        //must check if the fragment is added to the activity
-            {
+        protected void setColorListSummary() {
+            if (isAdded()) {                                                                       //must check if the fragment is added to the activity
                 Preference p = findPreference("colorList");
-                if (p != null)
+                if (p != null) {
                     p.setSummary(getResources().getString(R.string.colorDesc)
                             + " " + shared.getString("colorList", "Dynamic"));
+                }
             }
         }
     }
@@ -375,8 +358,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
     /**
      * The portrait fragment, contains everything
      */
-    public static class PrefsFragment extends PCFragment
-    {
+    public static class PrefsFragment extends PCFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -392,8 +375,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
     /**
      * Left landscape fragment, contains functionality tweaks
      */
-    public static class LandscapePrefsFragment1 extends PCFragment
-    {
+    public static class LandscapePrefsFragment1 extends PCFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -409,8 +392,7 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summaries on start
          */
         @Override
-        protected void setSummaries()
-        {
+        protected void setSummaries() {
             setPercentStartSummary();                                                             //starting percent
             setPercentMaxSummary();                                                               //max percent
             setTaxBoxSummary();                                                                   //Tax box
@@ -423,10 +405,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summaries on change
          */
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-        {
-            switch (key)
-            {
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 case "percentStart": setPercentStartSummary(); break;                             //starting percent
                 case "percentMax": setPercentMaxSummary(); break;                                 //max percent
                 case "taxBox": setTaxBoxSummary(); break;                                         //Tax box
@@ -477,8 +457,7 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
     /**
      * Right landscape fragment, contains split and design tweaks
      */
-    public static class LandscapePrefsFragment2 extends PCFragment
-    {
+    public static class LandscapePrefsFragment2 extends PCFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -494,8 +473,7 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
          * Sets the summaries
          */
         @Override
-        protected void setSummaries()
-        {
+        protected void setSummaries() {
             setSplitSummary();                                                                    //Split list
             setCombinedBoxSummary();                                                              //Combined box
             setThemeListSummary();                                                                //Theme list
@@ -503,10 +481,8 @@ public class PrefsActivity extends PCActivity implements SharedPreferences.OnSha
         }
 
         @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
-        {
-            switch (key)
-            {
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
                 case "splitList": setSplitSummary();  break;                                      //Split list
                 case "combinedBox": setCombinedBoxSummary(); needsFullRestart = true; break;      //Combined box
                 case "themeList": setThemeListSummary(); break;                                   //Theme list

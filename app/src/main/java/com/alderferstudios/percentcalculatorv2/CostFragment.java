@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
  * @author Ben Alderfer
  */
 public class CostFragment extends PCFragment {
+
     private EditText costText;
 
     @Override
@@ -57,8 +58,7 @@ public class CostFragment extends PCFragment {
      * Applies preference settings
      */
     private void applyPrefs() {
-        if (shared.getBoolean("saveBox", false))                                                  //fills in last value if save is enabled
-        {
+        if (shared.getBoolean("saveBox", false)) {                                                //fills in last value if save is enabled
             EditText costBox = ((EditText) layout.findViewById(R.id.cost));
             costBox.setText(Double.toString(PreferenceDoubles.getDouble(shared, "cost", 0.00)));
             costBox.setSelection(costBox.getText().length());                                     //puts focus at end of cost text
@@ -66,9 +66,9 @@ public class CostFragment extends PCFragment {
     }
 
     /**
-     * Advances
+     * Advances to next screen
      *
-     * @param b
+     * @param b the cost button
      */
     @Override
     protected void performAction(Button b) {
@@ -107,15 +107,17 @@ public class CostFragment extends PCFragment {
      * To prevent having to raise the min api
      */
     protected void adjustButtons() {
-        if (colorChoice.equals("Dynamic"))
+        if (colorChoice.equals("Dynamic")) {
             for (Button b : buttons) {
-                if (isLollipop())
+                if (isLollipop()) {
                     b.setBackgroundResource(R.drawable.ripple_green_button);
-                else
+                } else {
                     b.setBackgroundResource(R.drawable.green_button);
+                }
             }
-        else
+        } else {
             super.adjustButtons();
+        }
     }
 
     /**
