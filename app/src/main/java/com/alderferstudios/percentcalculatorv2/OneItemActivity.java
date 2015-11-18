@@ -10,9 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 /**
  * Percent Calculator
@@ -22,7 +23,7 @@ import android.view.MenuItem;
  *
  * @author Ben Alderfer
  */
-public class OneItemActivity extends AppCompatActivity {
+public class OneItemActivity extends PCActivity {
 
     protected static SharedPreferences shared;
     protected static SharedPreferences.Editor editor;
@@ -110,6 +111,90 @@ public class OneItemActivity extends AppCompatActivity {
                 return true;*/
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Overridden to apply activity specific themes
+     * Applies the correct colors based on the theme
+     * Makes some changes on Lollipop
+     */
+    @Override
+    protected void applyTheme() {
+        themeChoice = "Light";
+        try {
+            themeChoice = shared.getString("themeList", "Light");
+        } catch (NullPointerException e) {
+            Log.e("failure", "failed to get theme");
+            e.printStackTrace();
+        }
+        colorChoice = "Green";
+        try {
+            colorChoice = shared.getString("colorList", "Green");
+        } catch (NullPointerException e) {
+            Log.e("failure", "failed to get color");
+            e.printStackTrace();
+        }
+
+        if (colorChoice.equals("Dynamic")) {
+            switch (themeChoice) {
+                case "Dark":
+                    setTheme(R.style.GreenDark);
+                    break;
+                case "Black and White":
+                    setTheme(R.style.BlackAndWhite);
+                    break;
+                default:
+                    setTheme(R.style.GreenLight);
+                    break;
+            }
+        } else {
+            super.applyTheme();
+        }
+    }
+
+    /**
+     * Overridden to apply activity specific button
+     * Lollipop gets ripple button
+     * Others get regular button using setBackgroundDrawable
+     * To prevent having to raise the min api
+     */
+    protected void adjustButtons() {
+        buttons = ((PCFragment) adapter.getItem(pageNum)).buttons;
+        if (colorChoice.equals("Dynamic")) {
+            switch (pageNum) {
+                case 1:
+                    for (Button b : buttons) {
+                        if (isLollipop()) {
+                            b.setBackgroundResource(R.drawable.ripple_green_button);
+                        } else {
+                            b.setBackgroundResource(R.drawable.green_button);
+                        }
+                    }
+                    break;
+
+                case 2:
+                    for (Button b : buttons) {
+                        if (isLollipop()) {
+                            b.setBackgroundResource(R.drawable.ripple_orange_button);
+                        } else {
+                            b.setBackgroundResource(R.drawable.orange_button);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    for (Button b : buttons) {
+                        if (isLollipop()) {
+                            b.setBackgroundResource(R.drawable.ripple_red_button);
+                        } else {
+                            b.setBackgroundResource(R.drawable.red_button);
+                        }
+                    }
+                    break;
+            }
+        } else {
+            super.adjustButtons();
+        }
     }
 
     /**

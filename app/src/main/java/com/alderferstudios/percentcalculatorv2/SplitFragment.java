@@ -1,6 +1,7 @@
 package com.alderferstudios.percentcalculatorv2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +27,6 @@ public class SplitFragment extends PCFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.activity_split, container, false);
         buttons.add((Button) layout.findViewById(R.id.add));
-        adjustButtons();
 
         numPick = (NumPicker) layout.findViewById(R.id.numPicker);
         applyPrefs();
@@ -66,14 +66,32 @@ public class SplitFragment extends PCFragment {
      * Applies preference settings
      */
     private void applyPrefs() {
-        if (shared.getBoolean("saveBox", false)) {                                                //fills in last value if save is enabled
-            if (shared.getInt("split", 4) >= 2 && shared.getInt("split", 4) <= 100) {             //makes sure the number is in the correct range
-                numPick.setValue(shared.getInt("split", 4));
-            } else {
+        boolean didSave = false;
+        try {
+            didSave = shared.getBoolean("saveBox", false);
+        } catch (NullPointerException e) {
+            Log.e("failure", "failed to check if saved");
+            e.printStackTrace();
+        }
+
+        if (layout.findViewById(R.id.numPicker) != null) {                                        //fills in last or default value for split picker if it is there
+            numPick = (NumPicker) layout.findViewById(R.id.numPicker);
+            if (didSave) {                                                                        //fills in last value if save is enabled
+                int split = 4;
+                try {
+                    split = shared.getInt("split", 4);
+                } catch (NullPointerException e) {
+                    Log.e("failure", "failed to get split");
+                    e.printStackTrace();
+                }
+                if (split >= 2 && split <= 100) {                                                 //makes sure the number is in the correct range
+                    numPick.setValue(shared.getInt("split", 4));
+                } else {
+                    numPick.setValue(4);
+                }
+            } else {                                                                              //default value is 4
                 numPick.setValue(4);
             }
-        } else {                                              //default value is 4
-            numPick.setValue(4);
         }
     }
 
@@ -96,25 +114,5 @@ public class SplitFragment extends PCFragment {
         ////////////////////// implement new switch /////////////////////////////////////
         /*Intent results = new Intent(this, ResultsActivity.class);					              //switches to results
         startActivity(results);*/
-    }
-
-    /**
-     * Overridden to apply activity specific button
-     * Lollipop gets ripple button
-     * Others get regular button using setBackgroundDrawable
-     * To prevent having to raise the min api
-     */
-    protected void adjustButtons() {
-        if (colorChoice.equals("Dynamic")) {
-            for (Button b : buttons) {
-                if (isLollipop()) {
-                    b.setBackgroundResource(R.drawable.ripple_red_button);
-                } else {
-                    b.setBackgroundResource(R.drawable.red_button);
-                }
-            }
-        } else {
-            super.adjustButtons();
-        }
     }
 }

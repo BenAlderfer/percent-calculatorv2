@@ -2,6 +2,7 @@ package com.alderferstudios.percentcalculatorv2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +29,6 @@ public class CostFragment extends PCFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = (RelativeLayout) inflater.inflate(R.layout.activity_cost, container, false);
         buttons.add((Button) layout.findViewById(R.id.next));
-        adjustButtons();
 
         applyPrefs();
 
@@ -58,7 +58,14 @@ public class CostFragment extends PCFragment {
      * Applies preference settings
      */
     private void applyPrefs() {
-        if (shared.getBoolean("saveBox", false)) {                                                //fills in last value if save is enabled
+        boolean didSave = false;
+        try {
+            didSave = shared.getBoolean("saveBox", false);
+        } catch (NullPointerException e) {
+            Log.e("failure", "failed to check if saved");
+            e.printStackTrace();
+        }
+        if (didSave) {                                                                            //fills in last value if save is enabled
             EditText costBox = ((EditText) layout.findViewById(R.id.cost));
             costBox.setText(Double.toString(PreferenceDoubles.getDouble(shared, "cost", 0.00)));
             costBox.setSelection(costBox.getText().length());                                     //puts focus at end of cost text
@@ -97,26 +104,6 @@ public class CostFragment extends PCFragment {
             //////////////////////// implement new changes //////////////////////////////////////////////////////////////////////////////////////////////
            /* Intent percentActivity = new Intent(getActivity(), PercentFragment.class);	                  //moves to percent activity
             startActivity(percentActivity);*/
-        }
-    }
-
-    /**
-     * Overridden to apply activity specific button
-     * Lollipop gets ripple button
-     * Others get regular button using setBackgroundDrawable
-     * To prevent having to raise the min api
-     */
-    protected void adjustButtons() {
-        if (colorChoice.equals("Dynamic")) {
-            for (Button b : buttons) {
-                if (isLollipop()) {
-                    b.setBackgroundResource(R.drawable.ripple_green_button);
-                } else {
-                    b.setBackgroundResource(R.drawable.green_button);
-                }
-            }
-        } else {
-            super.adjustButtons();
         }
     }
 

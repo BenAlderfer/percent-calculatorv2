@@ -31,7 +31,7 @@ public class PreferenceDoubles {
      * @return the double value
      */
     public static double getDouble(final SharedPreferences prefs, final String key, final double defaultValue) {
-        if (!prefs.contains(key)) {
+        if (prefs == null || key == null || !prefs.contains(key)) {
             return defaultValue;
         }
 
