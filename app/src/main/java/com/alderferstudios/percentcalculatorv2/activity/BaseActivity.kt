@@ -1,7 +1,6 @@
 package com.alderferstudios.percentcalculatorv2.activity
 
 import android.app.ActivityManager
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.BitmapFactory
@@ -10,7 +9,6 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.widget.Button
-import android.widget.Toast
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import java.util.*
@@ -38,8 +36,6 @@ abstract class BaseActivity : AppCompatActivity() {
         if (shared?.getString("screenSize", "phone") == "phone") {                          //lock orientation if its a phone
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
-
-        c = this
     }
 
     /**
@@ -147,32 +143,5 @@ abstract class BaseActivity : AppCompatActivity() {
         editor?.apply()
 
         super.onBackPressed()
-    }
-
-    companion object {
-
-        protected var t: Toast? = null
-        private var c: Context? = null
-
-        /**
-         * Displays a toast on the screen
-         * Uses Toast t to save last toast
-         * Checks if a toast is currently visible
-         * If so it sets the new text
-         * Else it makes the new text
-         *
-         * @param s the string to be toasted
-         */
-        fun showToast(s: String) {
-            if (t == null) {
-                t = Toast.makeText(c, s, Toast.LENGTH_SHORT)
-            } else if (t?.view?.isShown == true) {
-                t?.setText(s)
-            } else {
-                t = Toast.makeText(c, s, Toast.LENGTH_SHORT)
-            }
-
-            t?.show()
-        }
     }
 }

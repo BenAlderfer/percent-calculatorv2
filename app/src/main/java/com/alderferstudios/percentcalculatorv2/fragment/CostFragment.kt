@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Button
 import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
@@ -19,7 +18,7 @@ class CostFragment : BaseFragment() {
     private val costText: EditText? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        buttons.add(activity?.findViewById<View>(R.id.next) as Button)
+        buttons.add(activity?.findViewById(R.id.next))
         applyPrefs()
 
         return inflater.inflate(R.layout.activity_cost, container, false)

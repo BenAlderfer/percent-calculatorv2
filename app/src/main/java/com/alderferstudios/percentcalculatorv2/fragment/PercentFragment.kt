@@ -11,6 +11,7 @@ import android.view.*
 import android.widget.EditText
 import android.widget.SeekBar
 import com.alderferstudios.percentcalculatorv2.R
+import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
 
@@ -29,8 +30,6 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private val needsToRestart: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val c = activity
-
         buttons.add(activity?.findViewById(R.id.add))
         buttons.add(activity?.findViewById(R.id.split))
         buttons.add(activity?.findViewById(R.id.subtract))
@@ -101,7 +100,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private fun applyPrefs() {
         var percentStart = 0
         try {
-            percentStart = Integer.parseInt(activity.shared.getString("percentStart", "0"))
+            percentStart = Integer.parseInt((activity as BaseActivity).shared?.getString("percentStart", "0"))
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get start percent")
             e.printStackTrace()
@@ -109,7 +108,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
         var percentMax = 30
         try {
-            percentMax = Integer.parseInt(activity.shared.getString("percentMax", "30"))
+            percentMax = Integer.parseInt((activity as BaseActivity).shared?.getString("percentMax", "30"))
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get max percent")
             e.printStackTrace()
@@ -121,7 +120,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
         var didSave = false
         try {
-            didSave = activity.shared.getBoolean("saveBox", false)
+            didSave = (activity as BaseActivity).shared?.getBoolean("saveBox", false) == true
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to check if saved")
             e.printStackTrace()
@@ -130,7 +129,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         if (didSave) {                                                                            //fills in last value if save is enabled
             var lastPercent = 0
             try {
-                lastPercent = activity.shared.getInt("percent", 0)
+                lastPercent = (activity as BaseActivity).shared?.getInt("percent", 0) ?: 0
             } catch (e: NullPointerException) {
                 Log.e("failure", "failed to get last percent")
                 e.printStackTrace()
@@ -150,14 +149,14 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             if (didSave) {                                                                        //fills in last value if save is enabled
                 var split = 4
                 try {
-                    split = activity.shared.getInt("split", 4)
+                    split = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
                 } catch (e: NullPointerException) {
                     Log.e("failure", "failed to get split")
                     e.printStackTrace()
                 }
 
                 if (split >= 2 && split <= 100) {                                                 //makes sure the number is in the correct range
-                    numPick?.value = activity.shared.getInt("split", 4)
+                    numPick?.value = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
                 } else {
                     numPick?.value = 4
                 }
@@ -210,9 +209,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * Moves on to save data and
      * Switch to results activity
      *
-     * @param view the View
+     * @param v the View
      */
-    fun add(view: View) {
+    fun add(@Suppress("UNUSED_PARAMETER") v: View) {
         if (!percentIsWrong()) {
             editor?.putString("button", "add")
             editor?.putBoolean("didSplit", false)
@@ -229,9 +228,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * Moves on to save data and
      * Switch to results activity
      *
-     * @param view the View
+     * @param v the View
      */
-    fun subtract(view: View) {
+    fun subtract(@Suppress("UNUSED_PARAMETER") v: View) {
         if (!percentIsWrong()) {
             editor?.putString("button", "subtract")
             editor?.putBoolean("didSplit", false)
@@ -248,9 +247,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * Moves on to save data and
      * Switch to split activity
      *
-     * @param view the View
+     * @param v the View
      */
-    fun split(view: View) {
+    fun split(@Suppress("UNUSED_PARAMETER") v: View) {
         if (!percentIsWrong()) {
             editor?.putString("button", "add")
             editor?.putBoolean("didSplit", false)
@@ -269,9 +268,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * ***Does not go to split screen since the number
      * ***picker is on the same screen in landscape
      *
-     * @param view the View
+     * @param v the View
      */
-    fun splitLandscape(view: View) {
+    fun splitLandscape(@Suppress("UNUSED_PARAMETER") v: View) {
         editor?.putString("button", "add")
         editor?.putBoolean("didSplit", true)
         editor?.putString("lastAction", "split")
@@ -340,14 +339,14 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         var percentText = percentage?.text.toString()
         if (percentText == "") {                                                             //updates bar if nothing was entered
             bar?.progress = percentStart
-            percentage?.setText(percentStart.toString() + "")
+            percentage?.setText(percentStart)
             percentText = percentage?.text.toString()
         }
 
         if (Integer.parseInt(percentText) > percentMax) {
-            percentage?.setText(percentMax.toString() + "")
+            percentage?.setText(percentMax)
         } else if (Integer.parseInt(percentText) < percentStart) {
-            percentage?.setText(percentStart.toString() + "")
+            percentage?.setText(percentStart)
         }
     }
 }
