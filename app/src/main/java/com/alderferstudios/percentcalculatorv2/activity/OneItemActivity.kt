@@ -17,11 +17,12 @@ import android.view.View
 import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 
 /**
- * The main activity for 1 item at a time
+ * main activity for 1 item at a time
  */
 class OneItemActivity : BaseActivity() {
 
@@ -173,7 +174,7 @@ class OneItemActivity : BaseActivity() {
         if (colorChoice == "Dynamic") {
             when (pageNum) {
                 0 -> for (b in buttons) {
-                    if (isLollipop()) {
+                    if (MiscUtil.isLollipop()) {
                         b.setBackgroundResource(R.drawable.ripple_green_button)
                     } else {
                         b.setBackgroundResource(R.drawable.green_button)
@@ -181,7 +182,7 @@ class OneItemActivity : BaseActivity() {
                 }
 
                 1 -> for (b in buttons) {
-                    if (isLollipop()) {
+                    if (MiscUtil.isLollipop()) {
                         b.setBackgroundResource(R.drawable.ripple_orange_button)
                     } else {
                         b.setBackgroundResource(R.drawable.orange_button)
@@ -189,7 +190,7 @@ class OneItemActivity : BaseActivity() {
                 }
 
                 2 -> for (b in buttons) {
-                    if (isLollipop()) {
+                    if (MiscUtil.isLollipop()) {
                         b.setBackgroundResource(R.drawable.ripple_red_button)
                     } else {
                         b.setBackgroundResource(R.drawable.red_button)

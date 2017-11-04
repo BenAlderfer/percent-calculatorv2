@@ -4,9 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
@@ -14,24 +12,19 @@ import android.util.TypedValue
 import android.widget.Button
 import android.widget.Toast
 import com.alderferstudios.percentcalculatorv2.R
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import java.util.*
 
 /**
- * The generic class for all Activities in this app
+ * base class for all Activities in this app
  */
 abstract class BaseActivity : AppCompatActivity() {
     protected var themeChoice: String? = null
     protected var colorChoice: String? = null
     protected var buttons = ArrayList<Button>() //Stores the buttons for restyling
 
-    protected var shared: SharedPreferences? = null
-    protected var editor: SharedPreferences.Editor? = null
-
-    /**
-     * Checks if the device is in landscape
-     * @return true if in landscape
-     */
-    protected val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    var shared: SharedPreferences? = null
+    var editor: SharedPreferences.Editor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         shared = PreferenceManager.getDefaultSharedPreferences(this)
@@ -87,10 +80,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     /**
      * Changes the overview icon in Lollipop
-     * **Must be called from child class to work
+     * Must be called from child class to work
      */
     private fun changeLollipopIcon() {
-        if (isLollipop()) {                                                                       //sets an alternate icon for the overview (recent apps)
+        if (MiscUtil.isLollipop()) {                                                                       //sets an alternate icon for the overview (recent apps)
             val typedValue = TypedValue()
             val theme = theme
             theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
@@ -114,32 +107,32 @@ abstract class BaseActivity : AppCompatActivity() {
     protected open fun adjustButtons() {
         for (b in buttons) {
             if (themeChoice == "Black and White") {
-                if (isLollipop()) {
+                if (MiscUtil.isLollipop()) {
                     b.background = getDrawable(R.drawable.ripple_black_button)
                 } else {
                     b.setBackgroundResource(R.drawable.black_button)
                 }
             } else {
                 when (colorChoice) {
-                    "Green" -> if (isLollipop()) {
+                    "Green" -> if (MiscUtil.isLollipop()) {
                         b.background = getDrawable(R.drawable.ripple_green_button)
                     } else {
                         b.setBackgroundResource(R.drawable.green_button)
                     }
 
-                    "Orange" -> if (isLollipop()) {
+                    "Orange" -> if (MiscUtil.isLollipop()) {
                         b.background = getDrawable(R.drawable.ripple_orange_button)
                     } else {
                         b.setBackgroundResource(R.drawable.orange_button)
                     }
 
-                    "Red" -> if (isLollipop()) {
+                    "Red" -> if (MiscUtil.isLollipop()) {
                         b.background = getDrawable(R.drawable.ripple_red_button)
                     } else {
                         b.setBackgroundResource(R.drawable.red_button)
                     }
 
-                    "Blue" -> if (isLollipop()) {
+                    "Blue" -> if (MiscUtil.isLollipop()) {
                         b.background = getDrawable(R.drawable.ripple_blue_button)
                     } else {
                         b.setBackgroundResource(R.drawable.blue_button)
@@ -154,10 +147,6 @@ abstract class BaseActivity : AppCompatActivity() {
         editor?.apply()
 
         super.onBackPressed()
-    }
-
-    protected fun isLollipop(): Boolean {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
     }
 
     companion object {

@@ -28,13 +28,13 @@ public class SplitFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layout = (RelativeLayout) inflater.inflate(R.layout.activity_split, container, false);
-        buttons.add((Button) layout.findViewById(R.id.add));
+        setLayout((RelativeLayout) inflater.inflate(R.layout.activity_split, container, false));
+        getButtons().add((Button) getLayout().findViewById(R.id.add));
 
-        numPick = (NumPicker) layout.findViewById(R.id.numPicker);
+        numPick = (NumPicker) getLayout().findViewById(R.id.numPicker);
         applyPrefs();
 
-        return layout;
+        return getLayout();
     }
 
     @Override
@@ -71,24 +71,24 @@ public class SplitFragment extends BaseFragment {
     private void applyPrefs() {
         boolean didSave = false;
         try {
-            didSave = shared.getBoolean("saveBox", false);
+            didSave = Companion.getShared().getBoolean("saveBox", false);
         } catch (NullPointerException e) {
             Log.e("failure", "failed to check if saved");
             e.printStackTrace();
         }
 
-        if (layout.findViewById(R.id.numPicker) != null) {                                        //fills in last or default value for split picker if it is there
-            numPick = (NumPicker) layout.findViewById(R.id.numPicker);
+        if (getLayout().findViewById(R.id.numPicker) != null) {                                        //fills in last or default value for split picker if it is there
+            numPick = (NumPicker) getLayout().findViewById(R.id.numPicker);
             if (didSave) {                                                                        //fills in last value if save is enabled
                 int split = 4;
                 try {
-                    split = shared.getInt("split", 4);
+                    split = Companion.getShared().getInt("split", 4);
                 } catch (NullPointerException e) {
                     Log.e("failure", "failed to get split");
                     e.printStackTrace();
                 }
                 if (split >= 2 && split <= 100) {                                                 //makes sure the number is in the correct range
-                    numPick.setValue(shared.getInt("split", 4));
+                    numPick.setValue(Companion.getShared().getInt("split", 4));
                 } else {
                     numPick.setValue(4);
                 }
@@ -105,10 +105,10 @@ public class SplitFragment extends BaseFragment {
      * @param View the View
      */
     public void add(View View) {
-        editor.putInt("split", numPick.getValue());                                               //saves the value of the number picker
-        editor.putBoolean("didSplit", true);                                                      //lets the results know that they want to split
-        editor.putBoolean("didJustGoBack", false);                                                //clears back action and remakes editor for later use
-        editor.apply();
+        Companion.getEditor().putInt("split", numPick.getValue());                                               //saves the value of the number picker
+        Companion.getEditor().putBoolean("didSplit", true);                                                      //lets the results know that they want to split
+        Companion.getEditor().putBoolean("didJustGoBack", false);                                                //clears back action and remakes editor for later use
+        Companion.getEditor().apply();
         ////////////////////// implement new switch /////////////////////////////////////
         /*Intent results = new Intent(this, ResultsActivity.class);					              //switches to results
         startActivity(results);*/

@@ -8,9 +8,10 @@ import android.view.MenuItem
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity.Companion.editor
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity.Companion.shared
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 
 /**
- * The settings screen
+ * settings screen
  */
 class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -29,7 +30,7 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
         needsActRestart = shared?.getBoolean("needsActRestart", false) == true
         needsFullRestart = shared?.getBoolean("needsFullRestart", false) == true
 
-        if (isLandscape) {
+        if (MiscUtil.isLandscape(this)) {
             /* getFragmentManager().beginTransaction()
                     .replace(R.id.frame1, new LandscapePrefsFragment1()).commit();
 

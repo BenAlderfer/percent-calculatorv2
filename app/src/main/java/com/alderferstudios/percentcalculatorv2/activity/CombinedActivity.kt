@@ -18,13 +18,14 @@ import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import com.alderferstudios.percentcalculatorv2.R
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
 import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 
 /**
- * The combined screen
+ * combined screen
  */
 class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -275,7 +276,7 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
         val spacing = "%n"
 
         // portrait setup
-        if (!isLandscape) {
+        if (!MiscUtil.isLandscape(this)) {
             text = ""   //clears previous results
 
             if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
@@ -582,7 +583,7 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
     override fun adjustButtons() {
         if (colorChoice == "Dynamic") {
             for (b in buttons) {
-                if (isLollipop()) {
+                if (MiscUtil.isLollipop()) {
                     b.setBackgroundResource(R.drawable.ripple_green_button)
                 } else {
                     b.setBackgroundResource(R.drawable.green_button)
