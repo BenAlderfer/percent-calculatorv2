@@ -8,7 +8,6 @@ import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.activity.PrefsActivity
-import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 
 /**
  * cost screen
@@ -55,7 +54,7 @@ class CostFragment : BaseFragment() {
 
         if (didSave) {                                                                            //fills in last value if save is enabled
             val costBox = activity?.findViewById<EditText>(R.id.cost)
-            costBox?.setText(java.lang.Double.toString(PreferenceDoubles.getDouble((activity as BaseActivity).shared, "cost", 0.00)))
+            costBox?.setText((activity as BaseActivity).shared?.getString("cost", "0.00"))
             costBox?.setSelection(costBox.text.length)                                     //puts focus at end of cost text
         }
     }

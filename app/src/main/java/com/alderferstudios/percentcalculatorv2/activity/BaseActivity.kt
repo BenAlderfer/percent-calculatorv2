@@ -19,7 +19,7 @@ import java.util.*
 abstract class BaseActivity : AppCompatActivity() {
     protected var themeChoice: String? = null
     protected var colorChoice: String? = null
-    protected var buttons = ArrayList<Button>() //Stores the buttons for restyling
+    protected var buttons = ArrayList<Button?>() //Stores the buttons for restyling
 
     var shared: SharedPreferences? = null
     var editor: SharedPreferences.Editor? = null
@@ -104,34 +104,34 @@ abstract class BaseActivity : AppCompatActivity() {
         for (b in buttons) {
             if (themeChoice == "Black and White") {
                 if (MiscUtil.isLollipop()) {
-                    b.background = getDrawable(R.drawable.ripple_black_button)
+                    b?.background = getDrawable(R.drawable.ripple_black_button)
                 } else {
-                    b.setBackgroundResource(R.drawable.black_button)
+                    b?.setBackgroundResource(R.drawable.black_button)
                 }
             } else {
                 when (colorChoice) {
                     "Green" -> if (MiscUtil.isLollipop()) {
-                        b.background = getDrawable(R.drawable.ripple_green_button)
+                        b?.background = getDrawable(R.drawable.ripple_green_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.green_button)
+                        b?.setBackgroundResource(R.drawable.green_button)
                     }
 
                     "Orange" -> if (MiscUtil.isLollipop()) {
-                        b.background = getDrawable(R.drawable.ripple_orange_button)
+                        b?.background = getDrawable(R.drawable.ripple_orange_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.orange_button)
+                        b?.setBackgroundResource(R.drawable.orange_button)
                     }
 
                     "Red" -> if (MiscUtil.isLollipop()) {
-                        b.background = getDrawable(R.drawable.ripple_red_button)
+                        b?.background = getDrawable(R.drawable.ripple_red_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.red_button)
+                        b?.setBackgroundResource(R.drawable.red_button)
                     }
 
                     "Blue" -> if (MiscUtil.isLollipop()) {
-                        b.background = getDrawable(R.drawable.ripple_blue_button)
+                        b?.background = getDrawable(R.drawable.ripple_blue_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.blue_button)
+                        b?.setBackgroundResource(R.drawable.blue_button)
                     }
                 }
             }

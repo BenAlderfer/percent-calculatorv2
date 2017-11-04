@@ -8,7 +8,6 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
-import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 import java.text.DecimalFormat
 
 /**
@@ -61,8 +60,8 @@ class ResultsFragment : BaseFragment() {
         val pattern = "0" + getString(R.string.money_separator) + "00"
         val decimalFormat = DecimalFormat(pattern)                                 //formats numbers to 2 decimals
 
-        val cost = decimalFormat.format(PreferenceDoubles.getDouble((activity as BaseActivity).shared, "cost", 0.00))
-        val subtotal = decimalFormat.format(PreferenceDoubles.getDouble((activity as BaseActivity).shared, "subtotal", 0.00))
+        val cost = decimalFormat.format(java.lang.Double.parseDouble((activity as BaseActivity).shared?.getString("cost", "0.00")))
+        val subtotal = decimalFormat.format(java.lang.Double.parseDouble((activity as BaseActivity).shared?.getString("subtotal", "0.00")))
 
         var didAdd = false
         if ((activity as BaseActivity).shared?.getString("button", null) != null) {

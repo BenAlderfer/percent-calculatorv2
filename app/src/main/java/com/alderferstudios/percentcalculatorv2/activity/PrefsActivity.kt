@@ -177,9 +177,9 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
                     val percentStart = shared?.getString("percentStart", "0")
                     val percentMax = shared?.getString("percentMax", "0")
                     if (percentStart == "") {
-                        BaseActivity.Companion.showToast("The start percent was not input correctly")
+                        MiscUtil.showToast(activity, "The start percent was not input correctly")
                     } else if (Integer.parseInt(percentStart) >= Integer.parseInt(percentMax)) {
-                        BaseActivity.Companion.showToast("The start percent cannot be more than the max percent")
+                        MiscUtil.showToast(activity, "The start percent cannot be more than the max percent")
                         var newPercentStart = Integer.parseInt(percentMax) - 1
                         if (newPercentStart < 0) {                                                //percent start cannot be below 0
                             newPercentStart = 0
@@ -205,9 +205,9 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
                     val percentStart = shared?.getString("percentStart", "0")
                     val percentMax = shared?.getString("percentMax", "0")
                     if (percentStart == "") {
-                        BaseActivity.Companion.showToast("The max percent was not input correctly")
+                        MiscUtil.showToast(activity, "The max percent was not input correctly")
                     } else if (Integer.parseInt(percentMax) <= Integer.parseInt(percentStart)) {
-                        BaseActivity.Companion.showToast("The max percent cannot be less than the start percent")
+                        MiscUtil.showToast(activity, "The max percent cannot be less than the start percent")
                         var newPercentMax = Integer.parseInt(percentStart) + 1
                         if (newPercentMax < 1) {                                                  //percent max cannot be below 1
                             newPercentMax = 1

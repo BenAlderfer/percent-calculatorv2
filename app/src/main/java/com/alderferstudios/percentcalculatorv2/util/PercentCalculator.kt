@@ -24,7 +24,7 @@ class PercentCalculator
      * Calculates and saves the numbers formatted as Strings
      */
     fun calculate() {
-        val costNum = PreferenceDoubles.getDouble(shared, "cost", 0.00)
+        val costNum = java.lang.Double.parseDouble(shared.getString("cost", "0.00"))
         val percent = shared.getInt("percent", 0)
         val button = shared.getString("button", null)
         val split = shared.getInt("split", 1)
@@ -35,7 +35,7 @@ class PercentCalculator
 
         if (willTax && willTaxFirst) {                                                            //if will tax and tax comes before the tip, NOT the standard
             totalNum += getTax(costNum)
-            PreferenceDoubles.putDouble(editor, "subtotal", totalNum)
+            editor.putString("subtotal", totalNum.toString())
         }
 
         val percentNum = round(totalNum * (percent / 100.0))
@@ -44,14 +44,14 @@ class PercentCalculator
             totalNum = round(totalNum + percentNum)
 
             if (willTax && !willTaxFirst) {                                                       //if will tax and tax comes after the tip
-                PreferenceDoubles.putDouble(editor, "subtotal", totalNum)
+                editor.putString("subtotal", totalNum.toString())
                 totalNum += getTax(costNum)                                                      //only original cost is taxed, tip is not taxed
             }
         } else {    //button.equals("subtract")
             totalNum = round(totalNum - percentNum)
 
             if (willTax && !willTaxFirst) {                                                       //if will tax and tax comes after the discount
-                PreferenceDoubles.putDouble(editor, "subtotal", totalNum)
+                editor.putString("subtotal", totalNum.toString())
                 totalNum += getTax(totalNum)                                                     //tax is applied to discounted cost, not original
             }
         }

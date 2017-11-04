@@ -136,9 +136,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             }
 
             if (Integer.parseInt(percentage?.text.toString()) > percentMax) {
-                percentage?.setText(Integer.toString(percentMax))
+                percentage?.setText(percentMax)
             } else {
-                percentage?.setText(Integer.toString(lastPercent))
+                percentage?.setText(lastPercent)
             }
 
             percentage?.setSelection(percentage?.text?.length ?: 0)                               //puts focus at end of percent text
@@ -155,7 +155,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
                     e.printStackTrace()
                 }
 
-                if (split >= 2 && split <= 100) {                                                 //makes sure the number is in the correct range
+                if (split in 2..100) {                                                 //makes sure the number is in the correct range
                     numPick?.value = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
                 } else {
                     numPick?.value = 4
@@ -187,16 +187,16 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         var percentText = percentage?.text.toString()
         if (percentText == "") {                                                             //updates bar if nothing was entered
             bar?.progress = percentStart
-            percentage?.setText(percentStart.toString() + "")
+            percentage?.setText(percentStart)
             percentText = percentage?.text.toString()
         }
 
         if (Integer.parseInt(percentText) > percentMax) {
-            percentage?.setText(percentMax.toString() + "")
+            percentage?.setText(percentMax)
             MiscUtil.showToast(activity as Context, "The percent cannot be greater than the max percent")
             return true
         } else if (Integer.parseInt(percentText) < percentStart) {
-            percentage?.setText(percentStart.toString() + "")
+            percentage?.setText(percentStart)
             MiscUtil.showToast(activity as Context, "The percent cannot be less than the start percent")
             return true
         }

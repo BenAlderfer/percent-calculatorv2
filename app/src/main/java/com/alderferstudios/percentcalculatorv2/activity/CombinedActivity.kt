@@ -20,7 +20,6 @@ import android.widget.TextView
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
-import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
 import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 
@@ -133,13 +132,13 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
         }
 
         if (shared?.getBoolean("saveBox", false) == false) {    //if they want to save values
-            costBox?.setText(java.lang.Double.toString(PreferenceDoubles.getDouble(shared, "cost", 0.00)))   //fill in cost
+            costBox?.setText(shared?.getString("cost", "0.00"))   //fill in cost
 
             percent = shared?.getInt("percent", 0) ?: 0
-            percentage?.setText(Integer.toString(percent))  //fill in percent
+            percentage?.setText(percent)  //fill in percent
             bar?.progress = percent //sets progress bar at right spot
 
-            splitBox?.setText(Integer.toString(shared?.getInt("split", 4) ?: 4)) //fill in split
+            splitBox?.setText(shared?.getInt("split", 4) ?: 4) //fill in split
             //willSplit = shared.getBoolean("didSplit", false); //remembers if they split or not
 
             costBox?.setSelection(costBox?.text?.length ?: 0)   //puts focus at end of cost text
@@ -150,7 +149,6 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
         if (shared?.getString("button", "") == "") {    //if no button is currently saved, initializes it to be add
             editor?.putString("button", "add")
             editor?.apply()
-            editor = shared?.edit()  //editor must be reinitialized after apply
         }
     }
 
@@ -224,7 +222,7 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
         //cost value
         val costString = costBox?.text.toString()
         val cost = PercentCalculator.round(java.lang.Double.parseDouble(costString))
-        editor = PreferenceDoubles.putDouble(editor ?: PreferenceManager.getDefaultSharedPreferences(this).edit(), "cost", cost)
+        editor?.putString("cost", cost.toString())
 
         //percent value
         if (percent == 0) { //if they didn't use the seekbar, the percent will be the default value
@@ -442,11 +440,11 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
      */
     private fun didEnterValues(): Boolean {
         if (!costIsEntered()) {
-            BaseActivity.showToast("The cost has not been entered")
+            MiscUtil.showToast(this, "The cost has not been entered")
             costBox?.requestFocus()
             return false
         } else if (!percentIsEntered()) {                                                         //if the percent is untouched
-            BaseActivity.showToast("The percent has not been entered")
+            MiscUtil.showToast(this, "The percent has not been entered")
             return false
         } else if (willSplit) {
             return didEnterSplit(false)
@@ -463,12 +461,12 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
     private fun didEnterSplit(willToast: Boolean): Boolean {
         if (splitIsEmpty()) {
             if (willToast) {
-                BaseActivity.showToast("The split has not been entered")
+                MiscUtil.showToast(this, "The split has not been entered")
             }
             return false
         } else if (splitIsOne()) {
             if (willToast) {
-                BaseActivity.showToast("One person cannot split the bill")
+                MiscUtil.showToast(this, "One person cannot split the bill")
             }
             return false
         }
@@ -584,9 +582,9 @@ class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, Shared
         if (colorChoice == "Dynamic") {
             for (b in buttons) {
                 if (MiscUtil.isLollipop()) {
-                    b.setBackgroundResource(R.drawable.ripple_green_button)
+                    b?.setBackgroundResource(R.drawable.ripple_green_button)
                 } else {
-                    b.setBackgroundResource(R.drawable.green_button)
+                    b?.setBackgroundResource(R.drawable.green_button)
                 }
             }
         } else {

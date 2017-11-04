@@ -19,7 +19,6 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
-import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 
 /**
  * main activity for 1 item at a time
@@ -107,15 +106,15 @@ class OneItemActivity : BaseActivity() {
         val costText = findViewById<View>(R.id.cost) as EditText
         val costString = costText.text.toString()
         if (containsAnError()) {
-            BaseActivity.showToast("The cost has not been entered")
+            MiscUtil.showToast(this, "The cost has not been entered")
             costText.requestFocus()
         } else {
             val cost = PercentCalculator.round(java.lang.Double.parseDouble(costString))                  //saves the cost
-            editor = PreferenceDoubles.putDouble(editor ?: PreferenceManager.getDefaultSharedPreferences(this).edit(), "cost", cost)
+            editor?.putString("cost", cost.toString())
             editor?.putBoolean("didJustGoBack", false)                                            //clears back action and remakes editor for later use
             editor?.apply()
 
-            viewPager!!.currentItem = 1
+            viewPager?.currentItem = 1
         }
     }
 
@@ -170,30 +169,30 @@ class OneItemActivity : BaseActivity() {
      * To prevent having to raise the min api
      */
     override fun adjustButtons() {
-        buttons = (adapter!!.getItem(pageNum) as BaseFragment).buttons
+        buttons = (adapter?.getItem(pageNum) as BaseFragment).buttons
         if (colorChoice == "Dynamic") {
             when (pageNum) {
                 0 -> for (b in buttons) {
                     if (MiscUtil.isLollipop()) {
-                        b.setBackgroundResource(R.drawable.ripple_green_button)
+                        b?.setBackgroundResource(R.drawable.ripple_green_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.green_button)
+                        b?.setBackgroundResource(R.drawable.green_button)
                     }
                 }
 
                 1 -> for (b in buttons) {
                     if (MiscUtil.isLollipop()) {
-                        b.setBackgroundResource(R.drawable.ripple_orange_button)
+                        b?.setBackgroundResource(R.drawable.ripple_orange_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.orange_button)
+                        b?.setBackgroundResource(R.drawable.orange_button)
                     }
                 }
 
                 2 -> for (b in buttons) {
                     if (MiscUtil.isLollipop()) {
-                        b.setBackgroundResource(R.drawable.ripple_red_button)
+                        b?.setBackgroundResource(R.drawable.ripple_red_button)
                     } else {
-                        b.setBackgroundResource(R.drawable.red_button)
+                        b?.setBackgroundResource(R.drawable.red_button)
                     }
                 }
             }
