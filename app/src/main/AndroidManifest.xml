@@ -34,13 +34,13 @@
             android:theme="@style/BlueLight" >
         </activity>
         <activity
-            android:name=".PrefsActivity"
+            android:name=".activity.PrefsActivity"
             android:label="@string/title_activity_prefs"
             android:noHistory="true"
             android:theme="@style/GreenLight" >
         </activity>
         <activity
-            android:name=".CombinedActivity"
+            android:name=".activity.CombinedActivity"
             android:label="@string/app_name"
             android:theme="@style/GreenLight" >
         </activity>
@@ -55,16 +55,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplitPopUp"
+            android:name=".widget.SplitPopUp"
             android:label="@string/title_activity_split_pop_up"
             android:theme="@style/GreenLightPopUp">
         </activity>
         <activity
-            android:name=".PercentLimitPopUp"
+            android:name=".widget.PercentLimitPopUp"
             android:label="@string/title_activity_percent_limit_pop_up"
             android:theme="@style/GreenLightPopUp"></activity>
         <activity
-            android:name=".OneItemActivity"
+            android:name=".activity.OneItemActivity"
             android:label="@string/title_activity_one_item"
             android:theme="@style/GreenLight">
         </activity>

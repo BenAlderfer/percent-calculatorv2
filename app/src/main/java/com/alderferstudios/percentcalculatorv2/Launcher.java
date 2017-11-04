@@ -8,6 +8,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import com.alderferstudios.percentcalculatorv2.activity.CombinedActivity;
+import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity;
+
 /**
  * Percent Calculator
  * The launcher
