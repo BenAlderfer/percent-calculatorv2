@@ -26,7 +26,7 @@ import java.util.ArrayList;
  *
  * @author Ben Alderfer
  */
-public abstract class PCFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     protected static SharedPreferences shared;
     protected static SharedPreferences.Editor editor;

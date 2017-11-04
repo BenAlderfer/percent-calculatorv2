@@ -25,7 +25,7 @@ import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles;
  *
  * @author Ben Alderfer
  */
-public class CostFragment extends PCFragment {
+public class CostFragment extends BaseFragment {
 
     private EditText costText;
 

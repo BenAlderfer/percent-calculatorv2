@@ -19,7 +19,7 @@ import java.util.*
 /**
  * The generic class for all Activities in this app
  */
-abstract class PCActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
     protected var themeChoice: String? = null
     protected var colorChoice: String? = null
     protected var buttons = ArrayList<Button>() //Stores the buttons for restyling

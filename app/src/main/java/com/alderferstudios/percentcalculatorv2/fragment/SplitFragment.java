@@ -22,7 +22,7 @@ import com.alderferstudios.percentcalculatorv2.widget.NumPicker;
  *
  * @author Ben Alderfer
  */
-public class SplitFragment extends PCFragment {
+public class SplitFragment extends BaseFragment {
 
     private NumPicker numPick;
 

@@ -23,7 +23,7 @@ import com.alderferstudios.percentcalculatorv2.util.PreferenceDoubles
 /**
  * The main activity for 1 item at a time
  */
-class OneItemActivity : PCActivity() {
+class OneItemActivity : BaseActivity() {
 
     private val pageNum = 0
     private var viewPager: ViewPager? = null
@@ -106,7 +106,7 @@ class OneItemActivity : PCActivity() {
         val costText = findViewById<View>(R.id.cost) as EditText
         val costString = costText.text.toString()
         if (containsAnError()) {
-            PCActivity.showToast("The cost has not been entered")
+            BaseActivity.showToast("The cost has not been entered")
             costText.requestFocus()
         } else {
             val cost = PercentCalculator.round(java.lang.Double.parseDouble(costString))                  //saves the cost
@@ -169,7 +169,7 @@ class OneItemActivity : PCActivity() {
      * To prevent having to raise the min api
      */
     override fun adjustButtons() {
-        buttons = (adapter!!.getItem(pageNum) as PCFragment).buttons
+        buttons = (adapter!!.getItem(pageNum) as BaseFragment).buttons
         if (colorChoice == "Dynamic") {
             when (pageNum) {
                 0 -> for (b in buttons) {
@@ -211,7 +211,7 @@ class OneItemActivity : PCActivity() {
      * @param fm the FragmentManager
      */
     (fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        private val pages = arrayOfNulls<PCFragment>(4)
+        private val pages = arrayOfNulls<BaseFragment>(4)
 
         init {
 

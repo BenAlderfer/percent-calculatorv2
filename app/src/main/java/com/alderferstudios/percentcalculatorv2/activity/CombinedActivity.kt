@@ -26,7 +26,7 @@ import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 /**
  * The combined screen
  */
-class CombinedActivity : PCActivity(), SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
+class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var resultsText: TextView? = null
     private val resultsText1: TextView? = null
@@ -441,11 +441,11 @@ class CombinedActivity : PCActivity(), SeekBar.OnSeekBarChangeListener, SharedPr
      */
     private fun didEnterValues(): Boolean {
         if (!costIsEntered()) {
-            PCActivity.showToast("The cost has not been entered")
+            BaseActivity.showToast("The cost has not been entered")
             costBox?.requestFocus()
             return false
         } else if (!percentIsEntered()) {                                                         //if the percent is untouched
-            PCActivity.showToast("The percent has not been entered")
+            BaseActivity.showToast("The percent has not been entered")
             return false
         } else if (willSplit) {
             return didEnterSplit(false)
@@ -462,12 +462,12 @@ class CombinedActivity : PCActivity(), SeekBar.OnSeekBarChangeListener, SharedPr
     private fun didEnterSplit(willToast: Boolean): Boolean {
         if (splitIsEmpty()) {
             if (willToast) {
-                PCActivity.showToast("The split has not been entered")
+                BaseActivity.showToast("The split has not been entered")
             }
             return false
         } else if (splitIsOne()) {
             if (willToast) {
-                PCActivity.showToast("One person cannot split the bill")
+                BaseActivity.showToast("One person cannot split the bill")
             }
             return false
         }

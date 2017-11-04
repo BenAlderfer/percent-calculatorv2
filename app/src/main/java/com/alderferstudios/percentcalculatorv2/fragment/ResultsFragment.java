@@ -26,7 +26,7 @@ import java.text.DecimalFormat;
  *
  * @author Ben Alderfer
  */
-public class ResultsFragment extends PCFragment {
+public class ResultsFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

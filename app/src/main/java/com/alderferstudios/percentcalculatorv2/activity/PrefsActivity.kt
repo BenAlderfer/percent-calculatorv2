@@ -8,12 +8,11 @@ import android.view.MenuItem
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity.Companion.editor
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity.Companion.shared
-import com.alderferstudios.percentcalculatorv2.activity.PCActivity
 
 /**
  * The settings screen
  */
-class PrefsActivity : PCActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         shared = PreferenceManager.getDefaultSharedPreferences(this)
@@ -177,9 +176,9 @@ class PrefsActivity : PCActivity(), SharedPreferences.OnSharedPreferenceChangeLi
                     val percentStart = shared?.getString("percentStart", "0")
                     val percentMax = shared?.getString("percentMax", "0")
                     if (percentStart == "") {
-                        PCActivity.Companion.showToast("The start percent was not input correctly")
+                        BaseActivity.Companion.showToast("The start percent was not input correctly")
                     } else if (Integer.parseInt(percentStart) >= Integer.parseInt(percentMax)) {
-                        PCActivity.Companion.showToast("The start percent cannot be more than the max percent")
+                        BaseActivity.Companion.showToast("The start percent cannot be more than the max percent")
                         var newPercentStart = Integer.parseInt(percentMax) - 1
                         if (newPercentStart < 0) {                                                //percent start cannot be below 0
                             newPercentStart = 0
@@ -205,9 +204,9 @@ class PrefsActivity : PCActivity(), SharedPreferences.OnSharedPreferenceChangeLi
                     val percentStart = shared?.getString("percentStart", "0")
                     val percentMax = shared?.getString("percentMax", "0")
                     if (percentStart == "") {
-                        PCActivity.Companion.showToast("The max percent was not input correctly")
+                        BaseActivity.Companion.showToast("The max percent was not input correctly")
                     } else if (Integer.parseInt(percentMax) <= Integer.parseInt(percentStart)) {
-                        PCActivity.Companion.showToast("The max percent cannot be less than the start percent")
+                        BaseActivity.Companion.showToast("The max percent cannot be less than the start percent")
                         var newPercentMax = Integer.parseInt(percentStart) + 1
                         if (newPercentMax < 1) {                                                  //percent max cannot be below 1
                             newPercentMax = 1

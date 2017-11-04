@@ -28,7 +28,7 @@ import com.alderferstudios.percentcalculatorv2.widget.NumPicker;
  *
  * @author Ben Alderfer
  */
-public class PercentFragment extends PCFragment implements SeekBar.OnSeekBarChangeListener {
+public class PercentFragment extends BaseFragment implements SeekBar.OnSeekBarChangeListener {
 
     private EditText percentage;
     private int percent, percentStart, percentMax;
