@@ -6,7 +6,7 @@
     android:screenOrientation="portrait"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
-    tools:context=".SplitActivity" >
+    tools:context=".fragment.SplitFragment">
 
     <TextView
         android:id="@+id/splitText"

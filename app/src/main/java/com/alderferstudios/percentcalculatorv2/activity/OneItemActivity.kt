@@ -119,6 +119,60 @@ class OneItemActivity : BaseCalcActivity() {
     }
 
     /**
+     * When the add button is hit
+     * Saves button type and
+     * Moves on to save data and
+     * Switch to results activity
+     *
+     * @param v the View
+     */
+    fun add(@Suppress("UNUSED_PARAMETER") v: View) {
+//        if (!percentIsWrong()) {
+        editor?.putString("button", "add")
+        editor?.putBoolean("didSplit", false)
+        editor?.putString("lastAction", "tip")
+
+        viewPager?.currentItem = 3
+//        }
+    }
+
+    /**
+     * When the subtract button is hit
+     * Saves button type and
+     * Moves on to save data and
+     * Switch to results activity
+     *
+     * @param v the View
+     */
+    fun subtract(@Suppress("UNUSED_PARAMETER") v: View) {
+//        if (!percentIsWrong()) {
+        editor?.putString("button", "subtract")
+        editor?.putBoolean("didSplit", false)
+        editor?.putString("lastAction", "discount")
+
+        viewPager?.currentItem = 3
+//        }
+    }
+
+    /**
+     * When the split button is hit
+     * Saves button type and
+     * Moves on to save data and
+     * Switch to split activity
+     *
+     * @param v the View
+     */
+    fun split(@Suppress("UNUSED_PARAMETER") v: View) {
+//        if (!percentIsWrong()) {
+        editor?.putString("button", "add")
+        editor?.putBoolean("didSplit", false)
+        editor?.putString("lastAction", "split")
+
+        viewPager?.currentItem = 2
+//        }
+    }
+
+    /**
      * Checks if the input contains an error
      *
      * @return true if there is an error; false otherwise
@@ -169,7 +223,6 @@ class OneItemActivity : BaseCalcActivity() {
      * To prevent having to raise the min api
      */
     override fun adjustButtons() {
-        buttons = (adapter?.getItem(pageNum) as BaseFragment).buttons
         if (colorChoice == "Dynamic") {
             when (pageNum) {
                 0 -> for (b in buttons) {

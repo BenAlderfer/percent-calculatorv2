@@ -5,7 +5,7 @@
                 android:id="@+id/resultsView"
                 android:screenOrientation="portrait"
                 android:fitsSystemWindows="true"
-                tools:context=".ResultsActivity">
+    tools:context=".fragment.ResultsFragment">
 
     <TextView
         android:id="@+id/total"

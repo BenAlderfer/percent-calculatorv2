@@ -5,7 +5,7 @@
     android:id="@+id/percentView"
     android:screenOrientation="portrait"
     android:fitsSystemWindows="true"
-    tools:context=".PercentActivity">
+    tools:context=".fragment.PercentFragment">
 
     <TextView
         android:id="@+id/percentTitle"

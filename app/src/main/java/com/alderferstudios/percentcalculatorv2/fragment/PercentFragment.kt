@@ -62,7 +62,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         //shared.registerOnSharedPreferenceChangeListener(this);
         applyPrefs()
 
-        return inflater.inflate(R.layout.activity_percent, container, false)
+        return inflater.inflate(R.layout.fragment_percent, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -157,82 +157,6 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             return true
         }
         return false
-    }
-
-    /**
-     * When the add button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to results activity
-     *
-     * @param v the View
-     */
-    fun add(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (!percentIsWrong()) {
-            editor?.putString("button", "add")
-            editor?.putBoolean("didSplit", false)
-            editor?.putString("lastAction", "tip")
-            ////////////////////// implement new switch /////////////////////////////////////
-            /*Intent results = new Intent(this, ResultsActivity.class);
-            saveAndSwitch(results);*/
-        }
-    }
-
-    /**
-     * When the subtract button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to results activity
-     *
-     * @param v the View
-     */
-    fun subtract(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (!percentIsWrong()) {
-            editor?.putString("button", "subtract")
-            editor?.putBoolean("didSplit", false)
-            editor?.putString("lastAction", "discount")
-            ////////////////////// implement new switch /////////////////////////////////////
-            /*Intent results = new Intent(this, ResultsActivity.class);
-            saveAndSwitch(results);*/
-        }
-    }
-
-    /**
-     * When the split button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to split activity
-     *
-     * @param v the View
-     */
-    fun split(@Suppress("UNUSED_PARAMETER") v: View) {
-        if (!percentIsWrong()) {
-            editor?.putString("button", "add")
-            editor?.putBoolean("didSplit", false)
-            editor?.putString("lastAction", "split")
-            ////////////////////// implement new switch /////////////////////////////////////
-            /*Intent split = new Intent(this, SplitActivity.class);
-            saveAndSwitch(split);*/
-        }
-    }
-
-    /**
-     * When the split button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to results activity
-     * ***Does not go to split screen since the number
-     * ***picker is on the same screen in landscape
-     *
-     * @param v the View
-     */
-    fun splitLandscape(@Suppress("UNUSED_PARAMETER") v: View) {
-        editor?.putString("button", "add")
-        editor?.putBoolean("didSplit", true)
-        editor?.putString("lastAction", "split")
-        ////////////////////// implement new switch /////////////////////////////////////
-        /*Intent results = new Intent(this, ResultsActivity.class);
-        saveAndSwitch(results);*/
     }
 
     /**

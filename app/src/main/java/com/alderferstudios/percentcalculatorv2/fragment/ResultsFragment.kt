@@ -17,7 +17,7 @@ class ResultsFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         makeResults()
-        return inflater.inflate(R.layout.activity_results, container, false)
+        return inflater.inflate(R.layout.fragment_results, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

@@ -37,7 +37,6 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     private var text: String? = null
     private var text1: String? = null
     private var text2: String? = null
-    private var percent: Int = 0
     private var percentStart: Int = 0
     private var percentMax: Int = 0
     private var willTax: Boolean = false
@@ -129,21 +128,6 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         percentMax = Integer.parseInt(shared?.getString("percentMax", "30"))
         if (bar?.max != percentMax) {   //refreshes the activity if the current max is not right
             bar?.max = percentMax - percentStart
-        }
-
-        if (shared?.getBoolean("saveBox", false) == false) {    //if they want to save values
-            costBox?.setText(shared?.getString("cost", "0.00"))   //fill in cost
-
-            percent = shared?.getInt("percent", 0) ?: 0
-            percentage?.setText(percent)  //fill in percent
-            bar?.progress = percent //sets progress bar at right spot
-
-            splitBox?.setText(shared?.getInt("split", 4) ?: 4) //fill in split
-            //willSplit = shared.getBoolean("didSplit", false); //remembers if they split or not
-
-            costBox?.setSelection(costBox?.text?.length ?: 0)   //puts focus at end of cost text
-
-            updateResultsWithChanges()  //updates results
         }
 
         if (shared?.getString("button", "") == "") {    //if no button is currently saved, initializes it to be add

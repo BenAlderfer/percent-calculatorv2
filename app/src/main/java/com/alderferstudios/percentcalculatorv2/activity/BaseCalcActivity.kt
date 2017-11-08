@@ -8,9 +8,9 @@ import java.util.*
 abstract class BaseCalcActivity : BaseActivity() {
 
     val buttons = ArrayList<Button?>()    //Stores the buttons for restyling
-    protected val cost = 0.00
-    protected val percent = 0
-    protected val split = 0
+    protected var cost = 0.00
+    protected var percent = 0
+    protected var split = 0
 
     /**
      * Changes the button backgrounds based on color and api

@@ -13,7 +13,7 @@ class CostFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         getBaseActivity().buttons.add(activity?.findViewById(R.id.next))
-        return inflater.inflate(R.layout.activity_cost, container, false)
+        return inflater.inflate(R.layout.fragment_cost, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

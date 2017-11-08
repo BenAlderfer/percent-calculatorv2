@@ -19,7 +19,7 @@ class SplitFragment : BaseFragment() {
         numPick = activity?.findViewById(R.id.numPicker)
         applyPrefs()
 
-        return inflater.inflate(R.layout.activity_split, container, false)
+        return inflater.inflate(R.layout.fragment_split, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
