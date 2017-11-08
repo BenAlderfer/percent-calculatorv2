@@ -23,7 +23,7 @@ import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 /**
  * main activity for 1 item at a time
  */
-class OneItemActivity : BaseActivity() {
+class OneItemActivity : BaseCalcActivity() {
 
     private val pageNum = 0
     private var viewPager: ViewPager? = null
@@ -38,7 +38,7 @@ class OneItemActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one_item)
         try {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         } catch (e: NullPointerException) {
             e.printStackTrace()
         }
@@ -53,7 +53,7 @@ class OneItemActivity : BaseActivity() {
 
         viewPager = findViewById<View>(R.id.pager) as ViewPager
         adapter = PagerAdapter(supportFragmentManager)
-        viewPager!!.adapter = adapter
+        viewPager?.adapter = adapter
     }
 
     /**

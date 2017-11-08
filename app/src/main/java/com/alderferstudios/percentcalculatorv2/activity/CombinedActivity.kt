@@ -26,7 +26,7 @@ import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 /**
  * combined screen
  */
-class CombinedActivity : BaseActivity(), SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
+class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var resultsText: TextView? = null
     private val resultsText1: TextView? = null

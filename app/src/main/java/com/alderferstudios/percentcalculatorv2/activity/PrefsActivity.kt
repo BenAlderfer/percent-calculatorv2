@@ -22,7 +22,7 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
 
         setContentView(R.layout.activity_settings)
         try {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         } catch (e: NullPointerException) {
             e.printStackTrace()
         }
