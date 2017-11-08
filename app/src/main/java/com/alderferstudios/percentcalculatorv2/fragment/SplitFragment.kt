@@ -1,7 +1,6 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
@@ -15,7 +14,7 @@ class SplitFragment : BaseFragment() {
     private var numPick: NumPicker? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        buttons.add(activity?.findViewById(R.id.add))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
 
         numPick = activity?.findViewById(R.id.numPicker)
         applyPrefs()
@@ -53,33 +52,8 @@ class SplitFragment : BaseFragment() {
      * Applies preference settings
      */
     private fun applyPrefs() {
-        var didSave = false
-        try {
-            didSave = (activity as BaseActivity).shared?.getBoolean("saveBox", false) == true
-        } catch (e: NullPointerException) {
-            Log.e("failure", "failed to check if saved")
-            e.printStackTrace()
-        }
-
         if (activity?.findViewById<View>(R.id.numPicker) != null) { //fills in last or default value for split picker if it is there
-            numPick = activity?.findViewById(R.id.numPicker)
-            if (didSave) {  //fills in last value if save is enabled
-                var split = 4
-                try {
-                    split = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
-                } catch (e: NullPointerException) {
-                    Log.e("failure", "failed to get split")
-                    e.printStackTrace()
-                }
-
-                if (split in 2..100) {  //makes sure the number is in the correct range
-                    numPick?.value = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
-                } else {
-                    numPick?.value = 4
-                }
-            } else {    //default value is 4
-                numPick?.value = 4
-            }
+            activity?.findViewById<NumPicker>(R.id.numPicker)?.value = 4
         }
     }
 

@@ -1,7 +1,6 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -30,9 +29,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private val needsToRestart: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        buttons.add(activity?.findViewById(R.id.add))
-        buttons.add(activity?.findViewById(R.id.split))
-        buttons.add(activity?.findViewById(R.id.subtract))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.split))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.subtract))
 
         bar = activity?.findViewById(R.id.percentBar)
         bar?.setOnSeekBarChangeListener(this)
@@ -67,7 +66,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_cost, menu)
+        inflater?.inflate(R.menu.menu_percent, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -118,51 +117,8 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             bar?.max = percentMax - percentStart
         }
 
-        var didSave = false
-        try {
-            didSave = (activity as BaseActivity).shared?.getBoolean("saveBox", false) == true
-        } catch (e: NullPointerException) {
-            Log.e("failure", "failed to check if saved")
-            e.printStackTrace()
-        }
-
-        if (didSave) {                                                                            //fills in last value if save is enabled
-            var lastPercent = 0
-            try {
-                lastPercent = (activity as BaseActivity).shared?.getInt("percent", 0) ?: 0
-            } catch (e: NullPointerException) {
-                Log.e("failure", "failed to get last percent")
-                e.printStackTrace()
-            }
-
-            if (Integer.parseInt(percentage?.text.toString()) > percentMax) {
-                percentage?.setText(percentMax)
-            } else {
-                percentage?.setText(lastPercent)
-            }
-
-            percentage?.setSelection(percentage?.text?.length ?: 0)                               //puts focus at end of percent text
-        }
-
-        if (activity?.findViewById<View>(R.id.numPicker) != null) {                                        //fills in last or default value for split picker if it is there
-            numPick = activity?.findViewById(R.id.numPicker)
-            if (didSave) {                                                                        //fills in last value if save is enabled
-                var split = 4
-                try {
-                    split = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
-                } catch (e: NullPointerException) {
-                    Log.e("failure", "failed to get split")
-                    e.printStackTrace()
-                }
-
-                if (split in 2..100) {                                                 //makes sure the number is in the correct range
-                    numPick?.value = (activity as BaseActivity).shared?.getInt("split", 4) ?: 4
-                } else {
-                    numPick?.value = 4
-                }
-            } else {                                                                              //default value is 4
-                numPick?.value = 4
-            }
+        if (activity?.findViewById<View>(R.id.numPicker) != null) { //fills in last or default value for split picker if it is there
+            activity?.findViewById<NumPicker>(R.id.numPicker)?.value = 4
         }
     }
 
@@ -277,26 +233,6 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         ////////////////////// implement new switch /////////////////////////////////////
         /*Intent results = new Intent(this, ResultsActivity.class);
         saveAndSwitch(results);*/
-    }
-
-    /**
-     * Saves the data
-     * Switches to the given Intent
-     *
-     * @param nextIntent the Intent to switch to
-     */
-    private fun saveAndSwitch(nextIntent: Intent) {
-        if (didChangePercent()) {
-            editor?.putInt("percent", percent)
-
-            if (activity?.findViewById<View>(R.id.numPicker) != null) {                                    //if there is a numpicker, save the value
-                editor?.putInt("split", (activity?.findViewById<NumPicker>(R.id.numPicker))?.value ?: 0)
-            }
-
-            editor?.putBoolean("didJustGoBack", false)                                            //clears back action and remakes editor for later use
-            editor?.apply()
-            startActivity(nextIntent)
-        }
     }
 
     /**
