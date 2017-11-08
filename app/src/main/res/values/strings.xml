@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- English (US) version -->
+    <!-- Settings -->
+    <string name="functionality_title">Functionality Settings</string>
+    <string name="design_title">Design Settings</string>
 
     <!-- Activity Title strings -->
     <string name="app_name">Percent Calculator</string>

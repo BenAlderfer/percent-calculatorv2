@@ -2,61 +2,63 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
 	android:key="prefScreen">
 
+    <!-- TODO: try include with <intent android:action="com.example.PREFERENCE_2" /> -->
+
 	<PreferenceCategory
-		android:title="Functionality Tweaks"
+        android:title="@string/functionality_title"
         android:key="func_tweaks">
-		
+
 		<EditTextPreference
 		 android:defaultValue="0"
 		 android:inputType="number"
 		 android:key="percentStart"
 		 android:summary="@string/percentStartDesc"
 		 android:title="@string/percentStartLabel" />
-		
+
 		<EditTextPreference
 		 android:defaultValue="30"
 		 android:inputType="number"
 		 android:key="percentMax"
 		 android:summary="@string/percentLimitDesc"
-		 android:title="@string/percentLimitLabel" />	
-		
-		<CheckBoxPreference
+            android:title="@string/percentLimitLabel" />
+
+        <CheckBoxPreference
 		 android:defaultValue="false"
 		 android:key="taxBox"
 		 android:summary="@string/disabledTaxDesc"
 		 android:title="@string/toggleTaxLabel" />
-		
-		<EditTextPreference
+
+        <EditTextPreference
 		 android:defaultValue="6"
 		 android:inputType="numberDecimal"
 		 android:key="taxInput"
 		 android:summary="@string/taxDesc"
 		 android:title="@string/taxLabel" />
-		 
-		<CheckBoxPreference
+
+        <CheckBoxPreference
 		 android:defaultValue="false"
 		 android:key="afterBox"
 		 android:summary="@string/disabledAfterTaxDesc"
 		 android:title="@string/afterTaxLabel" />
-		 
-		<CheckBoxPreference
+
+        <CheckBoxPreference
 		 android:defaultValue="false"
 		 android:key="saveBox"
 		 android:summary="@string/disabledSaveDesc"
 		 android:title="@string/saveLabel" />
-		 
-		<ListPreference
+
+        <ListPreference
 		 android:defaultValue="Split tip"
 		 android:entries="@array/splitOptions"
 		 android:entryValues="@array/splitValues"
 		 android:key="splitList"
 		 android:summary="@string/splitDesc"
-		 android:title="@string/splitLabel" />	
-		
-	</PreferenceCategory>	
+            android:title="@string/splitLabel" />
+
+    </PreferenceCategory>
 	 
 	<PreferenceCategory
-		android:title="Design Tweaks"
+        android:title="@string/design_title"
         android:key="des_tweaks">
 		
 		<CheckBoxPreference

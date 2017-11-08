@@ -3,7 +3,7 @@
 	android:key="prefScreen1">
 
 	<PreferenceCategory
-		android:title="Functionality Tweaks"
+        android:title="@string/functionality_title"
         android:key="func_tweaks">
 		
 		<EditTextPreference

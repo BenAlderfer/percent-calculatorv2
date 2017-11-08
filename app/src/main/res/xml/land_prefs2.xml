@@ -11,7 +11,7 @@
 		 android:title="@string/splitLabel" />	
 	 
 	<PreferenceCategory
-		android:title="Design Tweaks"
+        android:title="@string/design_title"
         android:key="des_tweaks">
 		
 		<CheckBoxPreference
