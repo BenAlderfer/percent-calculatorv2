@@ -331,14 +331,14 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Adds the percent
      * Used for tip
      */
-    fun add(@Suppress("UNUSED_PARAMETER") v: View) {
-        willSplit = false
-        if (didEnterValues()) {
-            editor?.putString("button", "add")
-            editor?.putString("lastAction", "tip")
-            processValues()
-            makeText()
-        }
+    override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
+//        willSplit = false
+//        if (didEnterValues()) {
+//            editor?.putString("button", "add")
+//            editor?.putString("lastAction", "tip")
+//            processValues()
+//            makeText()
+//        }
     }
 
     /**
@@ -346,28 +346,28 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Subtracts the percent
      * Used for discount
      */
-    fun subtract(@Suppress("UNUSED_PARAMETER") v: View) {
-        willSplit = false
-        if (didEnterValues()) {
-            editor?.putString("button", "subtract")
-            editor?.putString("lastAction", "discount")
-            processValues()
-            makeText()
-        }
+    override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
+//        willSplit = false
+//        if (didEnterValues()) {
+//            editor?.putString("button", "subtract")
+//            editor?.putString("lastAction", "discount")
+//            processValues()
+//            makeText()
+//        }
     }
 
     /**
      * Checks for no input first
      * Splits the tip
      */
-    fun split(@Suppress("UNUSED_PARAMETER") v: View) {
-        willSplit = true
-        if (didEnterSplit(true) && didEnterValues()) {
-            editor?.putString("button", "add")
-            editor?.putString("lastAction", "split")
-            processValues()
-            makeText()
-        }
+    override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
+//        willSplit = true
+//        if (didEnterSplit(true) && didEnterValues()) {
+//            editor?.putString("button", "add")
+//            editor?.putString("lastAction", "split")
+//            processValues()
+//            makeText()
+//        }
     }
 
     /**
@@ -411,9 +411,9 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
             when (shared?.getString("lastAction", "tip")) {
             //performs last action, default = tip
-                "discount" -> subtract(findViewById(R.id.subtract))
+                "discount" -> discount(findViewById(R.id.subtract))
                 "split" -> split(findViewById(R.id.split))
-                else -> add(findViewById(R.id.add))
+                else -> tip(findViewById(R.id.add))
             }
         }
     }

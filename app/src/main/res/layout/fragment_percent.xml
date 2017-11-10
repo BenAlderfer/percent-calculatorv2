@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/percentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/percentView"
-    android:screenOrientation="portrait"
     android:fitsSystemWindows="true"
+    android:screenOrientation="portrait"
     tools:context=".fragment.PercentFragment">
 
     <TextView
@@ -23,9 +23,9 @@
         style="@style/LargeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top_margin"
         android:layout_toLeftOf="@+id/percentSign"
         android:layout_toStartOf="@+id/percentSign"
-        android:layout_marginTop="@dimen/top_margin"
         android:hint="0"
         android:inputType="number"
         android:maxLength="3"
@@ -36,9 +36,9 @@
         style="@style/LargeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/percentBar"
-        android:layout_alignEnd="@+id/percentBar"
         android:layout_alignBaseline="@+id/percentNum"
+        android:layout_alignEnd="@+id/percentBar"
+        android:layout_alignRight="@+id/percentBar"
         android:text="%" />
 
     <SeekBar
@@ -46,56 +46,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/percentTitle"
-        android:layout_marginTop="@dimen/between_margin"
         android:layout_marginLeft="@dimen/side_margin"
         android:layout_marginRight="@dimen/side_margin"
-        android:progress="0"
-        android:max="100" />
+        android:layout_marginTop="@dimen/between_margin"
+        android:max="100"
+        android:progress="0" />
 
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/percentBar"
         android:layout_marginTop="50dp"
-        android:weightSum="3" >
+        android:weightSum="3">
 
         <Button
             android:id="@+id/add"
             style="@style/NormalText"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/button_spacing"
             android:layout_marginStart="@dimen/button_spacing"
             android:layout_weight="1"
-            android:onClick="add"
-            android:text="@string/addLabel" />
+            android:onClick="tip"
+            android:text="@string/addLabel"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/split"
             style="@style/NormalText"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_marginLeft="@dimen/button_spacing"
-            android:layout_marginStart="@dimen/button_spacing"
-            android:layout_marginRight="@dimen/button_spacing"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/button_spacing"
+            android:layout_marginLeft="@dimen/button_spacing"
+            android:layout_marginRight="@dimen/button_spacing"
+            android:layout_marginStart="@dimen/button_spacing"
             android:layout_weight="1"
+            android:onClick="switchToSplit"
             android:text="@string/splitText"
-            android:onClick="split" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/subtract"
             style="@style/NormalText"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_marginRight="@dimen/button_spacing"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/button_spacing"
+            android:layout_marginRight="@dimen/button_spacing"
             android:layout_weight="1"
-            android:onClick="subtract"
-            android:text="@string/subtractLabel" />
+            android:onClick="discount"
+            android:text="@string/subtractLabel"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </RelativeLayout>

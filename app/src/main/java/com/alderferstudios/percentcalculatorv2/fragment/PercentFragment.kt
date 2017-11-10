@@ -1,7 +1,5 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,7 +9,6 @@ import android.widget.EditText
 import android.widget.SeekBar
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
-import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
 
 /**
@@ -23,7 +20,6 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private var percent: Int = 0
     private val percentStart: Int = 0
     private val percentMax: Int = 0
-    private val editor: SharedPreferences.Editor? = null
     private var numPick: NumPicker? = null
     private var bar: SeekBar? = null
     private val needsToRestart: Boolean = false
@@ -139,39 +135,25 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      *
      * @return true if it exceeds a limit; false otherwise
      */
-    private fun percentIsWrong(): Boolean {
-        var percentText = percentage?.text.toString()
-        if (percentText == "") {                                                             //updates bar if nothing was entered
-            bar?.progress = percentStart
-            percentage?.setText(percentStart)
-            percentText = percentage?.text.toString()
-        }
-
-        if (Integer.parseInt(percentText) > percentMax) {
-            percentage?.setText(percentMax)
-            MiscUtil.showToast(activity as Context, "The percent cannot be greater than the max percent")
-            return true
-        } else if (Integer.parseInt(percentText) < percentStart) {
-            percentage?.setText(percentStart)
-            MiscUtil.showToast(activity as Context, "The percent cannot be less than the start percent")
-            return true
-        }
-        return false
-    }
-
-    /**
-     * Checks if the user changed the percentage
-     *
-     * @return true if it was changed, false if its unchanged
-     */
-    private fun didChangePercent(): Boolean {
-        if (percent == 0 && (percentage?.text.toString() == "" || percentage?.text.toString() == "0")) {                       //if the percent is untouched
-            MiscUtil.showToast(activity as Context, "The percent has not been entered")
-            return false
-        }
-
-        return true
-    }
+//    private fun percentIsWrong(): Boolean {
+//        var percentText = percentage?.text.toString()
+//        if (percentText == "") {                                                             //updates bar if nothing was entered
+//            bar?.progress = percentStart
+//            percentage?.setText(percentStart)
+//            percentText = percentage?.text.toString()
+//        }
+//
+//        if (Integer.parseInt(percentText) > percentMax) {
+//            percentage?.setText(percentMax)
+//            MiscUtil.showToast(activity as Context, "The percent cannot be greater than the max percent")
+//            return true
+//        } else if (Integer.parseInt(percentText) < percentStart) {
+//            percentage?.setText(percentStart)
+//            MiscUtil.showToast(activity as Context, "The percent cannot be less than the start percent")
+//            return true
+//        }
+//        return false
+//    }
 
     /**
      * Updates the percent text as the bar changes

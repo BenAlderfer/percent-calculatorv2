@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/top_margin"
-        android:text="@string/costTitle"/>
+        android:text="@string/costTitle" />
 
     <TextView
         android:id="@+id/dollar"
@@ -32,13 +32,13 @@
         style="@style/MediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/costTitle"
         android:layout_alignBaseline="@+id/dollar"
+        android:layout_below="@+id/costTitle"
         android:layout_centerHorizontal="true"
         android:hint="@string/enterCost"
         android:inputType="numberDecimal"
-        android:maxLength="9"
-        android:lines="1" >
+        android:lines="1"
+        android:maxLength="9">
 
         <requestFocus />
     </EditText>
@@ -46,14 +46,14 @@
     <Button
         android:id="@+id/next"
         style="@style/NormalText"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cost"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/top_margin"
+        android:onClick="advanceFromCost"
         android:padding="10dp"
         android:text="@string/nextButton"
-        android:onClick="next" />
+        android:textColor="@color/white" />
 
 </RelativeLayout>

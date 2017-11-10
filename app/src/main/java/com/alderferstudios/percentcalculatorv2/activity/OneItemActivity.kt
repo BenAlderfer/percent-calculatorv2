@@ -14,11 +14,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
-import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 
 /**
  * main activity for 1 item at a time
@@ -102,85 +100,31 @@ class OneItemActivity : BaseCalcActivity() {
      *
      * @param v the View
      */
-    fun next(@Suppress("UNUSED_PARAMETER") v: View) {
-        val costText = findViewById<View>(R.id.cost) as EditText
-        val costString = costText.text.toString()
-        if (containsAnError()) {
-            MiscUtil.showToast(this, "The cost has not been entered")
-            costText.requestFocus()
-        } else {
-            val cost = PercentCalculator.round(java.lang.Double.parseDouble(costString))                  //saves the cost
-            editor?.putString("cost", cost.toString())
-            editor?.putBoolean("didJustGoBack", false)                                            //clears back action and remakes editor for later use
-            editor?.apply()
-
+    override fun advanceFromCost(@Suppress("UNUSED_PARAMETER") v: View) {
+        super.advanceFromCost(v)
+        if (!containsAnError(findViewById(R.id.cost))) {
             viewPager?.currentItem = 1
         }
     }
 
-    /**
-     * When the add button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to results activity
-     *
-     * @param v the View
-     */
-    fun add(@Suppress("UNUSED_PARAMETER") v: View) {
-//        if (!percentIsWrong()) {
-        editor?.putString("button", "add")
-        editor?.putBoolean("didSplit", false)
-        editor?.putString("lastAction", "tip")
-
+    override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
+        super.tip(v)
         viewPager?.currentItem = 3
-//        }
     }
 
-    /**
-     * When the subtract button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to results activity
-     *
-     * @param v the View
-     */
-    fun subtract(@Suppress("UNUSED_PARAMETER") v: View) {
-//        if (!percentIsWrong()) {
-        editor?.putString("button", "subtract")
-        editor?.putBoolean("didSplit", false)
-        editor?.putString("lastAction", "discount")
-
+    override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
+        super.discount(v)
         viewPager?.currentItem = 3
-//        }
     }
 
-    /**
-     * When the split button is hit
-     * Saves button type and
-     * Moves on to save data and
-     * Switch to split activity
-     *
-     * @param v the View
-     */
-    fun split(@Suppress("UNUSED_PARAMETER") v: View) {
-//        if (!percentIsWrong()) {
-        editor?.putString("button", "add")
-        editor?.putBoolean("didSplit", false)
-        editor?.putString("lastAction", "split")
-
+    override fun switchToSplit(@Suppress("UNUSED_PARAMETER") v: View) {
+        super.switchToSplit(v)
         viewPager?.currentItem = 2
-//        }
     }
 
-    /**
-     * Checks if the input contains an error
-     *
-     * @return true if there is an error; false otherwise
-     */
-    private fun containsAnError(): Boolean {
-        val text = (findViewById<View>(R.id.cost) as EditText).text.toString()
-
-        return text == "" || text == "0"
+    override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
+        super.split(v)
+        viewPager?.currentItem = 3
     }
 
     /**

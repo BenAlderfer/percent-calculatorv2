@@ -148,13 +148,13 @@
             android:layout_marginLeft="@dimen/button_spacing"
             android:layout_marginStart="@dimen/button_spacing"
             android:layout_weight="1"
-            android:onClick="add"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:onClick="tip"
             android:padding="@dimen/button_padding"
             android:text="@string/addLabel"
             android:textColor="@color/white"
-            tools:background="@drawable/green_button"
-            android:maxLines="1"
-            android:ellipsize="end" />
+            tools:background="@drawable/green_button" />
 
         <Button
             android:id="@+id/split"
@@ -166,13 +166,13 @@
             android:layout_marginRight="@dimen/button_spacing"
             android:layout_marginStart="@dimen/button_spacing"
             android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:onClick="split"
             android:padding="@dimen/button_padding"
             android:text="@string/splitText"
             android:textColor="@color/white"
-            tools:background="@drawable/green_button"
-            android:maxLines="1"
-            android:ellipsize="end" />
+            tools:background="@drawable/green_button" />
 
         <Button
             android:id="@+id/subtract"
@@ -182,13 +182,13 @@
             android:layout_marginEnd="@dimen/button_spacing"
             android:layout_marginRight="@dimen/button_spacing"
             android:layout_weight="1"
-            android:onClick="subtract"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:onClick="discount"
             android:padding="@dimen/button_padding"
             android:text="@string/subtractLabel"
             android:textColor="@color/white"
-            tools:background="@drawable/green_button"
-            android:maxLines="1"
-            android:ellipsize="end" />
+            tools:background="@drawable/green_button" />
 
     </LinearLayout>
 
