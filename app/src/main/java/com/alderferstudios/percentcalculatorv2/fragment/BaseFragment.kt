@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.alderferstudios.percentcalculatorv2.activity.BaseCalcActivity
 
 /**
- * base class for all Fragments in this app
+ * Base class for all Fragments
  */
 abstract class BaseFragment : Fragment() {
 

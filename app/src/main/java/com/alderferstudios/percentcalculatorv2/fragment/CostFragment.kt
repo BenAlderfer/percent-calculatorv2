@@ -7,7 +7,7 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.PrefsActivity
 
 /**
- * cost screen
+ * Cost screen
  */
 class CostFragment : BaseFragment() {
 
@@ -22,14 +22,14 @@ class CostFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+        return when (item?.itemId) {
             R.id.settings -> {
                 val settingsActivity = Intent(activity, PrefsActivity::class.java)
                 startActivity(settingsActivity)
-                return true
+                true
             }
 
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

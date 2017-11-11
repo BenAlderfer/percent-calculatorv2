@@ -19,7 +19,7 @@ import com.alderferstudios.percentcalculatorv2.fragment.*
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 
 /**
- * main activity for 1 item at a time
+ * Main activity for 1 item at a time
  */
 class OneItemActivity : BaseCalcActivity() {
 
@@ -46,7 +46,7 @@ class OneItemActivity : BaseCalcActivity() {
         }
 
         shared = PreferenceManager.getDefaultSharedPreferences(this)
-        PreferenceManager.setDefaultValues(this, R.xml.prefs, false)                             //sets default values if the preferences have not yet been used
+        PreferenceManager.setDefaultValues(this, R.xml.prefs, false)    //sets default values if the preferences have not yet been used
         editor = shared?.edit()
 
         viewPager = findViewById<View>(R.id.pager) as ViewPager

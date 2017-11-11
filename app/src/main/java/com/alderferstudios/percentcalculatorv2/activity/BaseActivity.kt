@@ -12,7 +12,7 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 
 /**
- * base class for all Activities in this app
+ * Base class for all Activities
  */
 abstract class BaseActivity : AppCompatActivity() {
     protected var themeChoice: String? = null

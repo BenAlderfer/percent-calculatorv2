@@ -6,7 +6,7 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
 
 /**
- * split screen
+ * Split screen
  */
 class SplitFragment : BaseFragment() {
 
@@ -51,7 +51,7 @@ class SplitFragment : BaseFragment() {
      * Applies preference settings
      */
     private fun applyPrefs() {
-        if (activity?.findViewById<View>(R.id.numPicker) != null) { //fills in last or default value for split picker if it is there
+        if (activity?.findViewById<View>(R.id.numPicker) != null) {    //fills in last or default value for split picker if it is there
             activity?.findViewById<NumPicker>(R.id.numPicker)?.value = 4
         }
     }

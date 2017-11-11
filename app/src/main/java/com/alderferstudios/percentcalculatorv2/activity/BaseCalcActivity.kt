@@ -8,6 +8,9 @@ import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 import java.util.*
 
+/**
+ * Base for all Activities that calculate (all but settings)
+ */
 abstract class BaseCalcActivity : BaseActivity() {
 
     val buttons = ArrayList<Button?>()    //Stores the buttons for restyling
@@ -28,7 +31,7 @@ abstract class BaseCalcActivity : BaseActivity() {
             MiscUtil.showToast(this, "The cost has not been entered")
             costText.requestFocus()
         } else {
-            cost = PercentCalculator.round(java.lang.Double.parseDouble(costText.text.toString()))
+            cost = PercentCalculator.roundDouble(java.lang.Double.parseDouble(costText.text.toString()))
         }
     }
 
@@ -81,12 +84,12 @@ abstract class BaseCalcActivity : BaseActivity() {
      * @param v the View
      */
     open fun split(@Suppress("UNUSED_PARAMETER") v: View) {
-//        editor?.putInt("split", numPick?.value ?: 0) //saves the value of the number picker
-        editor?.putBoolean("didSplit", true) //lets the results know that they want to split
-        editor?.putBoolean("didJustGoBack", false)   //clears back action and remakes editor for later use
+//        editor?.putInt("split", numPick?.value ?: 0)    //saves the value of the number picker
+        editor?.putBoolean("didSplit", true)    //lets the results know that they want to split
+        editor?.putBoolean("didJustGoBack", false)    //clears back action and remakes editor for later use
         editor?.apply()
         ////////////////////// implement new switch /////////////////////////////////////
-        /*Intent results = new Intent(this, ResultsActivity.class);					              //switches to results
+        /*Intent results = new Intent(this, ResultsActivity.class);    //switches to results
         startActivity(results);*/
     }
 

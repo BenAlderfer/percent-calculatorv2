@@ -6,15 +6,9 @@ import java.text.DecimalFormat
 
 /**
  * The internal calculator
+ * @param moneySeparator the money separator, must be given from an //TODO: finish comment
  */
-class PercentCalculator
-/**
- * Constructs a Percent Calculator
- * Initializes the shared preference object and editor
- * @param c the Context of where to get the preferences
- * @param moneySeparator the money separator, must be given from an ActionBarActivity
- */
-(c: Context, private val moneySeparator: String) {
+class PercentCalculator(c: Context, private val moneySeparator: String) {
 
     private val shared = PreferenceManager.getDefaultSharedPreferences(c)
     private val editor = shared.edit()
@@ -30,29 +24,29 @@ class PercentCalculator
         val split = shared.getInt("split", 1)
         var totalNum = costNum
 
-        val willTaxFirst = shared.getBoolean("afterBox", false)                              //if the tax will be added before or after the tip is calculated
-        val willTax = shared.getBoolean("taxBox", false)                                     //if the tax will be added
+        val willTaxFirst = shared.getBoolean("afterBox", false) //if the tax will be added before or after the tip is calculated
+        val willTax = shared.getBoolean("taxBox", false)    //if the tax will be added
 
-        if (willTax && willTaxFirst) {                                                            //if will tax and tax comes before the tip, NOT the standard
+        if (willTax && willTaxFirst) {  //tax comes before the tip, NOT the standard
             totalNum += getTax(costNum)
             editor.putString("subtotal", totalNum.toString())
         }
 
-        val percentNum = round(totalNum * (percent / 100.0))
+        val percentNum = roundDouble(totalNum * (percent / 100.0))
 
         if (button != null && button == "add") {
-            totalNum = round(totalNum + percentNum)
+            totalNum = roundDouble(totalNum + percentNum)
 
-            if (willTax && !willTaxFirst) {                                                       //if will tax and tax comes after the tip
+            if (willTax && !willTaxFirst) { //tax comes after the tip
                 editor.putString("subtotal", totalNum.toString())
-                totalNum += getTax(costNum)                                                      //only original cost is taxed, tip is not taxed
+                totalNum += getTax(costNum) //only original cost is taxed, tip is not taxed
             }
         } else {    //button.equals("subtract")
-            totalNum = round(totalNum - percentNum)
+            totalNum = roundDouble(totalNum - percentNum)
 
-            if (willTax && !willTaxFirst) {                                                       //if will tax and tax comes after the discount
+            if (willTax && !willTaxFirst) { //if will tax and tax comes after the discount
                 editor.putString("subtotal", totalNum.toString())
-                totalNum += getTax(totalNum)                                                     //tax is applied to discounted cost, not original
+                totalNum += getTax(totalNum)    //tax is applied to discounted cost, not original
             }
         }
 
@@ -62,8 +56,8 @@ class PercentCalculator
         val percentAmount = decimalFormat.format(percentNum)
         val total = decimalFormat.format(totalNum)
 
-        var eachTip = percentAmount                                                           //if only 1 person, they pay all tip
-        var eachTotal = total                                                                 //if only 1 person, they pay all total
+        var eachTip = percentAmount //if only 1 person, they pay all tip
+        var eachTotal = total   //if only 1 person, they pay all total
         val didSplit = shared.getBoolean("didSplit", false)
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
@@ -82,11 +76,11 @@ class PercentCalculator
             }
         }
         if (didSplit) {
-            if (willSplitTip) {                                                                   //if they chose to split the tip
-                eachTip = decimalFormat.format(round(percentNum / split))                        //figures out the tip for each person
+            if (willSplitTip) { //if they chose to split the tip
+                eachTip = decimalFormat.format(roundDouble(percentNum / split))   //figures out the tip for each person
             }
-            if (willSplitTotal) {                                                                 //if they chose to split the total
-                eachTotal = decimalFormat.format(round(totalNum / split))                        //figures out the total for each person
+            if (willSplitTotal) {   //if they chose to split the total
+                eachTotal = decimalFormat.format(roundDouble(totalNum / split))   //figures out the total for each person
             }
         }
 
@@ -98,7 +92,7 @@ class PercentCalculator
         editor.putString("eachTip", eachTip)
         editor.putString("eachTotal", eachTotal)
 
-        editor.apply()                                                                           //finalizes changes
+        editor.apply()
     }
 
     /**
@@ -121,7 +115,7 @@ class PercentCalculator
          * @param value the thing to round
          * @return the rounded value
          */
-        fun round(value: Double): Double {
+        fun roundDouble(value: Double): Double {
             return Math.ceil(value * 100) / 100
         }
     }

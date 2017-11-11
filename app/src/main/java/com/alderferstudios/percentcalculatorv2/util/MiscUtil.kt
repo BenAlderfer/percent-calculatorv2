@@ -1,5 +1,6 @@
 package com.alderferstudios.percentcalculatorv2.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
@@ -7,7 +8,7 @@ import android.widget.Toast
 
 class MiscUtil {
     companion object {
-        var toast: Toast? = null
+        private var toast: Toast? = null
 
         /**
          * Checks if the current api is Lollipop or greater
@@ -27,6 +28,7 @@ class MiscUtil {
             return c.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         }
 
+
         /**
          * Displays a toast on the screen
          * Uses Toast t to save last toast
@@ -36,6 +38,7 @@ class MiscUtil {
          *
          * @param s the string to be toasted
          */
+        @SuppressLint("ShowToast")
         fun showToast(c: Context, s: String) {
             if (toast == null || toast?.view?.isShown == false) {
                 toast = Toast.makeText(c, s, Toast.LENGTH_SHORT)

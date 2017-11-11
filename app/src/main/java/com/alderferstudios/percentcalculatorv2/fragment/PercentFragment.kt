@@ -12,7 +12,7 @@ import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
 
 /**
- * percent screen
+ * Percent screen
  */
 class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
@@ -38,7 +38,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
                 val percentText = percentage?.text.toString()
                 if (percentText != "" &&
                         Integer.parseInt(percentText) <= percentMax &&
-                        Integer.parseInt(percentText) >= percentStart) {                          //only update bar if its within the limits
+                        Integer.parseInt(percentText) >= percentStart) {    //only update bar if its within the limits
 
                     if (percentText == "") {
                         bar?.progress = percentStart
@@ -46,7 +46,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
                         bar?.progress = Integer.parseInt(percentage?.text.toString()) - percentStart
                     }
 
-                    percentage?.setSelection(percentage?.text?.length ?: 0)                       //returns focus to end of text
+                    percentage?.setSelection(percentage?.text?.length ?: 0)    //returns focus to end of text
                 }
             }
 
@@ -113,7 +113,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             bar?.max = percentMax - percentStart
         }
 
-        if (activity?.findViewById<View>(R.id.numPicker) != null) { //fills in last or default value for split picker if it is there
+        if (activity?.findViewById<View>(R.id.numPicker) != null) {    //fills in last or default value for split picker if it is there
             activity?.findViewById<NumPicker>(R.id.numPicker)?.value = 4
         }
     }
@@ -137,7 +137,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      */
 //    private fun percentIsWrong(): Boolean {
 //        var percentText = percentage?.text.toString()
-//        if (percentText == "") {                                                             //updates bar if nothing was entered
+//        if (percentText == "") {    //updates bar if nothing was entered
 //            bar?.progress = percentStart
 //            percentage?.setText(percentStart)
 //            percentText = percentage?.text.toString()
@@ -179,7 +179,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      */
     private fun resetAfterPrefChange() {
         var percentText = percentage?.text.toString()
-        if (percentText == "") {                                                             //updates bar if nothing was entered
+        if (percentText == "") {    //updates bar if nothing was entered
             bar?.progress = percentStart
             percentage?.setText(percentStart)
             percentText = percentage?.text.toString()

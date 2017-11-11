@@ -12,7 +12,7 @@ import com.alderferstudios.percentcalculatorv2.activity.CombinedActivity
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity
 
 /**
- * launcher
+ * Launcher, determines which activity to launch and does it
  */
 class Launcher : Activity() {
 
@@ -25,7 +25,9 @@ class Launcher : Activity() {
      * @return true if a tablet
      */
     private fun isTablet(context: Context): Boolean {
-        return context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
+        return context.resources.configuration.screenLayout and
+                Configuration.SCREENLAYOUT_SIZE_MASK >=
+                Configuration.SCREENLAYOUT_SIZE_LARGE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,14 +38,13 @@ class Launcher : Activity() {
         editor = shared.edit()
 
         saveScreenSize()
-        editor?.putBoolean("didJustGoBack", false)  //used later to determine animations
+        editor?.putBoolean("didJustGoBack", false)    //used later to determine animations
         editor?.apply()
 
-        val firstActivity: Intent
-        if (shared.getBoolean("combinedBox", false)) {
-            firstActivity = Intent(this, CombinedActivity::class.java)
+        val firstActivity = if (shared.getBoolean("combinedBox", false)) {
+            Intent(this, CombinedActivity::class.java)
         } else {
-            firstActivity = Intent(this, OneItemActivity::class.java)
+            Intent(this, OneItemActivity::class.java)
         }
 
         startActivity(firstActivity)
@@ -53,13 +54,11 @@ class Launcher : Activity() {
      * Gets the screen size and saves it for later
      */
     private fun saveScreenSize() {
-        val size: String
-        if (isTablet(this)) {
-            size = "tablet"
-        } else {
-            size = "phone"
-        }
-
-        editor?.putString("screenSize", size)
+        editor?.putString("screenSize",
+                if (isTablet(this)) {
+                    "tablet"
+                } else {
+                    "phone"
+                })
     }
 }

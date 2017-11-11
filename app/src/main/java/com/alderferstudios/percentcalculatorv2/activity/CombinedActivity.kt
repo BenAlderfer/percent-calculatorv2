@@ -24,13 +24,13 @@ import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
 import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 
 /**
- * combined screen
+ * Combined screen, all parts on 1 screen
  */
 class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var resultsText: TextView? = null
     private val resultsText1: TextView? = null
-    private val resultsText2: TextView? = null                                     //where results are displayed
+    private val resultsText2: TextView? = null    //where results are displayed
     private var costBox: EditText? = null
     private var percentage: EditText? = null
     private var splitBox: EditText? = null
@@ -49,7 +49,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
     override fun onCreate(savedInstanceState: Bundle?) {
         shared = PreferenceManager.getDefaultSharedPreferences(this)
-        PreferenceManager.setDefaultValues(this, R.xml.prefs, false)                             //sets default values if the preferences have not yet been used
+        PreferenceManager.setDefaultValues(this, R.xml.prefs, false)    //sets default values if the preferences have not yet been used
         editor = shared?.edit()
 
         super.onCreate(savedInstanceState)
@@ -62,19 +62,19 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         buttons.add(findViewById<View>(R.id.subtract) as Button)
         adjustButtons()
 
-        willTax = shared?.getBoolean("taxBox", false) ?: false //if the tax will be added
+        willTax = shared?.getBoolean("taxBox", false) ?: false    //if the tax will be added
         costBox = findViewById<View>(R.id.cost) as EditText
         percentage = findViewById<View>(R.id.percentNum) as EditText
         splitBox = findViewById<View>(R.id.splitNum) as EditText
         bar = findViewById<View>(R.id.percentBar) as SeekBar
         willSplit = false
 
-        if (resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE) {//hides portrait results
+        if (resources.configuration.orientation != Configuration.ORIENTATION_LANDSCAPE) {    //hides portrait results
             resultsText = findViewById<View>(R.id.results) as TextView
             if (resultsText != null) {
                 resultsText?.visibility = View.INVISIBLE
             }
-        } else { //if (orientation == Configuration.ORIENTATION_LANDSCAPE)                          //hides landscape results
+        } else { //if (orientation == Configuration.ORIENTATION_LANDSCAPE)  //hides landscape results
             /* resultsText1 = (TextView) findViewById(R.id.landResults1);
             resultsText2 = (TextView) findViewById(R.id.landResults2);
             if (resultsText1 != null) {
@@ -151,12 +151,12 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Adds listeners to all items for auto-updating
      */
     private fun addListeners() {
-        costBox?.addTextChangedListener(object : TextWatcher {  //watches cost to update
+        costBox?.addTextChangedListener(object : TextWatcher {    //watches cost to update
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                updateResultsWithChanges()  //updates the results text if possible as numbers change
+                updateResultsWithChanges()    //updates the results text if possible as numbers change
             }
         })
 
@@ -174,20 +174,20 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
                     bar?.progress = Integer.parseInt(percentage?.text.toString()) - percentStart
                 }
 
-                updateResultsWithChanges()  //updates the results text if possible as numbers change
+                updateResultsWithChanges()    //updates the results text if possible as numbers change
 
-                percentage?.setSelection(percentage?.text?.length ?: 0) //returns focus to end of text
+                percentage?.setSelection(percentage?.text?.length ?: 0)    //returns focus to end of text
             }
         })
 
-        splitBox?.addTextChangedListener(object : TextWatcher { //watches split to update
+        splitBox?.addTextChangedListener(object : TextWatcher {    //watches split to update
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 willSplit = didEnterSplit(false)    //makes sure the split was entered, false prevents toasts
 
-                updateResultsWithChanges()  //updates the results text if possible as numbers change
+                updateResultsWithChanges()    //updates the results text if possible as numbers change
             }
         })
     }
@@ -197,19 +197,19 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Saves the numbers
      */
     private fun processValues() {
-        if (!didJustUpdate) {   //makes sure it was not an auto update to avoid breaks in typing
+        if (!didJustUpdate) {    //makes sure it was not an auto update to avoid breaks in typing
             imm?.hideSoftInputFromWindow(splitBox?.windowToken, 0)
         }
 
-        didJustUpdate = false   //resets variable
+        didJustUpdate = false    //resets variable
 
         //cost value
         val costString = costBox?.text.toString()
-        val cost = PercentCalculator.round(java.lang.Double.parseDouble(costString))
+        val cost = PercentCalculator.roundDouble(java.lang.Double.parseDouble(costString))
         editor?.putString("cost", cost.toString())
 
         //percent value
-        if (percent == 0) { //if they didn't use the seekbar, the percent will be the default value
+        if (percent == 0) {    //if they didn't use the seekbar, the percent will be the default value
             percent = Integer.parseInt(percentage?.text.toString())
         }
 
@@ -221,22 +221,22 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             split = Integer.parseInt(splitBox?.text.toString())
         }
 
-        editor?.putInt("split", split)  //saves split amount
-        //editor.putBoolean("didSplit", willSplit); //saves whether they will split or not
+        editor?.putInt("split", split)    //saves split amount
+        //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not
 
         editor?.apply()
 
         val pc = PercentCalculator(this, getString(R.string.money_separator))
-        pc.calculate()  //calculates the numbers
+        pc.calculate()    //calculates the numbers
     }
 
     /**
      * Makes the text results
      */
     private fun makeText() {
-        val change = shared?.getString("percentAmount", "") //makes the first part of the text, tip is add, else discount
-        val eachTip = shared?.getString("eachTip", "")  //how much each person will tip
-        val eachTotal = shared?.getString("eachTotal", "")  //how much of the total each person pays
+        val change = shared?.getString("percentAmount", "")    //makes the first part of the text, tip is add, else discount
+        val eachTip = shared?.getString("eachTip", "")    //how much each person will tip
+        val eachTotal = shared?.getString("eachTotal", "")    //how much of the total each person pays
 
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
@@ -259,25 +259,25 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         // portrait setup
         if (!MiscUtil.isLandscape(this)) {
-            text = ""   //clears previous results
+            text = ""    //clears previous results
 
             if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
                 text = "Tip: " + getString(R.string.money_sign) + change + spacing
 
                 if (willSplit && didEnterSplit(false) && willSplitTip) {    //if split was clicked, number is entered, and split tip is selected in prefs
-                    text += "Each tips: " + getString(R.string.money_sign) + eachTip + spacing  //adds the split tip part of the text
+                    text += "Each tips: " + getString(R.string.money_sign) + eachTip + spacing    //adds the split tip part of the text
                 }
             } else {
                 text = "Discount: " + getString(R.string.money_sign) + change + spacing
             }
 
-            if (willTax) {  //makes the tax part of the text
+            if (willTax) {    //makes the tax part of the text
                 text += "Tax: " + getString(R.string.money_sign) + shared?.getString("taxAmount", "") + spacing
             }
 
             text += "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")    //makes the cost total part of the text
 
-            if (willSplit && didEnterSplit(false) && willSplitTotal) {  //if split was clicked, number is entered, and split total is selected in prefs
+            if (willSplit && didEnterSplit(false) && willSplitTotal) {    //if split was clicked, number is entered, and split total is selected in prefs
                 text += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal    //adds the split tip part of the text
             }
 
@@ -288,14 +288,14 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             text1 = ""
             text2 = ""
 
-            if (!willSplit || !didEnterSplit(false)) {  //if not splitting, use both sides
+            if (!willSplit || !didEnterSplit(false)) {    //if not splitting, use both sides
                 if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
                     text1 = "Tip: " + getString(R.string.money_sign) + change
                 } else {
                     text1 = "Discount: " + getString(R.string.money_sign) + change
                 }
 
-                if (willTax) {  //makes the tax part of the text
+                if (willTax) {    //makes the tax part of the text
                     text1 += spacing + "Tax: " + getString(R.string.money_sign) + shared?.getString("taxAmount", "")
                 }
 
@@ -307,18 +307,18 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
                     text1 = "Discount: " + getString(R.string.money_sign) + change + spacing
                 }
 
-                if (willTax) {  //makes the tax part of the text
+                if (willTax) {    //makes the tax part of the text
                     text1 += "Tax: " + getString(R.string.money_sign) + shared?.getString("taxAmount", "") + spacing
                 }
 
-                text1 += "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")   //makes the cost total part of the text
+                text1 += "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")    //makes the cost total part of the text
 
                 if (willSplit && didEnterSplit(false) && willSplitTip) {    //if split was clicked, number is entered, and split tip is checked in prefs
                     text2 = "Each tips: " + getString(R.string.money_sign) + eachTip    //adds the split tip part of the text
                 }
 
-                if (willSplit && didEnterSplit(false) && willSplitTotal) {  //if split was clicked, number is entered, and split total is checked in prefs
-                    text2 += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal   //adds the split tip part of the text
+                if (willSplit && didEnterSplit(false) && willSplitTotal) {    //if split was clicked, number is entered, and split total is checked in prefs
+                    text2 += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal    //adds the split tip part of the text
                 }
             }
 
@@ -379,7 +379,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      */
     private fun setResults() {
         resultsText?.text = String.format(text ?: "")
-        resultsText?.visibility = View.VISIBLE                                                  //shows results text
+        resultsText?.visibility = View.VISIBLE    //shows results text
         resultsText?.gravity = Gravity.CENTER_HORIZONTAL
     }
 
@@ -393,11 +393,11 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      */
     private fun setLandscapeResults() {
         resultsText1?.text = String.format(text1 ?: "")
-        resultsText1?.visibility = View.VISIBLE                                                 //shows results text #1
+        resultsText1?.visibility = View.VISIBLE    //shows results text #1
         resultsText1?.gravity = Gravity.CENTER_HORIZONTAL
 
         resultsText2?.text = String.format(text2 ?: "")
-        resultsText2?.visibility = View.VISIBLE                                                 //shows results text #2
+        resultsText2?.visibility = View.VISIBLE    //shows results text #2
         resultsText2?.gravity = Gravity.CENTER_HORIZONTAL
     }
 
@@ -406,11 +406,11 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Updates the results as the numbers are changed
      */
     private fun updateResultsWithChanges() {
-        if (fieldsAreCurrentlyFilled()) {                                                         //if the info is already filled in, updates the results
+        if (fieldsAreCurrentlyFilled()) {    //if the info is already filled in, updates the results
             didJustUpdate = true
 
-            when (shared?.getString("lastAction", "tip")) {
             //performs last action, default = tip
+            when (shared?.getString("lastAction", "tip")) {
                 "discount" -> discount(findViewById(R.id.subtract))
                 "split" -> split(findViewById(R.id.split))
                 else -> tip(findViewById(R.id.add))
@@ -427,7 +427,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             MiscUtil.showToast(this, "The cost has not been entered")
             costBox?.requestFocus()
             return false
-        } else if (!percentIsEntered()) {                                                         //if the percent is untouched
+        } else if (!percentIsEntered()) {    //if the percent is untouched
             MiscUtil.showToast(this, "The percent has not been entered")
             return false
         } else if (willSplit) {
@@ -464,13 +464,13 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * @return true if everything is filled in
      */
     private fun fieldsAreCurrentlyFilled(): Boolean {
-        if (!costIsEntered()) {                                                                   //false if cost is not entered
+        if (!costIsEntered()) {    //false if cost is not entered
             return false
-        } else if (!percentIsEntered()) {                                                         //false if percent is not entered
+        } else if (!percentIsEntered()) {    //false if percent is not entered
             return false
         }
 
-        return true                                                                              //if it passes the other checks, its good
+        return true    //if it passes the other checks, its good
     }
 
     /**
@@ -520,7 +520,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         if (didJustTypePercent) {
             didJustTypePercent = false
         } else {
-            imm?.hideSoftInputFromWindow(splitBox?.windowToken, 0)                            //hides keyboard if not typing
+            imm?.hideSoftInputFromWindow(splitBox?.windowToken, 0)    //hides keyboard if not typing
         }
 
         percent = progress + percentStart
