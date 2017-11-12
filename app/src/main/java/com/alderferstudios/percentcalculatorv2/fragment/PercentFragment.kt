@@ -25,10 +25,6 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private val needsToRestart: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.split))
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.subtract))
-
         bar = activity?.findViewById(R.id.percentBar)
         bar?.setOnSeekBarChangeListener(this)
 
@@ -61,6 +57,13 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         return inflater.inflate(R.layout.fragment_percent, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.split))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.subtract))
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_percent, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -71,7 +74,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         /*switch (item.getItemId())
         {
             case R.id.settings:
-                Intent settingsActivity = new Intent(this, PrefsActivity.class);
+                Intent settingsActivity = new Intent(this, SettingsActivity.class);
                 settingsActivity.putExtra("caller", "percent");
                 startActivity(settingsActivity);
                 return true;

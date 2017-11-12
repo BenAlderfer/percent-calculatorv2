@@ -1,5 +1,6 @@
 package com.alderferstudios.percentcalculatorv2.activity
 
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -21,6 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
     var shared: SharedPreferences? = null
     var editor: SharedPreferences.Editor? = null
 
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

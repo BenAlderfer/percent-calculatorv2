@@ -154,7 +154,7 @@
             android:padding="@dimen/button_padding"
             android:text="@string/addLabel"
             android:textColor="@color/white"
-            tools:background="@drawable/green_button" />
+            tools:background="@drawable/btn_green" />
 
         <Button
             android:id="@+id/split"
@@ -172,7 +172,7 @@
             android:padding="@dimen/button_padding"
             android:text="@string/splitText"
             android:textColor="@color/white"
-            tools:background="@drawable/green_button" />
+            tools:background="@drawable/btn_green" />
 
         <Button
             android:id="@+id/subtract"
@@ -188,7 +188,7 @@
             android:padding="@dimen/button_padding"
             android:text="@string/subtractLabel"
             android:textColor="@color/white"
-            tools:background="@drawable/green_button" />
+            tools:background="@drawable/btn_green" />
 
     </LinearLayout>
 

@@ -16,6 +16,11 @@ abstract class BaseFragment : Fragment() {
         return inflater.inflate(com.alderferstudios.percentcalculatorv2.R.layout.activity_one_item, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        getBaseActivity().adjustButtons()
+    }
+
     protected fun getBaseActivity(): BaseCalcActivity {
         return activity as BaseCalcActivity
     }

@@ -13,7 +13,7 @@ import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 /**
  * Settings screen
  */
-class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         shared = PreferenceManager.getDefaultSharedPreferences(this)
@@ -167,6 +167,9 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
                 if (p != null) {
                     val percentStart = shared?.getString("percentStart", "0")
                     val percentMax = shared?.getString("percentMax", "0")
+                    if (percentStart == null || percentMax == null) {
+                        return
+                    }
                     when {
                         percentStart == "" -> MiscUtil.showToast(activity, "The start percent was not input correctly")
                         Integer.parseInt(percentStart) >= Integer.parseInt(percentMax) -> {
@@ -175,11 +178,10 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
                                 if (newPercentStart < 0) {    //percent start cannot be below 0
                                 newPercentStart = 0
                             }
-                            editor?.putString("percentStart", newPercentStart.toString() + "")
+                            editor?.putString("percentStart", newPercentStart.toString())
                             editor?.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentStartDesc)
-                                + " " + shared?.getString("percentStart", "0") + "%")
+                        else -> p.summary = (resources.getString(R.string.percentStartDesc, percentStart))
                     }
                 }
             }
@@ -195,6 +197,9 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
                 if (p != null) {
                     val percentStart = shared?.getString("percentStart", "0")
                     val percentMax = shared?.getString("percentMax", "0")
+                    if (percentStart == null || percentMax == null) {
+                        return
+                    }
                     when {
                         percentStart == "" -> MiscUtil.showToast(activity, "The max percent was not input correctly")
                         Integer.parseInt(percentMax) <= Integer.parseInt(percentStart) -> {
@@ -203,11 +208,10 @@ class PrefsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChange
                             if (newPercentMax < 1) {    //percent max cannot be below 1
                                 newPercentMax = 1
                             }
-                            editor?.putString("percentMax", newPercentMax.toString() + "")
+                            editor?.putString("percentMax", newPercentMax.toString())
                             editor?.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentLimitDesc)
-                                + " " + shared?.getString("percentMax", "30") + "%")
+                        else -> p.summary = (resources.getString(R.string.percentLimitDesc, percentMax))
                     }
                 }
             }

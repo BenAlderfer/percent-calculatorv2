@@ -111,39 +111,16 @@ abstract class BaseCalcActivity : BaseActivity() {
      * To prevent having to raise the min api
      * Will be overridden if no color is chosen
      */
-    protected open fun adjustButtons() {
+    open fun adjustButtons() {
         for (b in buttons) {
             if (themeChoice == "Black and White") {
-                if (MiscUtil.isLollipop()) {
-                    b?.background = getDrawable(R.drawable.ripple_black_button)
-                } else {
-                    b?.setBackgroundResource(R.drawable.black_button)
-                }
+                b?.setBackgroundResource(R.drawable.btn_black)
             } else {
                 when (colorChoice) {
-                    "Green" -> if (MiscUtil.isLollipop()) {
-                        b?.background = getDrawable(R.drawable.ripple_green_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.green_button)
-                    }
-
-                    "Orange" -> if (MiscUtil.isLollipop()) {
-                        b?.background = getDrawable(R.drawable.ripple_orange_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.orange_button)
-                    }
-
-                    "Red" -> if (MiscUtil.isLollipop()) {
-                        b?.background = getDrawable(R.drawable.ripple_red_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.red_button)
-                    }
-
-                    "Blue" -> if (MiscUtil.isLollipop()) {
-                        b?.background = getDrawable(R.drawable.ripple_blue_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.blue_button)
-                    }
+                    "Green" -> b?.setBackgroundResource(R.drawable.btn_green)
+                    "Orange" -> b?.setBackgroundResource(R.drawable.btn_orange)
+                    "Red" -> b?.setBackgroundResource(R.drawable.btn_red)
+                    "Blue" -> b?.setBackgroundResource(R.drawable.btn_blue)
                 }
             }
         }

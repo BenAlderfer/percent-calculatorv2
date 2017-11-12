@@ -13,12 +13,15 @@ class SplitFragment : BaseFragment() {
     private var numPick: NumPicker? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
-
         numPick = activity?.findViewById(R.id.numPicker)
         applyPrefs()
 
         return inflater.inflate(R.layout.fragment_split, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -31,7 +34,7 @@ class SplitFragment : BaseFragment() {
         /*switch (item.getItemId())
         {
             case R.id.settings:
-                Intent settingsActivity = new Intent(getActivity(), PrefsActivity.class);
+                Intent settingsActivity = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(settingsActivity);
                 return true;
 

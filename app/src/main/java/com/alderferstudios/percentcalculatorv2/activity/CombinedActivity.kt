@@ -1,5 +1,6 @@
 package com.alderferstudios.percentcalculatorv2.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -47,6 +48,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     private var bar: SeekBar? = null
     private var imm: InputMethodManager? = null
 
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         shared = PreferenceManager.getDefaultSharedPreferences(this)
         PreferenceManager.setDefaultValues(this, R.xml.prefs, false)    //sets default values if the preferences have not yet been used
@@ -98,7 +100,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings -> {
-                val settingsActivity = Intent(this, PrefsActivity::class.java)
+                val settingsActivity = Intent(this, SettingsActivity::class.java)
                 settingsActivity.putExtra("caller", "combined")
                 startActivity(settingsActivity)
                 return true
@@ -289,10 +291,10 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             text2 = ""
 
             if (!willSplit || !didEnterSplit(false)) {    //if not splitting, use both sides
-                if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
-                    text1 = "Tip: " + getString(R.string.money_sign) + change
+                text1 = if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
+                    "Tip: " + getString(R.string.money_sign) + change
                 } else {
-                    text1 = "Discount: " + getString(R.string.money_sign) + change
+                    "Discount: " + getString(R.string.money_sign) + change
                 }
 
                 if (willTax) {    //makes the tax part of the text
@@ -301,10 +303,10 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
                 text2 = "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")    //makes the cost total part of the text
             } else {    //otherwise, splits are on right
-                if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
-                    text1 = "Tip: " + getString(R.string.money_sign) + change + spacing
+                text1 = if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
+                    "Tip: " + getString(R.string.money_sign) + change + spacing
                 } else {
-                    text1 = "Discount: " + getString(R.string.money_sign) + change + spacing
+                    "Discount: " + getString(R.string.money_sign) + change + spacing
                 }
 
                 if (willTax) {    //makes the tax part of the text
@@ -557,19 +559,13 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     }
 
     /**
-     * Overridden to apply activity specific buttons
-     * Lollipop gets ripple buttons
-     * Others get regular buttons using setBackgroundDrawable
-     * To prevent having to raise the min api
+     * Applies activity specific button
+     * If not dynamic, defer to super to set color from theme
      */
     override fun adjustButtons() {
         if (colorChoice == "Dynamic") {
             for (b in buttons) {
-                if (MiscUtil.isLollipop()) {
-                    b?.setBackgroundResource(R.drawable.ripple_green_button)
-                } else {
-                    b?.setBackgroundResource(R.drawable.green_button)
-                }
+                b?.setBackgroundResource(R.drawable.btn_green)
             }
         } else {
             super.adjustButtons()

@@ -1,6 +1,8 @@
 package com.alderferstudios.percentcalculatorv2.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -16,7 +18,6 @@ import android.view.MenuItem
 import android.view.View
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
-import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 
 /**
  * Main activity for 1 item at a time
@@ -32,6 +33,7 @@ class OneItemActivity : BaseCalcActivity() {
      *
      * @param savedInstanceState the savedInstanceState from before
      */
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one_item)
@@ -73,7 +75,10 @@ class OneItemActivity : BaseCalcActivity() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
+            R.id.action_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
+                return true
+            }
         }/*case R.id.action_clear_all:
                 if (ets[tabNum] == null) {
                     saveEditTexts();
@@ -128,9 +133,7 @@ class OneItemActivity : BaseCalcActivity() {
     }
 
     /**
-     * Overridden to apply activity specific themes
      * Applies the correct colors based on the theme
-     * Makes some changes on Lollipop
      */
     override fun applyTheme() {
         themeChoice = "Light"
@@ -161,36 +164,22 @@ class OneItemActivity : BaseCalcActivity() {
     }
 
     /**
-     * Overridden to apply activity specific button
-     * Lollipop gets ripple button
-     * Others get regular button using setBackgroundDrawable
-     * To prevent having to raise the min api
+     * Applies activity specific button
+     * If not dynamic, defer to super to set color from theme
      */
     override fun adjustButtons() {
         if (colorChoice == "Dynamic") {
             when (pageNum) {
                 0 -> for (b in buttons) {
-                    if (MiscUtil.isLollipop()) {
-                        b?.setBackgroundResource(R.drawable.ripple_green_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.green_button)
-                    }
+                    b?.setBackgroundResource(R.drawable.btn_green)
                 }
 
                 1 -> for (b in buttons) {
-                    if (MiscUtil.isLollipop()) {
-                        b?.setBackgroundResource(R.drawable.ripple_orange_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.orange_button)
-                    }
+                    b?.setBackgroundResource(R.drawable.btn_orange)
                 }
 
                 2 -> for (b in buttons) {
-                    if (MiscUtil.isLollipop()) {
-                        b?.setBackgroundResource(R.drawable.ripple_red_button)
-                    } else {
-                        b?.setBackgroundResource(R.drawable.red_button)
-                    }
+                    b?.setBackgroundResource(R.drawable.btn_red)
                 }
             }
         } else {

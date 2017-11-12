@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import com.alderferstudios.percentcalculatorv2.R
-import com.alderferstudios.percentcalculatorv2.activity.PrefsActivity
+import com.alderferstudios.percentcalculatorv2.activity.SettingsActivity
 
 /**
  * Cost screen
@@ -12,8 +12,12 @@ import com.alderferstudios.percentcalculatorv2.activity.PrefsActivity
 class CostFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.next))
         return inflater.inflate(R.layout.fragment_cost, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.next))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -24,7 +28,7 @@ class CostFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.settings -> {
-                val settingsActivity = Intent(activity, PrefsActivity::class.java)
+                val settingsActivity = Intent(activity, SettingsActivity::class.java)
                 startActivity(settingsActivity)
                 true
             }

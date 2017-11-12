@@ -30,7 +30,7 @@ class ResultsFragment : BaseFragment() {
         /*switch (item.getItemId())
         {
             case R.id.settings:
-                Intent settingsActivity = new Intent(getActivity(), PrefsActivity.class);
+                Intent settingsActivity = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(settingsActivity);
                 return true;
 
