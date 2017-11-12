@@ -3,9 +3,9 @@
     android:id="@+id/resultsView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.ResultsFragment"
-    android:layout_gravity="center">
+    tools:context=".fragment.ResultsFragment">
 
     <TextView
         android:id="@+id/total"

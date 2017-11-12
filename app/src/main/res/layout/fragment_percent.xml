@@ -1,10 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/percentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:screenOrientation="portrait"
     tools:context=".fragment.PercentFragment">
 
     <TextView
@@ -12,52 +11,50 @@
         style="@style/LargeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/percentNum"
-        android:layout_alignBottom="@+id/percentNum"
-        android:layout_alignLeft="@+id/percentBar"
-        android:layout_alignStart="@+id/percentBar"
-        android:text="@string/percentTitle" />
+        android:layout_marginTop="@dimen/top_margin"
+        android:text="@string/percentTitle"
+        app:layout_constraintLeft_toLeftOf="@id/percentBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/percentNum"
         style="@style/LargeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/top_margin"
-        android:layout_toLeftOf="@+id/percentSign"
-        android:layout_toStartOf="@+id/percentSign"
         android:hint="0"
         android:inputType="number"
         android:maxLength="3"
-        android:singleLine="true" />
+        android:singleLine="true"
+        app:layout_constraintBaseline_toBaselineOf="@id/percentTitle"
+        app:layout_constraintRight_toLeftOf="@+id/percentSign" />
 
     <TextView
-        android:id="@+id/percentSign"
+        android:id="@id/percentSign"
         style="@style/LargeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/percentNum"
-        android:layout_alignEnd="@+id/percentBar"
-        android:layout_alignRight="@+id/percentBar"
-        android:text="%" />
+        android:text="%"
+        app:layout_constraintTop_toTopOf="@id/percentNum"
+        app:layout_constraintBottom_toBottomOf="@id/percentNum"
+        app:layout_constraintRight_toRightOf="@+id/percentBar" />
 
     <SeekBar
-        android:id="@+id/percentBar"
+        android:id="@id/percentBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/percentTitle"
         android:layout_marginLeft="@dimen/side_margin"
         android:layout_marginRight="@dimen/side_margin"
         android:layout_marginTop="@dimen/between_margin"
         android:max="100"
-        android:progress="0" />
+        android:progress="0"
+        app:layout_constraintTop_toBottomOf="@id/percentTitle" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/percentBar"
         android:layout_marginTop="50dp"
-        android:weightSum="3">
+        android:weightSum="3"
+        app:layout_constraintTop_toBottomOf="@id/percentBar">
 
         <Button
             android:id="@+id/add"
@@ -98,4 +95,4 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
