@@ -205,37 +205,28 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         didJustUpdate = false    //resets variable
 
-        //cost value
         val costString = costBox?.text.toString()
-        val cost = PercentCalculator.roundDouble(java.lang.Double.parseDouble(costString))
-        editor?.putString("cost", cost.toString())
+        cost = PercentCalculator.roundDouble(java.lang.Double.parseDouble(costString))
 
-        //percent value
         if (percent == 0) {    //if they didn't use the seekbar, the percent will be the default value
             percent = Integer.parseInt(percentage?.text.toString())
         }
 
-        editor?.putInt("percent", percent)
-
-        //split value
-        var split = 1
         if (splitBox?.text.toString() != "") {
             split = Integer.parseInt(splitBox?.text.toString())
         }
 
-        editor?.putInt("split", split)    //saves split amount
         //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not
 
-        editor?.apply()
-
-        val pc = PercentCalculator(this, getString(R.string.money_separator))
-        pc.calculate()    //calculates the numbers
+        val pc = PercentCalculator(this)
+        val calcFields = CalcFields(cost, percent, split, "")   //TODO: add button string
+        makeResultsText(pc.calculate(calcFields, getString(R.string.money_separator)))
     }
 
     /**
      * Makes the text results
      */
-    private fun makeText() {
+    private fun makeResultsText(results: CalcResults) {
         val change = shared?.getString("percentAmount", "")    //makes the first part of the text, tip is add, else discount
         val eachTip = shared?.getString("eachTip", "")    //how much each person will tip
         val eachTotal = shared?.getString("eachTotal", "")    //how much of the total each person pays
@@ -502,17 +493,13 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Checks if nothing was entered into the split
      * @return true if its empty
      */
-    private fun splitIsEmpty(): Boolean {
-        return splitBox?.text.toString() == ""
-    }
+    private fun splitIsEmpty(): Boolean = splitBox?.text.toString() == ""
 
     /**
      * Checks if they only put 1 in the split
      * @return true if 1 was entered
      */
-    private fun splitIsOne(): Boolean {
-        return splitBox?.text.toString() == "1"
-    }
+    private fun splitIsOne(): Boolean = splitBox?.text.toString() == "1"
 
     /**
      * Updates the percent text as the bar changes

@@ -2,62 +2,63 @@ package com.alderferstudios.percentcalculatorv2.util
 
 import android.content.Context
 import android.preference.PreferenceManager
+import com.alderferstudios.percentcalculatorv2.activity.CalcFields
+import com.alderferstudios.percentcalculatorv2.activity.CalcResults
 import java.text.DecimalFormat
 
 /**
  * The internal calculator
- * @param moneySeparator the money separator, must be given from an //TODO: finish comment
  */
-class PercentCalculator(c: Context, private val moneySeparator: String) {
+class PercentCalculator(c: Context) {
 
     private val shared = PreferenceManager.getDefaultSharedPreferences(c)
-    private val editor = shared.edit()
-    private var taxNum: Double = 0.toDouble()
 
     /**
      * Calculates and saves the numbers formatted as Strings
      */
-    fun calculate() {
-        val costNum = java.lang.Double.parseDouble(shared.getString("cost", "0.00"))
-        val percent = shared.getInt("percent", 0)
-        val button = shared.getString("button", null)
-        val split = shared.getInt("split", 1)
-        var totalNum = costNum
+    fun calculate(fields: CalcFields, moneySeparator: String): CalcResults {
+        val results = CalcResults()
+        var taxNum = 0.00
+        var total = fields.cost
 
-        val willTaxFirst = shared.getBoolean("afterBox", false) //if the tax will be added before or after the tip is calculated
+        val willTaxFirst = shared.getBoolean("afterBox", false)    //if the tax will be added before or after the tip is calculated
         val willTax = shared.getBoolean("taxBox", false)    //if the tax will be added
 
-        if (willTax && willTaxFirst) {  //tax comes before the tip, NOT the standard
-            totalNum += getTax(costNum)
-            editor.putString("subtotal", totalNum.toString())
+        if (willTax && willTaxFirst) {    //tax comes before the tip, NOT the standard
+            taxNum = getTax(fields.cost)
+            total += taxNum
+            results.subtotal = total
         }
 
-        val percentNum = roundDouble(totalNum * (percent / 100.0))
+        val percentNum = roundDouble(total * (fields.percent / 100.0))
 
-        if (button != null && button == "add") {
-            totalNum = roundDouble(totalNum + percentNum)
+        if (fields.button == "add") {
+            total = roundDouble(total + percentNum)
 
             if (willTax && !willTaxFirst) { //tax comes after the tip
-                editor.putString("subtotal", totalNum.toString())
-                totalNum += getTax(costNum) //only original cost is taxed, tip is not taxed
+                results.subtotal = total
+                taxNum = getTax(fields.cost)
+                total += taxNum //only original cost is taxed, tip is not taxed
             }
         } else {    //button.equals("subtract")
-            totalNum = roundDouble(totalNum - percentNum)
+            total = roundDouble(total - percentNum)
 
             if (willTax && !willTaxFirst) { //if will tax and tax comes after the discount
-                editor.putString("subtotal", totalNum.toString())
-                totalNum += getTax(totalNum)    //tax is applied to discounted cost, not original
+                results.subtotal = total
+                taxNum = getTax(total)
+                total += taxNum    //tax is applied to discounted cost, not original
             }
         }
-
 
         val pattern = "0" + moneySeparator + "00"
         val decimalFormat = DecimalFormat(pattern)
         val percentAmount = decimalFormat.format(percentNum)
-        val total = decimalFormat.format(totalNum)
+
+        results.taxAmount = decimalFormat.format(taxNum)
+        results.total = decimalFormat.format(total)
 
         var eachTip = percentAmount //if only 1 person, they pay all tip
-        var eachTotal = total   //if only 1 person, they pay all total
+        var eachTotal = results.total   //if only 1 person, they pay all total
         val didSplit = shared.getBoolean("didSplit", false)
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
@@ -77,22 +78,18 @@ class PercentCalculator(c: Context, private val moneySeparator: String) {
         }
         if (didSplit) {
             if (willSplitTip) { //if they chose to split the tip
-                eachTip = decimalFormat.format(roundDouble(percentNum / split))   //figures out the tip for each person
+                eachTip = decimalFormat.format(roundDouble(percentNum / fields.split))   //figures out the tip for each person
             }
             if (willSplitTotal) {   //if they chose to split the total
-                eachTotal = decimalFormat.format(roundDouble(totalNum / split))   //figures out the total for each person
+                eachTotal = decimalFormat.format(roundDouble(total / fields.split))   //figures out the total for each person
             }
         }
 
-        editor.putString("percentAmount", percentAmount)
-        editor.putString("taxAmount", decimalFormat.format(taxNum))
-        editor.putString("percentAmount", percentAmount)
-        editor.putString("taxAmount", decimalFormat.format(taxNum))
-        editor.putString("total", total)
-        editor.putString("eachTip", eachTip)
-        editor.putString("eachTotal", eachTotal)
+        results.percent = percentAmount
+        results.eachTip = eachTip
+        results.eachTotal = eachTotal
 
-        editor.apply()
+        return results
     }
 
     /**
@@ -103,20 +100,15 @@ class PercentCalculator(c: Context, private val moneySeparator: String) {
      */
     private fun getTax(price: Double): Double {
         val tax = java.lang.Double.parseDouble(shared.getString("taxInput", "6.00"))
-        taxNum = tax / 100.0 * price
-
-        return taxNum
+        return tax / 100.0 * price
     }
 
     companion object {
-
         /**
          * Rounds the value
          * @param value the thing to round
          * @return the rounded value
          */
-        fun roundDouble(value: Double): Double {
-            return Math.ceil(value * 100) / 100
-        }
+        fun roundDouble(value: Double): Double = Math.ceil(value * 100) / 100
     }
 }

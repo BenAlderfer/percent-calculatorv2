@@ -16,7 +16,7 @@ abstract class BaseCalcActivity : BaseActivity() {
     val buttons = ArrayList<Button?>()    //Stores the buttons for restyling
     protected var cost = 0.00
     protected var percent = 0
-    protected var split = 0
+    protected var split = 1
 
     /**
      * Checks for input
