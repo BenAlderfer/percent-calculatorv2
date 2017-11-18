@@ -12,16 +12,15 @@ import com.alderferstudios.percentcalculatorv2.activity.BaseCalcActivity
  */
 abstract class BaseFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(com.alderferstudios.percentcalculatorv2.R.layout.activity_one_item, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(com.alderferstudios.percentcalculatorv2.R.layout.activity_one_item, container, false)
 
     override fun onResume() {
         super.onResume()
         getBaseActivity().adjustButtons()
     }
 
-    protected fun getBaseActivity(): BaseCalcActivity {
-        return activity as BaseCalcActivity
-    }
+    protected fun getBaseActivity(): BaseCalcActivity = activity as BaseCalcActivity
+
+    abstract fun fieldsAreValid(): Boolean
 }

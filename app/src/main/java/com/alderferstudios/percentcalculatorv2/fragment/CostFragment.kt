@@ -11,9 +11,8 @@ import com.alderferstudios.percentcalculatorv2.activity.SettingsActivity
  */
 class CostFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_cost, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_cost, container, false)
 
     override fun onStart() {
         super.onStart()
@@ -25,8 +24,8 @@ class CostFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean =
+        when (item?.itemId) {
             R.id.settings -> {
                 val settingsActivity = Intent(activity, SettingsActivity::class.java)
                 startActivity(settingsActivity)
@@ -35,5 +34,9 @@ class CostFragment : BaseFragment() {
 
             else -> super.onOptionsItemSelected(item)
         }
+
+    override fun fieldsAreValid(): Boolean {
+        return true
+        //TODO: fix functionality
     }
 }

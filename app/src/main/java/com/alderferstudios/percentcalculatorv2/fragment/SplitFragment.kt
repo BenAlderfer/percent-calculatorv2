@@ -58,4 +58,9 @@ class SplitFragment : BaseFragment() {
             activity?.findViewById<NumPicker>(R.id.numPicker)?.value = 4
         }
     }
+
+    override fun fieldsAreValid(): Boolean {
+        return true
+        //TODO: fix functionality
+    }
 }

@@ -172,4 +172,6 @@ class ResultsFragment : BaseFragment() {
 
         resultsView?.text = resultsText
     }
+
+    override fun fieldsAreValid(): Boolean = true
 }

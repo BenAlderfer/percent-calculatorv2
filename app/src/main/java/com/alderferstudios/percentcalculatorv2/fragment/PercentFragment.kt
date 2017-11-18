@@ -194,4 +194,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             percentage?.setText(percentStart)
         }
     }
+
+    override fun fieldsAreValid(): Boolean {
+        return true
+        //TODO: fix functionality
+    }
 }
