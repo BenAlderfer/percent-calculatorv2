@@ -6,7 +6,7 @@ import android.view.*
 import android.widget.TextView
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
-import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity
+import com.alderferstudios.percentcalculatorv2.util.CalcFields
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 import java.text.DecimalFormat
 
@@ -51,8 +51,9 @@ class ResultsFragment : BaseFragment() {
             orientation = "landscape"
         }
 
-        val pc = PercentCalculator(activity ?: OneItemActivity(), getString(R.string.money_separator))    //TODO: decide if OneItemActivity is correct here
-        pc.calculate()    //calculates the numbers
+        val pc = PercentCalculator(getBaseActivity())
+        val calcFields = CalcFields(getBaseActivity().cost, getBaseActivity().percent, getBaseActivity().split, "")    //TODO: add button string
+        val results = pc.calculate(calcFields, getString(R.string.money_separator))
 
         /**
          * Construction of text section
@@ -60,14 +61,13 @@ class ResultsFragment : BaseFragment() {
         val pattern = "0" + getString(R.string.money_separator) + "00"
         val decimalFormat = DecimalFormat(pattern)    //formats numbers to 2 decimals
 
-        val cost = decimalFormat.format(java.lang.Double.parseDouble((activity as BaseActivity).shared?.getString("cost", "0.00")))
-        val subtotal = decimalFormat.format(java.lang.Double.parseDouble((activity as BaseActivity).shared?.getString("subtotal", "0.00")))
+        val cost = decimalFormat.format(getBaseActivity().cost)
+        val subtotal = decimalFormat.format(results.subtotal)
 
         var didAdd = false
         if ((activity as BaseActivity).shared?.getString("button", null) != null) {
             didAdd = (activity as BaseActivity).shared?.getString("button", null).equals("add")
         }
-        val total = (activity as BaseActivity).shared?.getString("total", "")
 
         /**
          * Header Section
@@ -79,9 +79,6 @@ class ResultsFragment : BaseFragment() {
         } else {    //(orientation.equals("landscape"))
             String.format("%n%n")    //extra space in landscape
         }
-
-        val change = (activity as BaseActivity).shared?.getString("percentAmount", "")
-        val eachTip = (activity as BaseActivity).shared?.getString("eachTip", "")
 
         val didSplit = (activity as BaseActivity).shared?.getBoolean("didSplit", false)
 
@@ -104,81 +101,75 @@ class ResultsFragment : BaseFragment() {
 
         if (didAdd) {
             if (didSplit == true && willSplitTip) {    //if they split and chose to split the tip, tip amount + split cost
-                totalText?.text = String.format("Tip: " + getString(R.string.money_sign) + change + spacing +
-                        getString(R.string.money_sign) + eachTip + " each")
+                totalText?.text = String.format("Tip: " + getString(R.string.money_sign) + results.percent + spacing +
+                        getString(R.string.money_sign) + results.eachTip + " each")
 
             } else {    //tip, tip amount + final cost
-                totalText?.text = String.format("Tip: " + getString(R.string.money_sign) + change + spacing +
-                        "Final cost: " + getString(R.string.money_sign) + total)
+                totalText?.text = String.format("Tip: " + getString(R.string.money_sign) + results.percent + spacing +
+                        "Final cost: " + getString(R.string.money_sign) + results.total)
             }
 
         } else {    //discount, discount amount + final cost
-            totalText?.text = String.format("Discount: " + getString(R.string.money_sign) + change + spacing +
-                    "Final cost: " + getString(R.string.money_sign) + total)
+            totalText?.text = String.format("Discount: " + getString(R.string.money_sign) + results.percent + spacing +
+                    "Final cost: " + getString(R.string.money_sign) + results.total)
         }
-
-        totalText?.gravity = Gravity.CENTER
 
         /**
          * Body Section
          */
-        val resultsText = activity?.findViewById<TextView>(R.id.results)    //where results are displayed
+        val resultsView = activity?.findViewById<TextView>(R.id.results)    //where results are displayed
         spacing = String.format("%n")
         val willTaxFirst = (activity as BaseActivity).shared?.getBoolean("afterBox", false)    //if the tax will be added before or after the tip is calculated
         val willTax = (activity as BaseActivity).shared?.getBoolean("taxBox", false)    //if the tax will be added
-        val percent = (activity as BaseActivity).shared?.getInt("percent", 0)
-        val taxAmount = (activity as BaseActivity).shared?.getString("taxAmount", "")
-        val eachTotal = (activity as BaseActivity).shared?.getString("eachTotal", "")
 
-        var results = String.format("The original cost is: " + getString(R.string.money_sign) + cost + spacing)    //adds cost
+        var resultsText = String.format("The original cost is: " + getString(R.string.money_sign) + cost + spacing)    //adds cost
 
         if (didAdd) {
             if (willTax == true && willTaxFirst == true) {
-                results += String.format("The tax is: " + getString(R.string.money_sign) + taxAmount + spacing +    //adds the tax first if needed
+                resultsText += String.format("The tax is: " + getString(R.string.money_sign) + results.taxAmount + spacing +    //adds the tax first if needed
 
                         "The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing)    //adds the subtotal
             }
 
-            results += String.format("The tip percent is: " + percent + "%%" + spacing +    //adds tip percent
+            resultsText += String.format("The tip percent is: " + getBaseActivity().percent + "%%" + spacing +    //adds tip percent
 
-                    "The tip is: " + getString(R.string.money_sign) + change + spacing)    //adds tip amount $
+                    "The tip is: " + getString(R.string.money_sign) + results.percent + spacing)    //adds tip amount $
 
             if (didSplit == true && willSplitTip) {    //if they split and chose to split the tip
-                results += String.format("Each person tips: " +
-                        getString(R.string.money_sign) + eachTip + spacing)    //add line for each person tips
+                resultsText += String.format("Each person tips: " +
+                        getString(R.string.money_sign) + results.eachTip + spacing)    //add line for each person tips
             }
 
             if (willTax == true && willTaxFirst == false) {
-                results += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +    //adds the subtotal
+                resultsText += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +    //adds the subtotal
 
-                        "The tax is: " + getString(R.string.money_sign) + taxAmount + spacing)    //adds the tax afterwards if needed
+                        "The tax is: " + getString(R.string.money_sign) + results.taxAmount + spacing)    //adds the tax afterwards if needed
             }
         } else {
             if (willTax == true && willTaxFirst == true) {
-                results += String.format("The tax is: " + getString(R.string.money_sign) + taxAmount + spacing +    //adds the tax first if needed
+                resultsText += String.format("The tax is: " + getString(R.string.money_sign) + results.taxAmount + spacing +    //adds the tax first if needed
 
                         "The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing)    //adds the subtotal
             }
 
-            results += String.format("The discount percent is: " + percent + "%%" + spacing +    //adds discount percent
+            resultsText += String.format("The discount percent is: " + getBaseActivity().percent + "%%" + spacing +    //adds discount percent
 
-                    "The discount is: " + getString(R.string.money_sign) + change + spacing)    //adds discount amount $
+                    "The discount is: " + getString(R.string.money_sign) + results.percent + spacing)    //adds discount amount $
 
             if (willTax == true && willTaxFirst == false) {
-                results += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +    //adds the subtotal
+                resultsText += String.format("The subtotal is: " + getString(R.string.money_sign) + subtotal + spacing +    //adds the subtotal
 
-                        "The tax is: " + getString(R.string.money_sign) + taxAmount + spacing)    //adds the tax afterwards if needed
+                        "The tax is: " + getString(R.string.money_sign) + results.taxAmount + spacing)    //adds the tax afterwards if needed
             }
 
         }
 
-        results += String.format("The final cost is: " + getString(R.string.money_sign) + total)    //adds line for total
+        resultsText += String.format("The final cost is: " + getString(R.string.money_sign) + results.total)    //adds line for total
 
         if (didSplit == true && willSplitTotal) {    //if they split and chose to split the total
-            results += String.format(spacing + "Each person pays: " + getString(R.string.money_sign) + eachTotal)    //add line for each person pays (of total)
+            resultsText += String.format(spacing + "Each person pays: " + getString(R.string.money_sign) + results.eachTotal)    //add line for each person pays (of total)
         }
 
-        resultsText?.text = results
-        resultsText?.gravity = Gravity.CENTER
+        resultsView?.text = resultsText
     }
 }

@@ -19,6 +19,8 @@ import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import com.alderferstudios.percentcalculatorv2.R
+import com.alderferstudios.percentcalculatorv2.util.CalcFields
+import com.alderferstudios.percentcalculatorv2.util.CalcResults
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp

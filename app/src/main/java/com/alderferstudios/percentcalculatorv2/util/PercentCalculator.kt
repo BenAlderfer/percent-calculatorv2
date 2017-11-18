@@ -2,8 +2,6 @@ package com.alderferstudios.percentcalculatorv2.util
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.alderferstudios.percentcalculatorv2.activity.CalcFields
-import com.alderferstudios.percentcalculatorv2.activity.CalcResults
 import java.text.DecimalFormat
 
 /**
