@@ -10,7 +10,7 @@
     tools:context=".fragment.SplitFragment">
 
     <TextView
-        android:id="@+id/splitText"
+        android:id="@+id/splitTitle"
         style="@style/LargeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/add"
+        android:id="@+id/tip"
         style="@style/NormalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

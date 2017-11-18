@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/percentBar">
 
         <Button
-            android:id="@+id/add"
+            android:id="@+id/tip"
             style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/subtract"
+            android:id="@+id/discount"
             style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

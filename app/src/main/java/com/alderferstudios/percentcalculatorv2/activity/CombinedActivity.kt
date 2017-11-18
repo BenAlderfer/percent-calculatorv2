@@ -59,9 +59,9 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        buttons.add(findViewById<View>(R.id.add) as Button)
+        buttons.add(findViewById<View>(R.id.tip) as Button)
         buttons.add(findViewById<View>(R.id.split) as Button)
-        buttons.add(findViewById<View>(R.id.subtract) as Button)
+        buttons.add(findViewById<View>(R.id.discount) as Button)
         adjustButtons()
 
         willTax = shared?.getBoolean("taxBox", false) ?: false    //if the tax will be added
@@ -413,9 +413,9 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
             //performs last action, default = tip
             when (shared?.getString("lastAction", "tip")) {
-                "discount" -> discount(findViewById(R.id.subtract))
+                "discount" -> discount(findViewById(R.id.discount))
                 "split" -> split(findViewById(R.id.split))
-                else -> tip(findViewById(R.id.add))
+                else -> tip(findViewById(R.id.tip))
             }
         }
     }

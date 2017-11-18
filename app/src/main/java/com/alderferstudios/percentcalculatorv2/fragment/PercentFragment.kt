@@ -59,9 +59,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
     override fun onStart() {
         super.onStart()
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.add))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.tip))
         getBaseActivity().buttons.add(activity?.findViewById(R.id.split))
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.subtract))
+        getBaseActivity().buttons.add(activity?.findViewById(R.id.discount))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
