@@ -8,6 +8,11 @@ import android.widget.Toast
 
 class MiscUtil {
     companion object {
+        val LAST_ACITON = "lastAction"
+        val TIP = "tip"
+        val DISCOUNT = "discount"
+        val SPLIT = "split"
+
         private var toast: Toast? = null
 
         /**

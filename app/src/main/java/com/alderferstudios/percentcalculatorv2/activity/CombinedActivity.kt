@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -37,9 +36,6 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     private var costBox: EditText? = null
     private var percentage: EditText? = null
     private var splitBox: EditText? = null
-    private var text: String? = null
-    private var text1: String? = null
-    private var text2: String? = null
     private var percentStart: Int = 0
     private var percentMax: Int = 0
     private var willTax: Boolean = false
@@ -200,39 +196,36 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Hides the keyboard when a button is clicked
      * Saves the numbers
      */
-    private fun processValues() {
+    private fun processValues(): CalcResults {
         if (!didJustUpdate) {    //makes sure it was not an auto update to avoid breaks in typing
             imm?.hideSoftInputFromWindow(splitBox?.windowToken, 0)
         }
 
         didJustUpdate = false    //resets variable
 
-        val costString = costBox?.text.toString()
-        cost = PercentCalculator.roundDouble(java.lang.Double.parseDouble(costString))
+        cost = PercentCalculator.roundDouble(
+                java.lang.Double.parseDouble(costBox?.text.toString()))
 
         if (percent == 0) {    //if they didn't use the seekbar, the percent will be the default value
             percent = Integer.parseInt(percentage?.text.toString())
         }
 
-        if (splitBox?.text.toString() != "") {
-            split = Integer.parseInt(splitBox?.text.toString())
+        val splitText = splitBox?.text.toString()
+        if (splitText != "") {
+            split = Integer.parseInt(splitText)
         }
 
         //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not
 
         val pc = PercentCalculator(this)
-        val calcFields = CalcFields(cost, percent, split, "")   //TODO: add button string
-        makeResultsText(pc.calculate(calcFields, getString(R.string.money_separator)))
+        val calcFields = CalcFields(cost, percent, split, shared?.getString(MiscUtil.LAST_ACITON, MiscUtil.TIP) ?: "")
+        return pc.calculate(calcFields, getString(R.string.money_separator))
     }
 
     /**
      * Makes the text results
      */
     private fun makeResultsText(results: CalcResults) {
-        val change = shared?.getString("percentAmount", "")    //makes the first part of the text, tip is add, else discount
-        val eachTip = shared?.getString("eachTip", "")    //how much each person will tip
-        val eachTotal = shared?.getString("eachTotal", "")    //how much of the total each person pays
-
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
         when (shared?.getString("splitList", "Split tip")) {
@@ -254,70 +247,68 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         // portrait setup
         if (!MiscUtil.isLandscape(this)) {
-            text = ""    //clears previous results
-
-            if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
-                text = "Tip: " + getString(R.string.money_sign) + change + spacing
+var text = ""
+            if (shared?.getString(MiscUtil.LAST_ACITON, "") == MiscUtil.TIP) {
+                text = "Tip: " + getString(R.string.money_sign) + results.percent + spacing
 
                 if (willSplit && didEnterSplit(false) && willSplitTip) {    //if split was clicked, number is entered, and split tip is selected in prefs
-                    text += "Each tips: " + getString(R.string.money_sign) + eachTip + spacing    //adds the split tip part of the text
+                    text += "Each tips: " + getString(R.string.money_sign) + results.eachTip + spacing    //adds the split tip part of the text
                 }
             } else {
-                text = "Discount: " + getString(R.string.money_sign) + change + spacing
+                text = "Discount: " + getString(R.string.money_sign) + results.percent + spacing
             }
 
             if (willTax) {    //makes the tax part of the text
-                text += "Tax: " + getString(R.string.money_sign) + shared?.getString("taxAmount", "") + spacing
+                text += "Tax: " + getString(R.string.money_sign) + results.taxAmount + spacing
             }
 
-            text += "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")    //makes the cost total part of the text
+            text += "Final cost: " + getString(R.string.money_sign) + results.total    //makes the cost total part of the text
 
             if (willSplit && didEnterSplit(false) && willSplitTotal) {    //if split was clicked, number is entered, and split total is selected in prefs
-                text += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal    //adds the split tip part of the text
+                text += spacing + "Each pays: " + getString(R.string.money_sign) + results.eachTotal    //adds the split tip part of the text
             }
 
-            setResults()
+            setResults(text)
 
         } else {    //landscape setup
-            //clears previous results
-            text1 = ""
-            text2 = ""
+            var text1 = ""
+            var text2 = ""
 
             if (!willSplit || !didEnterSplit(false)) {    //if not splitting, use both sides
-                text1 = if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
-                    "Tip: " + getString(R.string.money_sign) + change
+                text1 = if (shared?.getString(MiscUtil.LAST_ACITON, "") == MiscUtil.TIP) {
+                    "Tip: " + getString(R.string.money_sign) + results.percent
                 } else {
-                    "Discount: " + getString(R.string.money_sign) + change
+                    "Discount: " + getString(R.string.money_sign) + results.percent
                 }
 
                 if (willTax) {    //makes the tax part of the text
-                    text1 += spacing + "Tax: " + getString(R.string.money_sign) + shared?.getString("taxAmount", "")
+                    text1 += spacing + "Tax: " + getString(R.string.money_sign) + results.taxAmount
                 }
 
-                text2 = "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")    //makes the cost total part of the text
+                text2 = "Final cost: " + getString(R.string.money_sign) + results.total    //makes the cost total part of the text
             } else {    //otherwise, splits are on right
-                text1 = if (shared?.getString("button", null) != null && shared?.getString("button", null) == "add") {
-                    "Tip: " + getString(R.string.money_sign) + change + spacing
+                text1 = if (shared?.getString(MiscUtil.LAST_ACITON, "") == MiscUtil.TIP) {
+                    "Tip: " + getString(R.string.money_sign) + results.percent + spacing
                 } else {
-                    "Discount: " + getString(R.string.money_sign) + change + spacing
+                    "Discount: " + getString(R.string.money_sign) + results.percent + spacing
                 }
 
                 if (willTax) {    //makes the tax part of the text
-                    text1 += "Tax: " + getString(R.string.money_sign) + shared?.getString("taxAmount", "") + spacing
+                    text1 += "Tax: " + getString(R.string.money_sign) + results.taxAmount + spacing
                 }
 
-                text1 += "Final cost: " + getString(R.string.money_sign) + shared?.getString("total", "")    //makes the cost total part of the text
+                text1 += "Final cost: " + getString(R.string.money_sign) + results.total    //makes the cost total part of the text
 
                 if (willSplit && didEnterSplit(false) && willSplitTip) {    //if split was clicked, number is entered, and split tip is checked in prefs
-                    text2 = "Each tips: " + getString(R.string.money_sign) + eachTip    //adds the split tip part of the text
+                    text2 = "Each tips: " + getString(R.string.money_sign) + results.eachTip    //adds the split tip part of the text
                 }
 
                 if (willSplit && didEnterSplit(false) && willSplitTotal) {    //if split was clicked, number is entered, and split total is checked in prefs
-                    text2 += spacing + "Each pays: " + getString(R.string.money_sign) + eachTotal    //adds the split tip part of the text
+                    text2 += spacing + "Each pays: " + getString(R.string.money_sign) + results.eachTotal    //adds the split tip part of the text
                 }
             }
 
-            setLandscapeResults()
+            setLandscapeResults(text1, text2)
         }
     }
 
@@ -327,13 +318,12 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Used for tip
      */
     override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
-//        willSplit = false
-//        if (didEnterValues()) {
-//            editor?.putString("button", "add")
-//            editor?.putString("lastAction", "tip")
-//            processValues()
-//            makeText()
-//        }
+        willSplit = false
+        if (didEnterValues()) {
+            editor?.putString(MiscUtil.LAST_ACITON, MiscUtil.TIP)
+            val results = processValues()
+            makeResultsText(results)
+        }
     }
 
     /**
@@ -344,10 +334,9 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
 //        willSplit = false
 //        if (didEnterValues()) {
-//            editor?.putString("button", "subtract")
-//            editor?.putString("lastAction", "discount")
-//            processValues()
-//            makeText()
+//            editor?.putString(MiscUtil.LAST_ACITON, MiscUtil.DISCOUNT)
+//            val results = processValues()
+//        makeResultsText(results)
 //        }
     }
 
@@ -358,10 +347,9 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
 //        willSplit = true
 //        if (didEnterSplit(true) && didEnterValues()) {
-//            editor?.putString("button", "add")
-//            editor?.putString("lastAction", "split")
-//            processValues()
-//            makeText()
+//            editor?.putString(MiscUtil.LAST_ACITON, MiscUtil.SPLIT)
+//            val results = processValues()
+//        makeResultsText(results)
 //        }
     }
 
@@ -372,10 +360,9 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      *
      * While the warning says String.format is not needed, it is
      */
-    private fun setResults() {
-        resultsText?.text = String.format(text ?: "")
-        resultsText?.visibility = View.VISIBLE    //shows results text
-        resultsText?.gravity = Gravity.CENTER_HORIZONTAL
+    private fun setResults(text: String) {
+        resultsText?.text = String.format(text)
+        resultsText?.visibility = View.VISIBLE
     }
 
     /**
@@ -386,14 +373,12 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      *
      * While the warning says String.format is not needed, it is
      */
-    private fun setLandscapeResults() {
-        resultsText1?.text = String.format(text1 ?: "")
-        resultsText1?.visibility = View.VISIBLE    //shows results text #1
-        resultsText1?.gravity = Gravity.CENTER_HORIZONTAL
+    private fun setLandscapeResults(text1: String, text2: String) {
+        resultsText1?.text = String.format(text1)
+        resultsText1?.visibility = View.VISIBLE
 
-        resultsText2?.text = String.format(text2 ?: "")
-        resultsText2?.visibility = View.VISIBLE    //shows results text #2
-        resultsText2?.gravity = Gravity.CENTER_HORIZONTAL
+        resultsText2?.text = String.format(text2)
+        resultsText2?.visibility = View.VISIBLE
     }
 
     /**

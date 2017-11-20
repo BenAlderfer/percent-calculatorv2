@@ -30,7 +30,7 @@ class PercentCalculator(c: Context) {
 
         val percentNum = roundDouble(total * (fields.percent / 100.0))
 
-        if (fields.button == "add") {
+        if (fields.button == MiscUtil.TIP) {
             total = roundDouble(total + percentNum)
 
             if (willTax && !willTaxFirst) { //tax comes after the tip
@@ -38,7 +38,7 @@ class PercentCalculator(c: Context) {
                 taxNum = getTax(fields.cost)
                 total += taxNum //only original cost is taxed, tip is not taxed
             }
-        } else {    //button.equals("subtract")
+        } else {    //discount
             total = roundDouble(total - percentNum)
 
             if (willTax && !willTaxFirst) { //if will tax and tax comes after the discount
