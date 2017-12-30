@@ -55,10 +55,7 @@ class Launcher : Activity() {
      */
     private fun saveScreenSize() {
         editor?.putString("screenSize",
-                if (isTablet(this)) {
-                    "tablet"
-                } else {
-                    "phone"
-                })
+                if (isTablet(this)) "tablet"
+                else "phone")
     }
 }

@@ -218,7 +218,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not
 
         val pc = PercentCalculator(this)
-        val calcFields = CalcFields(cost, percent, split, shared?.getString(MiscUtil.LAST_ACITON, MiscUtil.TIP) ?: "")
+        val calcFields = CalcFields(cost, percent, split, shared?.getString(MiscUtil.LAST_ACTION, MiscUtil.TIP) ?: "")
         return pc.calculate(calcFields, getString(R.string.money_separator))
     }
 
@@ -248,7 +248,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         // portrait setup
         if (!MiscUtil.isLandscape(this)) {
 var text = ""
-            if (shared?.getString(MiscUtil.LAST_ACITON, "") == MiscUtil.TIP) {
+            if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
                 text = "Tip: " + getString(R.string.money_sign) + results.percent + spacing
 
                 if (willSplit && didEnterSplit(false) && willSplitTip) {    //if split was clicked, number is entered, and split tip is selected in prefs
@@ -275,7 +275,7 @@ var text = ""
             var text2 = ""
 
             if (!willSplit || !didEnterSplit(false)) {    //if not splitting, use both sides
-                text1 = if (shared?.getString(MiscUtil.LAST_ACITON, "") == MiscUtil.TIP) {
+                text1 = if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
                     "Tip: " + getString(R.string.money_sign) + results.percent
                 } else {
                     "Discount: " + getString(R.string.money_sign) + results.percent
@@ -287,7 +287,7 @@ var text = ""
 
                 text2 = "Final cost: " + getString(R.string.money_sign) + results.total    //makes the cost total part of the text
             } else {    //otherwise, splits are on right
-                text1 = if (shared?.getString(MiscUtil.LAST_ACITON, "") == MiscUtil.TIP) {
+                text1 = if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
                     "Tip: " + getString(R.string.money_sign) + results.percent + spacing
                 } else {
                     "Discount: " + getString(R.string.money_sign) + results.percent + spacing
@@ -320,7 +320,7 @@ var text = ""
     override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
         willSplit = false
         if (didEnterValues()) {
-            editor?.putString(MiscUtil.LAST_ACITON, MiscUtil.TIP)
+            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.TIP)
             val results = processValues()
             makeResultsText(results)
         }
@@ -334,7 +334,7 @@ var text = ""
     override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
 //        willSplit = false
 //        if (didEnterValues()) {
-//            editor?.putString(MiscUtil.LAST_ACITON, MiscUtil.DISCOUNT)
+//            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.DISCOUNT)
 //            val results = processValues()
 //        makeResultsText(results)
 //        }
@@ -347,7 +347,7 @@ var text = ""
     override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
 //        willSplit = true
 //        if (didEnterSplit(true) && didEnterValues()) {
-//            editor?.putString(MiscUtil.LAST_ACITON, MiscUtil.SPLIT)
+//            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.SPLIT)
 //            val results = processValues()
 //        makeResultsText(results)
 //        }

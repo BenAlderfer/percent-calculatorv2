@@ -8,6 +8,7 @@ import android.widget.NumberPicker
 
 /**
  * custom number picker
+ * allows for setting min and max from xml
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 class NumPicker : NumberPicker {
