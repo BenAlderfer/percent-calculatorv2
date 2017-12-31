@@ -1,8 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppBaseTheme" parent="GreenLight" />
-
-    <!-- Application theme, default is the green theme -->
     <style name="AppTheme" parent="GreenLight" />
 
     <!-- Black and White theme, same for all activities -->

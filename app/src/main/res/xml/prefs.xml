@@ -1,88 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:key="prefScreen">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefScreen">
 
     <!-- TODO: try include with <intent android:action="com.example.PREFERENCE_2" /> -->
 
-	<PreferenceCategory
+    <PreferenceCategory
         android:title="@string/functionality_title"
         android:key="func_tweaks">
 
-		<EditTextPreference
-		 android:defaultValue="0"
-		 android:inputType="number"
-		 android:key="percentStart"
-		 android:summary="@string/percentStartDesc"
-		 android:title="@string/percentStartLabel" />
+        <EditTextPreference
+            android:defaultValue="0"
+            android:inputType="number"
+            android:key="percentStart"
+            android:summary="@string/percentStartDesc"
+            android:title="@string/percentStartLabel" />
 
-		<EditTextPreference
-		 android:defaultValue="30"
-		 android:inputType="number"
-		 android:key="percentMax"
-		 android:summary="@string/percentLimitDesc"
+        <EditTextPreference
+            android:defaultValue="30"
+            android:inputType="number"
+            android:key="percentMax"
+            android:summary="@string/percentLimitDesc"
             android:title="@string/percentLimitLabel" />
 
         <CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="taxBox"
-		 android:summary="@string/disabledTaxDesc"
-		 android:title="@string/toggleTaxLabel" />
+            android:defaultValue="false"
+            android:key="taxBox"
+            android:summary="@string/disabledTaxDesc"
+            android:title="@string/toggleTaxLabel" />
 
         <EditTextPreference
-		 android:defaultValue="6"
-		 android:inputType="numberDecimal"
-		 android:key="taxInput"
-		 android:summary="@string/taxDesc"
-		 android:title="@string/taxLabel" />
+            android:defaultValue="6"
+            android:inputType="numberDecimal"
+            android:key="taxInput"
+            android:summary="@string/taxDesc"
+            android:title="@string/taxLabel" />
 
         <CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="afterBox"
-		 android:summary="@string/disabledAfterTaxDesc"
-		 android:title="@string/afterTaxLabel" />
+            android:defaultValue="false"
+            android:key="afterBox"
+            android:summary="@string/disabledAfterTaxDesc"
+            android:title="@string/afterTaxLabel" />
 
         <CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="saveBox"
-		 android:summary="@string/disabledSaveDesc"
-		 android:title="@string/saveLabel" />
+            android:defaultValue="false"
+            android:key="saveBox"
+            android:summary="@string/disabledSaveDesc"
+            android:title="@string/saveLabel" />
 
         <ListPreference
-		 android:defaultValue="Split tip"
-		 android:entries="@array/splitOptions"
-		 android:entryValues="@array/splitValues"
-		 android:key="splitList"
-		 android:summary="@string/splitDesc"
+            android:defaultValue="Split tip"
+            android:entries="@array/splitOptions"
+            android:entryValues="@array/splitValues"
+            android:key="splitList"
+            android:summary="@string/splitDesc"
             android:title="@string/splitLabel" />
 
     </PreferenceCategory>
-	 
-	<PreferenceCategory
+
+    <PreferenceCategory
         android:title="@string/design_title"
         android:key="des_tweaks">
-		
-		<CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="combinedBox"
-		 android:summary="@string/disabledCombinedDesc"
-		 android:title="@string/combinedLabel" />
 
-		<ListPreference
-		 android:defaultValue="Light"
-		 android:entries="@array/themeOptions"
-		 android:entryValues="@array/themeValues"
-		 android:key="themeList"
-		 android:summary="@string/themeDesc"
-		 android:title="@string/themeLabel" />	
-		 
-		<ListPreference
-		 android:defaultValue="Green"
-		 android:entries="@array/colorOptions"
-		 android:entryValues="@array/colorValues"
-		 android:key="colorList"
-		 android:summary="@string/colorDesc"
-		 android:title="@string/colorLabel" />	
-		 
-	</PreferenceCategory>
-	 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="combinedBox"
+            android:summary="@string/disabledCombinedDesc"
+            android:title="@string/combinedLabel" />
+
+        <ListPreference
+            android:defaultValue="Light"
+            android:entries="@array/themeOptions"
+            android:entryValues="@array/themeValues"
+            android:key="themeList"
+            android:summary="@string/themeDesc"
+            android:title="@string/themeLabel" />
+
+        <ListPreference
+            android:defaultValue="Green"
+            android:entries="@array/colorOptions"
+            android:entryValues="@array/colorValues"
+            android:key="colorList"
+            android:summary="@string/colorDesc"
+            android:title="@string/colorLabel" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

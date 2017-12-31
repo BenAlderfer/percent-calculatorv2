@@ -1,10 +1,12 @@
 package com.alderferstudios.percentcalculatorv2.activity
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.ActivityManager
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
@@ -33,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
         applyTheme()    //sets the theme based on the preference
         changeLollipopIcon()    //changes the Lollipop overview icon
 
-        if (shared?.getString("screenSize", "phone") == "phone") {  //lock orientation if its a phone
+        if (shared?.getString("screenSize", "phone") == "phone") {    //lock orientation if its a phone
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
     }
@@ -78,8 +80,9 @@ abstract class BaseActivity : AppCompatActivity() {
      * Changes the overview icon in Lollipop
      * Must be called from child class to work
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun changeLollipopIcon() {
-        if (MiscUtil.isLollipop()) {                                                                       //sets an alternate icon for the overview (recent apps)
+        if (MiscUtil.isLollipop()) {
             val typedValue = TypedValue()
             val theme = theme
             theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
@@ -94,7 +97,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        editor?.putBoolean("didJustGoBack", true)                                                 //saves back action
+        editor?.putBoolean("didJustGoBack", true)    //saves back action
         editor?.apply()
 
         super.onBackPressed()

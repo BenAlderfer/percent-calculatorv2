@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:key="percentLimitPopUp">
-	
-	<EditTextPreference
-	 android:defaultValue="0"
-	 android:inputType="number"
-	 android:key="percentStart"
-	 android:summary="@string/percentStartDesc"
-	 android:title="@string/percentStartLabel" />
-	
-	<EditTextPreference
-	 android:defaultValue="30"
-	 android:inputType="number"
-	 android:key="percentMax"
-	 android:summary="@string/percentLimitDesc"
-	 android:title="@string/percentLimitLabel" />	
-	 
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="percentLimitPopUp">
+
+    <EditTextPreference
+        android:defaultValue="0"
+        android:inputType="number"
+        android:key="percentStart"
+        android:summary="@string/percentStartDesc"
+        android:title="@string/percentStartLabel" />
+
+    <EditTextPreference
+        android:defaultValue="30"
+        android:inputType="number"
+        android:key="percentMax"
+        android:summary="@string/percentLimitDesc"
+        android:title="@string/percentLimitLabel" />
+
 </PreferenceScreen>

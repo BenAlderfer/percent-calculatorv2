@@ -1,18 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
-		  
-	<item 
-		android:id="@+id/bar_limits"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bar_limits"
         android:icon="@drawable/percent_bar"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
         android:title="@string/bar_limits" />
-	
-	<item
+
+    <item
         android:id="@+id/settings"
         android:orderInCategory="100"
         app:showAsAction="never"
-        android:title="@string/settingsText"
-    />	
-	
+        android:title="@string/settingsText" />
+
 </menu>

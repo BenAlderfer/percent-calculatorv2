@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="side_margin">20dp</dimen>
-	<dimen name="top_margin">40dp</dimen>
-	<dimen name="between_margin">20dp</dimen>
-	<dimen name="picker_margin">30dp</dimen>
-	<dimen name="button_spacing">5dp</dimen>
-	<dimen name="button_padding">10dp</dimen>
-	<dimen name="inner_spacing">10dp</dimen>		<!-- small spacing inside row or between rows -->
-	<dimen name="money_sign_spacing">5dp</dimen>	<!-- space between money sign and number -->
-	<dimen name="below_percent_sign">5dp</dimen>	<!-- raises up percent sign to match number -->
-	<dimen name="button_centering">200dp</dimen>	<!-- trimming down sides of buttons -->
-	<dimen name="center_margin">50dp</dimen>		<!-- margins for middle spacer on split screen -->
-	
-	<style name="NormalText">
-         <item name="android:textSize">20sp</item>
-		 <item name="android:textStyle">bold</item>
+    <dimen name="top_margin">40dp</dimen>
+    <dimen name="between_margin">20dp</dimen>
+    <dimen name="picker_margin">30dp</dimen>
+    <dimen name="button_spacing">5dp</dimen>
+    <dimen name="button_padding">10dp</dimen>
+    <dimen name="inner_spacing">10dp
+    </dimen>        <!-- small spacing inside row or between rows -->
+    <dimen name="money_sign_spacing">5dp</dimen>    <!-- space between money sign and number -->
+    <dimen name="below_percent_sign">5dp</dimen>    <!-- raises up percent sign to match number -->
+    <dimen name="button_centering">200dp</dimen>    <!-- trimming down sides of buttons -->
+    <dimen name="center_margin">50dp
+    </dimen>        <!-- margins for middle spacer on split screen -->
+
+    <style name="NormalText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
-	
-	<style name="MediumText">
-         <item name="android:textSize">25sp</item>
-		 <item name="android:textStyle">bold</item>
+
+    <style name="MediumText">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="LargeText">
-         <item name="android:textSize">30sp</item>
-		 <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
-	<!-- Default screen margins, per the Android Design guidelines. -->
-	<dimen name="activity_horizontal_margin">16dp</dimen>
-	<dimen name="activity_vertical_margin">16dp</dimen>
-	<dimen name="fab_margin">16dp</dimen>
-	<dimen name="appbar_padding_top">8dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>
