@@ -1,3 +1,0 @@
-fix percent activity to make slider update to new preference
-fix combined screen error messages
-make action buttons visible
