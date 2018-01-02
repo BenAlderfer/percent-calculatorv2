@@ -97,7 +97,7 @@ class PercentCalculator(c: Context) {
      * @return the total + the tax
      */
     private fun getTax(price: Double): Double {
-        val tax = java.lang.Double.parseDouble(shared.getString(PrefKeys.TAX_INPUT, "6.00"))
+        val tax = shared.getString(PrefKeys.TAX_INPUT, "6.00").toDouble()
         return tax / 100.0 * price
     }
 

@@ -31,7 +31,7 @@ abstract class BaseCalcActivity : BaseActivity() {
             MiscUtil.showToast(this, "The cost has not been entered")
             costText.requestFocus()
         } else {
-            cost = PercentCalculator.roundDouble(java.lang.Double.parseDouble(costText.text.toString()))
+            cost = PercentCalculator.roundDouble(costText.text.toString().toDouble())
         }
     }
 

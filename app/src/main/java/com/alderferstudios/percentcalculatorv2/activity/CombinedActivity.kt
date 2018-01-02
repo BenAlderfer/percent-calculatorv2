@@ -200,8 +200,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         didJustUpdate = false    //resets variable
 
-        cost = PercentCalculator.roundDouble(
-                java.lang.Double.parseDouble(costBox?.text.toString()))
+        cost = PercentCalculator.roundDouble(costBox?.text.toString().toDouble())
 
         if (percent == 0) {    //if they didn't use the seekbar, the percent will be the default value
             percent = Integer.parseInt(percentage?.text.toString())
