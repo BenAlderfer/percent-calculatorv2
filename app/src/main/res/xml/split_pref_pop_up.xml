@@ -6,7 +6,7 @@
         android:defaultValue="Split tip"
         android:entries="@array/splitOptions"
         android:entryValues="@array/splitValues"
-        android:key="splitList"
+        android:key="split_list"
         android:summary="@string/splitDesc"
         android:title="@string/splitLabel" />
 

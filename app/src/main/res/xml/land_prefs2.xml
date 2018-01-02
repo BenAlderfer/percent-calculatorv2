@@ -6,7 +6,7 @@
         android:defaultValue="Split tip"
         android:entries="@array/splitOptions"
         android:entryValues="@array/splitValues"
-        android:key="splitList"
+        android:key="split_list"
         android:summary="@string/splitDesc"
         android:title="@string/splitLabel" />
 
@@ -16,7 +16,7 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="combinedBox"
+            android:key="combined_box"
             android:summary="@string/disabledCombinedDesc"
             android:title="@string/combinedLabel" />
 
@@ -24,7 +24,7 @@
             android:defaultValue="Light"
             android:entries="@array/themeOptions"
             android:entryValues="@array/themeValues"
-            android:key="themeList"
+            android:key="theme_list"
             android:summary="@string/themeDesc"
             android:title="@string/themeLabel" />
 
@@ -32,7 +32,7 @@
             android:defaultValue="Green"
             android:entries="@array/colorOptions"
             android:entryValues="@array/colorValues"
-            android:key="colorList"
+            android:key="color_list"
             android:summary="@string/colorDesc"
             android:title="@string/colorLabel" />
 

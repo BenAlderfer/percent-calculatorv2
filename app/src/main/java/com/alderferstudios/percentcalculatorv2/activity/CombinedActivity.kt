@@ -59,7 +59,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         buttons.add(findViewById<View>(R.id.discount) as Button)
         adjustButtons()
 
-        willTax = shared?.getBoolean("taxBox", false) ?: false    //if the tax will be added
+        willTax = shared?.getBoolean(PrefConstants.TAX_BOX, false) ?: false    //if the tax will be added
         costBox = findViewById<View>(R.id.cost) as EditText
         percentage = findViewById<View>(R.id.percentNum) as EditText
         splitBox = findViewById<View>(R.id.splitNum) as EditText
@@ -121,14 +121,14 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Applies preference settings
      */
     private fun applyPrefs() {
-        percentStart = shared?.getString(PrefKeys.PERCENT_START, "0")?.toInt() ?: 0
-        percentMax = shared?.getString(PrefKeys.PERCENT_MAX, "30")?.toInt() ?: 30
+        percentStart = shared?.getString(PrefConstants.PERCENT_START, "0")?.toInt() ?: 0
+        percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "30")?.toInt() ?: 30
         if (bar?.max != percentMax) {   //refreshes the activity if the current max is not right
             bar?.max = percentMax - percentStart
         }
 
-        if (shared?.getString(PrefKeys.BUTTON, "") == "") {    //if no button is currently saved, initializes it to be add
-            editor?.putString(PrefKeys.BUTTON, "add")
+        if (shared?.getString(PrefConstants.BUTTON, "") == "") {    //if no button is currently saved, initializes it to be add
+            editor?.putString(PrefConstants.BUTTON, "add")
             editor?.apply()
         }
     }
@@ -139,7 +139,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * @param key the name of the pref
      */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == PrefKeys.PERCENT_START || key == PrefKeys.PERCENT_MAX || key == PrefKeys.SPLIT_LIST) {
+        if (key == PrefConstants.PERCENT_START || key == PrefConstants.PERCENT_MAX || key == PrefConstants.SPLIT_LIST) {
             needsToRestart = true
         }
     }
@@ -211,9 +211,10 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             split = splitText.toInt()
         }
 
-        //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not
+        editor?.putBoolean(PrefConstants.DID_SPLIT, willSplit)    //saves whether they will split or not
+        editor?.apply()
 
-        val calcFields = CalcFields(cost, percent, split, shared?.getString(MiscUtil.LAST_ACTION, MiscUtil.TIP) ?: "")
+        val calcFields = CalcFields(cost, percent, split, shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP) ?: "")
         return PercentCalculator(this).calculate(calcFields, getString(R.string.money_separator))
     }
 
@@ -223,18 +224,18 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     private fun makeResultsText(results: CalcResults) {
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
-        when (shared?.getString(PrefKeys.SPLIT_LIST, "Split tip")) {
-            "Split total" -> {
+        when (shared?.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)) {
+            PrefConstants.SPLIT_TIP -> {
+                willSplitTip = true
+                willSplitTotal = false
+            }
+            PrefConstants.SPLIT_TOTAL -> {
                 willSplitTip = false
                 willSplitTotal = true
             }
-            "Split both" -> {
+            else -> {   //split both
                 willSplitTip = true
                 willSplitTotal = true
-            }
-            else -> {
-                willSplitTip = true
-                willSplitTotal = false
             }
         }
 
@@ -243,14 +244,14 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         // portrait setup
         if (!MiscUtil.isLandscape(this)) {
             var text = ""
-            if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
+            if (shared?.getString(PrefConstants.LAST_ACTION, "") == PrefConstants.DISCOUNT) {
+                text = "Discount: " + getString(R.string.money_sign) + results.percent + spacing
+            } else {
                 text = "Tip: " + getString(R.string.money_sign) + results.percent + spacing
 
                 if (willSplit && didEnterSplit(false) && willSplitTip) {    //if split was clicked, number is entered, and split tip is selected in prefs
                     text += "Each tips: " + getString(R.string.money_sign) + results.eachTip + spacing    //adds the split tip part of the text
                 }
-            } else {
-                text = "Discount: " + getString(R.string.money_sign) + results.percent + spacing
             }
 
             if (willTax) {    //makes the tax part of the text
@@ -270,7 +271,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             var text2 = ""
 
             if (!willSplit || !didEnterSplit(false)) {    //if not splitting, use both sides
-                text1 = if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
+                text1 = if (shared?.getString(PrefConstants.LAST_ACTION, "") == PrefConstants.TIP) {
                     "Tip: " + getString(R.string.money_sign) + results.percent
                 } else {
                     "Discount: " + getString(R.string.money_sign) + results.percent
@@ -282,7 +283,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
                 text2 = "Final cost: " + getString(R.string.money_sign) + results.total    //makes the cost total part of the text
             } else {    //otherwise, splits are on right
-                text1 = if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
+                text1 = if (shared?.getString(PrefConstants.LAST_ACTION, "") == PrefConstants.TIP) {
                     "Tip: " + getString(R.string.money_sign) + results.percent + spacing
                 } else {
                     "Discount: " + getString(R.string.money_sign) + results.percent + spacing
@@ -314,9 +315,8 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
         willSplit = false
         if (didEnterValues()) {
-            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.TIP)
-            val result = processValues()
-            makeResultsText(result)
+            editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.TIP)
+            makeResultsText(processValues())
         }
     }
 
@@ -327,9 +327,8 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
         willSplit = false
         if (didEnterValues()) {
-            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.DISCOUNT)
-            val result = processValues()
-            makeResultsText(result)
+            editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.DISCOUNT)
+            makeResultsText(processValues())
         }
     }
 
@@ -340,9 +339,8 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
         willSplit = true
         if (didEnterSplit(true) && didEnterValues()) {
-            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.SPLIT)
-            val result = processValues()
-            makeResultsText(result)
+            editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.SPLIT)
+            makeResultsText(processValues())
         }
     }
 
@@ -383,10 +381,10 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             didJustUpdate = true
 
             //performs last action, default = tip
-            when (shared?.getString(PrefKeys.LAST_ACTION, "tip")) {
-                "discount" -> discount(findViewById(R.id.discount))
-                "split" -> split(findViewById(R.id.split))
-                else -> tip(findViewById(R.id.tip))
+            when (shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP)) {
+                PrefConstants.TIP -> tip(findViewById(R.id.tip))
+                PrefConstants.DISCOUNT -> discount(findViewById(R.id.discount))
+                else -> split(findViewById(R.id.split))
             }
         }
     }
@@ -511,8 +509,8 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Makes some changes on Lollipop
      */
     override fun applyTheme() {
-        themeChoice = shared?.getString(PrefKeys.THEME_LIST, "Light")
-        colorChoice = shared?.getString(PrefKeys.COLOR_LIST, "Green")
+        themeChoice = shared?.getString(PrefConstants.THEME_LIST, "Light")
+        colorChoice = shared?.getString(PrefConstants.COLOR_LIST, "Green")
 
         if (colorChoice == "Dynamic") {
             when (themeChoice) {

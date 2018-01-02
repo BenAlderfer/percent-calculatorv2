@@ -10,6 +10,7 @@ import android.preference.PreferenceManager
 
 import com.alderferstudios.percentcalculatorv2.activity.CombinedActivity
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity
+import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 
 /**
  * Launcher, determines which activity to launch and does it
@@ -38,10 +39,10 @@ class Launcher : Activity() {
         editor = shared.edit()
 
         saveScreenSize()
-        editor?.putBoolean("didJustGoBack", false)    //used later to determine animations
+        editor?.putBoolean(PrefConstants.DID_JUST_GO_BACK, false)    //used later to determine animations
         editor?.apply()
 
-        val firstActivity = if (shared.getBoolean("combinedBox", false)) {
+        val firstActivity = if (shared.getBoolean(PrefConstants.COMBINED_BOX, false)) {
             Intent(this, CombinedActivity::class.java)
         } else {
             Intent(this, OneItemActivity::class.java)
@@ -54,8 +55,8 @@ class Launcher : Activity() {
      * Gets the screen size and saves it for later
      */
     private fun saveScreenSize() {
-        editor?.putString("screenSize",
-                if (isTablet(this)) "tablet"
-                else "phone")
+        editor?.putString(PrefConstants.SCREEN_SIZE,
+                if (isTablet(this)) PrefConstants.TABLET
+                else PrefConstants.PHONE)
     }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import com.alderferstudios.percentcalculatorv2.R
-import com.alderferstudios.percentcalculatorv2.util.PrefKeys
+import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 
 /**
  * pop up for choosing the split mode
@@ -48,7 +48,7 @@ class SplitPopUp : BasePopUpPreference() {
          */
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
             when (key) {
-                PrefKeys.SPLIT_LIST -> setSplitSummary()
+                PrefConstants.SPLIT_LIST -> setSplitSummary()
             }
         }
 
@@ -57,9 +57,9 @@ class SplitPopUp : BasePopUpPreference() {
          */
         private fun setSplitSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference(PrefKeys.SPLIT_LIST)
+                val p = findPreference(PrefConstants.SPLIT_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.splitDesc, shared.getString(PrefKeys.SPLIT_LIST, "Split tip")))
+                    p.summary = (resources.getString(R.string.splitDesc, shared.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)))
                 }
             }
         }

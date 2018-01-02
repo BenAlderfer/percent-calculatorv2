@@ -11,39 +11,39 @@
         <EditTextPreference
             android:defaultValue="0"
             android:inputType="number"
-            android:key="percentStart"
+            android:key="percent_start"
             android:summary="@string/percentStartDesc"
             android:title="@string/percentStartLabel" />
 
         <EditTextPreference
             android:defaultValue="30"
             android:inputType="number"
-            android:key="percentMax"
+            android:key="percent_max"
             android:summary="@string/percentLimitDesc"
             android:title="@string/percentLimitLabel" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="taxBox"
+            android:key="tax_box"
             android:summary="@string/disabledTaxDesc"
             android:title="@string/toggleTaxLabel" />
 
         <EditTextPreference
             android:defaultValue="6"
             android:inputType="numberDecimal"
-            android:key="taxInput"
+            android:key="tax_input"
             android:summary="@string/taxDesc"
             android:title="@string/taxLabel" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="afterBox"
+            android:key="after_box"
             android:summary="@string/disabledAfterTaxDesc"
             android:title="@string/afterTaxLabel" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="saveBox"
+            android:key="save_box"
             android:summary="@string/disabledSaveDesc"
             android:title="@string/saveLabel" />
 
@@ -51,7 +51,7 @@
             android:defaultValue="Split tip"
             android:entries="@array/splitOptions"
             android:entryValues="@array/splitValues"
-            android:key="splitList"
+            android:key="split_list"
             android:summary="@string/splitDesc"
             android:title="@string/splitLabel" />
 
@@ -63,7 +63,7 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="combinedBox"
+            android:key="combined_box"
             android:summary="@string/disabledCombinedDesc"
             android:title="@string/combinedLabel" />
 
@@ -71,7 +71,7 @@
             android:defaultValue="Light"
             android:entries="@array/themeOptions"
             android:entryValues="@array/themeValues"
-            android:key="themeList"
+            android:key="theme_list"
             android:summary="@string/themeDesc"
             android:title="@string/themeLabel" />
 
@@ -79,7 +79,7 @@
             android:defaultValue="Green"
             android:entries="@array/colorOptions"
             android:entryValues="@array/colorValues"
-            android:key="colorList"
+            android:key="color_list"
             android:summary="@string/colorDesc"
             android:title="@string/colorLabel" />
 

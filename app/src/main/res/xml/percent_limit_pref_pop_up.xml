@@ -5,14 +5,14 @@
     <EditTextPreference
         android:defaultValue="0"
         android:inputType="number"
-        android:key="percentStart"
+        android:key="percent_start"
         android:summary="@string/percentStartDesc"
         android:title="@string/percentStartLabel" />
 
     <EditTextPreference
         android:defaultValue="30"
         android:inputType="number"
-        android:key="percentMax"
+        android:key="percent_max"
         android:summary="@string/percentLimitDesc"
         android:title="@string/percentLimitLabel" />
 

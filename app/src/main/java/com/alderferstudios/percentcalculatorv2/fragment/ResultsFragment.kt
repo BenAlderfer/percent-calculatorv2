@@ -8,7 +8,7 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.util.CalcFields
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
-import com.alderferstudios.percentcalculatorv2.util.PrefKeys
+import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 import java.text.DecimalFormat
 
 /**
@@ -66,8 +66,8 @@ class ResultsFragment : BaseFragment() {
         val subtotal = decimalFormat.format(results.subtotal)
 
         var didAdd = false
-        if ((activity as BaseActivity).shared?.getString(PrefKeys.BUTTON, null) != null) {
-            didAdd = (activity as BaseActivity).shared?.getString(PrefKeys.BUTTON, null).equals("add")
+        if ((activity as BaseActivity).shared?.getString(PrefConstants.BUTTON, null) != null) {
+            didAdd = (activity as BaseActivity).shared?.getString(PrefConstants.BUTTON, null).equals("add")
         }
 
         /**
@@ -81,22 +81,22 @@ class ResultsFragment : BaseFragment() {
             String.format("%n%n")    //extra space in landscape
         }
 
-        val didSplit = (activity as BaseActivity).shared?.getBoolean(PrefKeys.DID_SPLIT, false)
+        val didSplit = (activity as BaseActivity).shared?.getBoolean(PrefConstants.DID_SPLIT, false)
 
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
-        when ((activity as BaseActivity).shared?.getString(PrefKeys.SPLIT_LIST, "Split tip")) {
-            "Split total" -> {
+        when ((activity as BaseActivity).shared?.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)) {
+            PrefConstants.SPLIT_TIP -> {
+                willSplitTip = true
+                willSplitTotal = false
+            }
+            PrefConstants.SPLIT_TOTAL -> {
                 willSplitTip = false
                 willSplitTotal = true
             }
-            "Split both" -> {
+            else -> {   //split both
                 willSplitTip = true
                 willSplitTotal = true
-            }
-            else -> {
-                willSplitTip = true
-                willSplitTotal = false
             }
         }
 
@@ -120,8 +120,8 @@ class ResultsFragment : BaseFragment() {
          */
         val resultsView = activity?.findViewById<TextView>(R.id.results)    //where results are displayed
         spacing = String.format("%n")
-        val willTaxFirst = (activity as BaseActivity).shared?.getBoolean("afterBox", false)    //if the tax will be added before or after the tip is calculated
-        val willTax = (activity as BaseActivity).shared?.getBoolean("taxBox", false)    //if the tax will be added
+        val willTaxFirst = (activity as BaseActivity).shared?.getBoolean(PrefConstants.AFTER_BOX, false)    //if the tax will be added before or after the tip is calculated
+        val willTax = (activity as BaseActivity).shared?.getBoolean(PrefConstants.TAX_BOX, false)    //if the tax will be added
 
         var resultsText = String.format("The original cost is: " + getString(R.string.money_sign) + cost + spacing)    //adds cost
 

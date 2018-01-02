@@ -19,8 +19,8 @@ class PercentCalculator(c: Context) {
         var taxNum = 0.00
         var total = fields.cost
 
-        val willTaxFirst = shared.getBoolean("afterBox", false)    //if the tax will be added before or after the tip is calculated
-        val willTax = shared.getBoolean("taxBox", false)    //if the tax will be added
+        val willTaxFirst = shared.getBoolean(PrefConstants.AFTER_BOX, false)    //if the tax will be added before or after the tip is calculated
+        val willTax = shared.getBoolean(PrefConstants.TAX_BOX, false)    //if the tax will be added
 
         if (willTax && willTaxFirst) {    //tax comes before the tip, NOT the standard
             taxNum = getTax(fields.cost)
@@ -30,21 +30,21 @@ class PercentCalculator(c: Context) {
 
         val percentNum = roundDouble(total * (fields.percent / 100.0))
 
-        if (fields.button == MiscUtil.TIP) {
-            total = roundDouble(total + percentNum)
-
-            if (willTax && !willTaxFirst) { //tax comes after the tip
-                results.subtotal = total
-                taxNum = getTax(fields.cost)
-                total += taxNum //only original cost is taxed, tip is not taxed
-            }
-        } else {    //discount
+        if (fields.button == PrefConstants.DISCOUNT) {    //discount
             total = roundDouble(total - percentNum)
 
             if (willTax && !willTaxFirst) { //if will tax and tax comes after the discount
                 results.subtotal = total
                 taxNum = getTax(total)
                 total += taxNum    //tax is applied to discounted cost, not original
+            }
+        } else {
+            total = roundDouble(total + percentNum)
+
+            if (willTax && !willTaxFirst) { //tax comes after the tip
+                results.subtotal = total
+                taxNum = getTax(fields.cost)
+                total += taxNum //only original cost is taxed, tip is not taxed
             }
         }
 
@@ -57,21 +57,21 @@ class PercentCalculator(c: Context) {
 
         var eachTip = percentAmount //if only 1 person, they pay all tip
         var eachTotal = results.total   //if only 1 person, they pay all total
-        val didSplit = shared.getBoolean("didSplit", false)
+        val didSplit = shared.getBoolean(PrefConstants.DID_SPLIT, false)
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
-        when (shared.getString(PrefKeys.SPLIT_LIST, "Split tip")) {
-            "Split total" -> {
+        when (shared.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)) {
+            PrefConstants.SPLIT_TIP -> {
+                willSplitTip = true
+                willSplitTotal = false
+            }
+            PrefConstants.SPLIT_TOTAL -> {
                 willSplitTip = false
                 willSplitTotal = true
             }
-            "Split both" -> {
+            else -> {   //split both
                 willSplitTip = true
                 willSplitTotal = true
-            }
-            else -> {
-                willSplitTip = true
-                willSplitTotal = false
             }
         }
         if (didSplit) {
@@ -97,7 +97,7 @@ class PercentCalculator(c: Context) {
      * @return the total + the tax
      */
     private fun getTax(price: Double): Double {
-        val tax = shared.getString(PrefKeys.TAX_INPUT, "6.00").toDouble()
+        val tax = shared.getString(PrefConstants.TAX_INPUT, "6.00").toDouble()
         return tax / 100.0 * price
     }
 
