@@ -8,6 +8,7 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.util.CalcFields
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
+import com.alderferstudios.percentcalculatorv2.util.PrefKeys
 import java.text.DecimalFormat
 
 /**
@@ -65,8 +66,8 @@ class ResultsFragment : BaseFragment() {
         val subtotal = decimalFormat.format(results.subtotal)
 
         var didAdd = false
-        if ((activity as BaseActivity).shared?.getString("button", null) != null) {
-            didAdd = (activity as BaseActivity).shared?.getString("button", null).equals("add")
+        if ((activity as BaseActivity).shared?.getString(PrefKeys.BUTTON, null) != null) {
+            didAdd = (activity as BaseActivity).shared?.getString(PrefKeys.BUTTON, null).equals("add")
         }
 
         /**
@@ -80,11 +81,11 @@ class ResultsFragment : BaseFragment() {
             String.format("%n%n")    //extra space in landscape
         }
 
-        val didSplit = (activity as BaseActivity).shared?.getBoolean("didSplit", false)
+        val didSplit = (activity as BaseActivity).shared?.getBoolean(PrefKeys.DID_SPLIT, false)
 
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
-        when ((activity as BaseActivity).shared?.getString("splitList", "Split tip")) {
+        when ((activity as BaseActivity).shared?.getString(PrefKeys.SPLIT_LIST, "Split tip")) {
             "Split total" -> {
                 willSplitTip = false
                 willSplitTotal = true

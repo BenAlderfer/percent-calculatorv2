@@ -9,6 +9,7 @@ import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity.Companion.editor
 import com.alderferstudios.percentcalculatorv2.activity.OneItemActivity.Companion.shared
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
+import com.alderferstudios.percentcalculatorv2.util.PrefKeys
 
 /**
  * Settings screen
@@ -27,8 +28,8 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             e.printStackTrace()
         }
 
-        needsActRestart = shared?.getBoolean("needsActRestart", false) == true
-        needsFullRestart = shared?.getBoolean("needsFullRestart", false) == true
+        needsActRestart = shared?.getBoolean(PrefKeys.NEEDS_ACTIVITY_RESTART, false) == true
+        needsFullRestart = shared?.getBoolean(PrefKeys.NEEDS_FULL_RESTART, false) == true
 
         if (MiscUtil.isLandscape(this)) {
             /* getFragmentManager().beginTransaction()
@@ -57,17 +58,17 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
      * @param key the name of the pref
      */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == "themeList" || key == "colorList") {
+        if (key == PrefKeys.THEME_LIST || key == PrefKeys.COLOR_LIST) {
             onRestart()
         }
 
-        if (key == "percentInput") {    //removes leading zeros and puts it back, remakes edit for use later
-            editor?.putString("percentInput", removeLeadingZeroes(shared?.getString("percentInput", "") ?: ""))
+        if (key == PrefKeys.PERCENT_INPUT) {    //removes leading zeros and puts it back, remakes edit for use later
+            editor?.putString(PrefKeys.PERCENT_INPUT, removeLeadingZeroes(shared?.getString(PrefKeys.PERCENT_INPUT, "") ?: ""))
             editor?.apply()
         }
 
-        if (key == "taxInput") {    //removes leading zeros and puts it back, remakes edit for use later
-            editor?.putString("taxInput", removeLeadingZeroes(shared?.getString("taxInput", "") ?: ""))
+        if (key == PrefKeys.TAX_INPUT) {    //removes leading zeros and puts it back, remakes edit for use later
+            editor?.putString(PrefKeys.TAX_INPUT, removeLeadingZeroes(shared?.getString(PrefKeys.TAX_INPUT, "") ?: ""))
             editor?.apply()
         }
     }
@@ -78,8 +79,8 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
      * Makes some changes on Lollipop
      */
     override fun applyTheme() {
-        themeChoice = shared?.getString("themeList", "Light")
-        colorChoice = shared?.getString("colorList", "Green")
+        themeChoice = shared?.getString(PrefKeys.THEME_LIST, "Light")
+        colorChoice = shared?.getString(PrefKeys.COLOR_LIST, "Green")
 
         if (colorChoice == "Dynamic") {
             when (themeChoice) {
@@ -108,8 +109,8 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
     }
 
     override fun onRestart() {
-        editor?.putBoolean("needsActRestart", needsActRestart)    //saves variables in case it needs to restart for color/theme change
-        editor?.putBoolean("needsFullRestart", needsFullRestart)
+        editor?.putBoolean(PrefKeys.NEEDS_ACTIVITY_RESTART, needsActRestart)    //saves variables in case it needs to restart for color/theme change
+        editor?.putBoolean(PrefKeys.NEEDS_FULL_RESTART, needsFullRestart)
         editor?.apply()
 
         super.onRestart()
@@ -138,22 +139,22 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
             when (key) {
-                "percentStart" -> setPercentStartSummary()
-                "percentMax" -> setPercentMaxSummary()
-                "taxBox" -> setTaxBoxSummary()
-                "taxInput" -> setTaxSummary()
-                "afterBox" -> setAfterBoxSummary()
-                "saveBox" -> {
+                PrefKeys.PERCENT_START -> setPercentStartSummary()
+                PrefKeys.PERCENT_MAX -> setPercentMaxSummary()
+                PrefKeys.TAX_BOX -> setTaxBoxSummary()
+                PrefKeys.TAX_INPUT -> setTaxSummary()
+                PrefKeys.AFTER_BOX -> setAfterBoxSummary()
+                PrefKeys.SAVE_BOX -> {
                     setSaveBoxSummary()
                     needsActRestart = true
                 }
-                "splitList" -> setSplitSummary()
-                "combinedBox" -> {
+                PrefKeys.SPLIT_LIST -> setSplitSummary()
+                PrefKeys.COMBINED_BOX -> {
                     setCombinedBoxSummary()
                     needsFullRestart = true
                 }
-                "themeList" -> setThemeListSummary()
-                "colorList" -> setColorListSummary()
+                PrefKeys.THEME_LIST -> setThemeListSummary()
+                PrefKeys.COLOR_LIST -> setColorListSummary()
             }
         }
 
@@ -163,22 +164,22 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setPercentStartSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("percentStart")
+                val p = findPreference(PrefKeys.PERCENT_START)
                 if (p != null) {
-                    val percentStart = shared?.getString("percentStart", "0")
-                    val percentMax = shared?.getString("percentMax", "0")
+                    val percentStart = shared?.getString(PrefKeys.PERCENT_START, "0")
+                    val percentMax = shared?.getString(PrefKeys.PERCENT_MAX, "0")
                     if (percentStart == null || percentMax == null) {
                         return
                     }
                     when {
-                        percentStart == "" -> MiscUtil.showToast(activity, "The start percent was not input correctly")
+                        percentStart == "" -> MiscUtil.showToast(activity, getString(R.string.start_percent_incorrect))
                         Integer.parseInt(percentStart) >= Integer.parseInt(percentMax) -> {
-                            MiscUtil.showToast(activity, "The start percent cannot be more than the max percent")
+                            MiscUtil.showToast(activity, getString(R.string.start_greater_than_max))
                             var newPercentStart = Integer.parseInt(percentMax) - 1
                                 if (newPercentStart < 0) {    //percent start cannot be below 0
                                 newPercentStart = 0
                             }
-                            editor?.putString("percentStart", newPercentStart.toString())
+                            editor?.putString(PrefKeys.PERCENT_START, newPercentStart.toString())
                             editor?.apply()
                         }
                         else -> p.summary = (resources.getString(R.string.percentStartDesc, percentStart))
@@ -193,22 +194,22 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setPercentMaxSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("percentMax")
+                val p = findPreference(PrefKeys.PERCENT_MAX)
                 if (p != null) {
-                    val percentStart = shared?.getString("percentStart", "0")
-                    val percentMax = shared?.getString("percentMax", "0")
+                    val percentStart = shared?.getString(PrefKeys.PERCENT_START, "0")
+                    val percentMax = shared?.getString(PrefKeys.PERCENT_MAX, "0")
                     if (percentStart == null || percentMax == null) {
                         return
                     }
                     when {
-                        percentStart == "" -> MiscUtil.showToast(activity, "The max percent was not input correctly")
+                        percentStart == "" -> MiscUtil.showToast(activity, getString(R.string.max_percent_incorrect))
                         Integer.parseInt(percentMax) <= Integer.parseInt(percentStart) -> {
-                            MiscUtil.showToast(activity, "The max percent cannot be less than the start percent")
+                            MiscUtil.showToast(activity, getString(R.string.max_less_than_start))
                             var newPercentMax = Integer.parseInt(percentStart) + 1
                             if (newPercentMax < 1) {    //percent max cannot be below 1
                                 newPercentMax = 1
                             }
-                            editor?.putString("percentMax", newPercentMax.toString())
+                            editor?.putString(PrefKeys.PERCENT_MAX, newPercentMax.toString())
                             editor?.apply()
                         }
                         else -> p.summary = (resources.getString(R.string.percentLimitDesc, percentMax))
@@ -222,9 +223,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setTaxBoxSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("taxBox")
+                val p = findPreference(PrefKeys.TAX_BOX)
                 if (p != null) {
-                    if (shared?.getBoolean("taxBox", false) == true) {
+                    if (shared?.getBoolean(PrefKeys.TAX_BOX, false) == true) {
                         p.setSummary(R.string.enabledTaxDesc)
                     } else {
                         p.setSummary(R.string.disabledTaxDesc)
@@ -239,10 +240,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setTaxSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("taxInput")
+                val p = findPreference(PrefKeys.TAX_INPUT)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.taxDesc)
-                            + " " + shared?.getString("taxInput", "6") + "%")
+                    p.summary = (resources.getString(R.string.taxDesc, shared?.getString(PrefKeys.TAX_INPUT, "6")))
                 }
             }
         }
@@ -252,9 +252,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setAfterBoxSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("afterBox")
+                val p = findPreference(PrefKeys.AFTER_BOX)
                 if (p != null) {
-                    if (shared?.getBoolean("afterBox", false) == true) {
+                    if (shared?.getBoolean(PrefKeys.AFTER_BOX, false) == true) {
                         p.setSummary(R.string.enabledAfterTaxDesc)
                     } else {
                         p.setSummary(R.string.disabledAfterTaxDesc)
@@ -268,9 +268,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setSaveBoxSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("saveBox")
+                val p = findPreference(PrefKeys.SAVE_BOX)
                 if (p != null) {
-                    if (shared?.getBoolean("saveBox", false) == true) {
+                    if (shared?.getBoolean(PrefKeys.SAVE_BOX, false) == true) {
                         p.setSummary(R.string.enabledSaveDesc)
                     } else {
                         p.setSummary(R.string.disabledSaveDesc)
@@ -284,10 +284,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setSplitSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("splitList")
+                val p = findPreference(PrefKeys.SPLIT_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.splitDesc)
-                            + " " + shared?.getString("splitList", "Split tip"))
+                    p.summary = (resources.getString(R.string.splitDesc, shared?.getString(PrefKeys.SPLIT_LIST, "Split tip")))
                 }
             }
         }
@@ -297,9 +296,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setCombinedBoxSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("combinedBox")
+                val p = findPreference(PrefKeys.COMBINED_BOX)
                 if (p != null) {
-                    if (shared?.getBoolean("combinedBox", false) == true) {
+                    if (shared?.getBoolean(PrefKeys.COMBINED_BOX, false) == true) {
                         p.setSummary(R.string.enabledCombinedDesc)
                     } else {
                         p.setSummary(R.string.disabledCombinedDesc)
@@ -314,10 +313,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setThemeListSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("themeList")
+                val p = findPreference(PrefKeys.THEME_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.themeDesc)
-                            + " " + shared?.getString("themeList", "Light"))
+                    p.summary = (resources.getString(R.string.themeDesc, shared?.getString(PrefKeys.THEME_LIST, "Light")))
                 }
             }
         }
@@ -329,10 +327,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         protected fun setColorListSummary() {
             if (isAdded) {    //must check if the fragment is added to the activity
-                val p = findPreference("colorList")
+                val p = findPreference(PrefKeys.COLOR_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.colorDesc)
-                            + " " + shared?.getString("colorList", "Dynamic"))
+                    p.summary = (resources.getString(R.string.colorDesc, shared?.getString(PrefKeys.COLOR_LIST, "Dynamic")))
                 }
             }
         }
@@ -386,12 +383,12 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
          */
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
             when (key) {
-                "percentStart" -> setPercentStartSummary()
-                "percentMax" -> setPercentMaxSummary()
-                "taxBox" -> setTaxBoxSummary()
-                "taxInput" -> setTaxSummary()
-                "afterBox" -> setAfterBoxSummary()
-                "saveBox" -> {
+                PrefKeys.PERCENT_START -> setPercentStartSummary()
+                PrefKeys.PERCENT_MAX -> setPercentMaxSummary()
+                PrefKeys.TAX_BOX -> setTaxBoxSummary()
+                PrefKeys.TAX_INPUT -> setTaxSummary()
+                PrefKeys.AFTER_BOX -> setAfterBoxSummary()
+                PrefKeys.SAVE_BOX -> {
                     setSaveBoxSummary()
                     needsActRestart = true
                 }
@@ -462,13 +459,13 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
             when (key) {
-                "splitList" -> setSplitSummary()
-                "combinedBox" -> {
+                PrefKeys.SPLIT_LIST -> setSplitSummary()
+                PrefKeys.COMBINED_BOX -> {
                     setCombinedBoxSummary()
                     needsFullRestart = true
                 }
-                "themeList" -> setThemeListSummary()
-                "colorList" -> setColorListSummary()
+                PrefKeys.THEME_LIST -> setThemeListSummary()
+                PrefKeys.COLOR_LIST -> setColorListSummary()
             }
         }
     }

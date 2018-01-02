@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.SeekBar
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
+import com.alderferstudios.percentcalculatorv2.util.PrefKeys
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
 
 /**
@@ -98,7 +99,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private fun applyPrefs() {
         var percentStart = 0
         try {
-            percentStart = Integer.parseInt((activity as BaseActivity).shared?.getString("percentStart", "0"))
+            percentStart = Integer.parseInt((activity as BaseActivity).shared?.getString(PrefKeys.PERCENT_START, "0"))
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get start percent")
             e.printStackTrace()
@@ -106,7 +107,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
         var percentMax = 30
         try {
-            percentMax = Integer.parseInt((activity as BaseActivity).shared?.getString("percentMax", "30"))
+            percentMax = Integer.parseInt((activity as BaseActivity).shared?.getString(PrefKeys.PERCENT_MAX, "30"))
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get max percent")
             e.printStackTrace()

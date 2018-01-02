@@ -18,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
+import com.alderferstudios.percentcalculatorv2.util.PrefKeys
 
 /**
  * Main activity for 1 item at a time
@@ -138,7 +139,7 @@ class OneItemActivity : BaseCalcActivity() {
     override fun applyTheme() {
         themeChoice = "Light"
         try {
-            themeChoice = shared?.getString("themeList", "Light")
+            themeChoice = shared?.getString(PrefKeys.THEME_LIST, "Light")
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get theme")
             e.printStackTrace()
@@ -146,7 +147,7 @@ class OneItemActivity : BaseCalcActivity() {
 
         colorChoice = "Green"
         try {
-            colorChoice = shared?.getString("colorList", "Green")
+            colorChoice = shared?.getString(PrefKeys.COLOR_LIST, "Green")
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get color")
             e.printStackTrace()

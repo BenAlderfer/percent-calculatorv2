@@ -89,7 +89,7 @@
     <string name="disabledTaxDesc">Tax is not being added</string>
 
     <string name="taxLabel">Tax %:</string>
-    <string name="taxDesc">The tax is:</string>
+    <string name="taxDesc">The tax is: %1$s\%</string>
 
     <string name="afterTaxLabel">Calculate after tax?</string>
     <string name="enabledAfterTaxDesc">The amount is being calculated after the tax is added</string>
@@ -100,18 +100,27 @@
     <string name="disabledSaveDesc">The values are not being saved</string>
 
     <string name="splitLabel">Split Options</string>
-    <string name="splitDesc">The split preference is:</string>
+    <string name="splitDesc">The split preference is: %1$s</string>
 
     <string name="combinedLabel">Combine Screens?</string>
     <string name="enabledCombinedDesc">Everything is on one screen</string>
     <string name="disabledCombinedDesc">Everything is spread over multiple screens</string>
 
     <string name="themeLabel">Theme</string>
-    <string name="themeDesc">The theme is:</string>
+    <string name="themeDesc">The theme is: %1$s</string>
 
     <string name="colorLabel">Color</string>
-    <string name="colorDesc">The color is:</string>
+    <string name="colorDesc">The color is: %1$s</string>
     <string name="title_activity_one_item">Percent Calculator</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- Error strings -->
+    <string name="cost_not_entered">The cost has not been entered</string>
+    <string name="percent_not_entered">The percent has not been entered</string>
+    <string name="split_not_entered">The split has not been entered</string>
+    <string name="one_person_split">One person cannot split the bill</string>
+    <string name="start_percent_incorrect">The start percent was not input correctly</string>
+    <string name="start_greater_than_max">The start percent cannot be more than the max percent</string>
+    <string name="max_percent_incorrect">The max percent was not input correctly</string>
+    <string name="max_less_than_start">The max percent cannot be less than the start percent</string>
 
 </resources>

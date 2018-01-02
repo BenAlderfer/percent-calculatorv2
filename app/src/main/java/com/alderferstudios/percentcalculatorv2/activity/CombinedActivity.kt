@@ -18,10 +18,7 @@ import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import com.alderferstudios.percentcalculatorv2.R
-import com.alderferstudios.percentcalculatorv2.util.CalcFields
-import com.alderferstudios.percentcalculatorv2.util.CalcResults
-import com.alderferstudios.percentcalculatorv2.util.MiscUtil
-import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
+import com.alderferstudios.percentcalculatorv2.util.*
 import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
 import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 
@@ -124,14 +121,14 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Applies preference settings
      */
     private fun applyPrefs() {
-        percentStart = Integer.parseInt(shared?.getString("percentStart", "0"))
-        percentMax = Integer.parseInt(shared?.getString("percentMax", "30"))
+        percentStart = Integer.parseInt(shared?.getString(PrefKeys.PERCENT_START, "0"))
+        percentMax = Integer.parseInt(shared?.getString(PrefKeys.PERCENT_MAX, "30"))
         if (bar?.max != percentMax) {   //refreshes the activity if the current max is not right
             bar?.max = percentMax - percentStart
         }
 
-        if (shared?.getString("button", "") == "") {    //if no button is currently saved, initializes it to be add
-            editor?.putString("button", "add")
+        if (shared?.getString(PrefKeys.BUTTON, "") == "") {    //if no button is currently saved, initializes it to be add
+            editor?.putString(PrefKeys.BUTTON, "add")
             editor?.apply()
         }
     }
@@ -142,7 +139,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * @param key the name of the pref
      */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == "percentStart" || key == "percentMax" || key == "splitList") {
+        if (key == PrefKeys.PERCENT_START || key == PrefKeys.PERCENT_MAX || key == PrefKeys.SPLIT_LIST) {
             needsToRestart = true
         }
     }
@@ -217,9 +214,8 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not
 
-        val pc = PercentCalculator(this)
         val calcFields = CalcFields(cost, percent, split, shared?.getString(MiscUtil.LAST_ACTION, MiscUtil.TIP) ?: "")
-        return pc.calculate(calcFields, getString(R.string.money_separator))
+        return PercentCalculator(this).calculate(calcFields, getString(R.string.money_separator))
     }
 
     /**
@@ -228,7 +224,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     private fun makeResultsText(results: CalcResults) {
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
-        when (shared?.getString("splitList", "Split tip")) {
+        when (shared?.getString(PrefKeys.SPLIT_LIST, "Split tip")) {
             "Split total" -> {
                 willSplitTip = false
                 willSplitTotal = true
@@ -247,7 +243,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
 
         // portrait setup
         if (!MiscUtil.isLandscape(this)) {
-var text = ""
+            var text = ""
             if (shared?.getString(MiscUtil.LAST_ACTION, "") == MiscUtil.TIP) {
                 text = "Tip: " + getString(R.string.money_sign) + results.percent + spacing
 
@@ -314,30 +310,28 @@ var text = ""
 
     /**
      * Checks for no input first
-     * Adds the percent
-     * Used for tip
+     * Adds the tip amount
      */
     override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
         willSplit = false
         if (didEnterValues()) {
             editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.TIP)
-            val results = processValues()
-            makeResultsText(results)
+            val result = processValues()
+            makeResultsText(result)
         }
     }
 
     /**
      * Checks for no input first
-     * Subtracts the percent
-     * Used for discount
+     * Subtracts the tip amount
      */
     override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
-//        willSplit = false
-//        if (didEnterValues()) {
-//            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.DISCOUNT)
-//            val results = processValues()
-//        makeResultsText(results)
-//        }
+        willSplit = false
+        if (didEnterValues()) {
+            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.DISCOUNT)
+            val result = processValues()
+            makeResultsText(result)
+        }
     }
 
     /**
@@ -345,12 +339,12 @@ var text = ""
      * Splits the tip
      */
     override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
-//        willSplit = true
-//        if (didEnterSplit(true) && didEnterValues()) {
-//            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.SPLIT)
-//            val results = processValues()
-//        makeResultsText(results)
-//        }
+        willSplit = true
+        if (didEnterSplit(true) && didEnterValues()) {
+            editor?.putString(MiscUtil.LAST_ACTION, MiscUtil.SPLIT)
+            val result = processValues()
+            makeResultsText(result)
+        }
     }
 
     /**
@@ -390,7 +384,7 @@ var text = ""
             didJustUpdate = true
 
             //performs last action, default = tip
-            when (shared?.getString("lastAction", "tip")) {
+            when (shared?.getString(PrefKeys.LAST_ACTION, "tip")) {
                 "discount" -> discount(findViewById(R.id.discount))
                 "split" -> split(findViewById(R.id.split))
                 else -> tip(findViewById(R.id.tip))
@@ -404,11 +398,11 @@ var text = ""
      */
     private fun didEnterValues(): Boolean {
         if (!costIsEntered()) {
-            MiscUtil.showToast(this, "The cost has not been entered")
+            MiscUtil.showToast(this, getString(R.string.cost_not_entered))
             costBox?.requestFocus()
             return false
-        } else if (!percentIsEntered()) {    //if the percent is untouched
-            MiscUtil.showToast(this, "The percent has not been entered")
+        } else if (!percentIsEntered()) {
+            MiscUtil.showToast(this, getString(R.string.percent_not_entered))
             return false
         } else if (willSplit) {
             return didEnterSplit(false)
@@ -425,12 +419,12 @@ var text = ""
     private fun didEnterSplit(willToast: Boolean): Boolean {
         if (splitIsEmpty()) {
             if (willToast) {
-                MiscUtil.showToast(this, "The split has not been entered")
+                MiscUtil.showToast(this, getString(R.string.split_not_entered))
             }
             return false
         } else if (splitIsOne()) {
             if (willToast) {
-                MiscUtil.showToast(this, "One person cannot split the bill")
+                MiscUtil.showToast(this, getString(R.string.one_person_split))
             }
             return false
         }
@@ -518,8 +512,8 @@ var text = ""
      * Makes some changes on Lollipop
      */
     override fun applyTheme() {
-        themeChoice = shared?.getString("themeList", "Light")
-        colorChoice = shared?.getString("colorList", "Green")
+        themeChoice = shared?.getString(PrefKeys.THEME_LIST, "Light")
+        colorChoice = shared?.getString(PrefKeys.COLOR_LIST, "Green")
 
         if (colorChoice == "Dynamic") {
             when (themeChoice) {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.alderferstudios.percentcalculatorv2.R
+import com.alderferstudios.percentcalculatorv2.util.PrefKeys
 
 /**
  * Like BaseActivity, but for preferences
@@ -16,8 +17,8 @@ abstract class BasePopUpPreference : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val shared = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        themeChoice = shared.getString("themeList", "Light")
-        colorChoice = shared.getString("colorList", "Dynamic")
+        themeChoice = shared.getString(PrefKeys.THEME_LIST, "Light")
+        colorChoice = shared.getString(PrefKeys.COLOR_LIST, "Dynamic")
         applyTheme()                                                                             //sets the theme based on the preference
     }
 

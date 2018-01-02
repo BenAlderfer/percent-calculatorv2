@@ -60,7 +60,7 @@ class PercentCalculator(c: Context) {
         val didSplit = shared.getBoolean("didSplit", false)
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
-        when (shared.getString("splitList", "Split tip")) {
+        when (shared.getString(PrefKeys.SPLIT_LIST, "Split tip")) {
             "Split total" -> {
                 willSplitTip = false
                 willSplitTotal = true
@@ -97,7 +97,7 @@ class PercentCalculator(c: Context) {
      * @return the total + the tax
      */
     private fun getTax(price: Double): Double {
-        val tax = java.lang.Double.parseDouble(shared.getString("taxInput", "6.00"))
+        val tax = java.lang.Double.parseDouble(shared.getString(PrefKeys.TAX_INPUT, "6.00"))
         return tax / 100.0 * price
     }
 

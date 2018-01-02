@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
+import com.alderferstudios.percentcalculatorv2.util.PrefKeys
 
 /**
  * Base class for all Activities
@@ -35,7 +36,7 @@ abstract class BaseActivity : AppCompatActivity() {
         applyTheme()    //sets the theme based on the preference
         changeLollipopIcon()    //changes the Lollipop overview icon
 
-        if (shared?.getString("screenSize", "phone") == "phone") {    //lock orientation if its a phone
+        if (shared?.getString(PrefKeys.SCREEN_SIZE, "phone") == "phone") {    //lock orientation if its a phone
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
     }
