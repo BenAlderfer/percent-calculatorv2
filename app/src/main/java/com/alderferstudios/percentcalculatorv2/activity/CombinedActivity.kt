@@ -377,14 +377,20 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Updates the results as the numbers are changed
      */
     private fun updateResultsWithChanges() {
-        if (fieldsAreCurrentlyFilled()) {    //if the info is already filled in, updates the results
+        if (fieldsAreFilled()) {    //if the info is already filled in, updates the results
             didJustUpdate = true
 
             //performs last action, default = tip
             when (shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP)) {
                 PrefConstants.TIP -> tip(findViewById(R.id.tip))
                 PrefConstants.DISCOUNT -> discount(findViewById(R.id.discount))
-                else -> split(findViewById(R.id.split))
+                else -> {   //only split if split is entered
+                    if (splitIsEmpty()) {
+                        tip(findViewById(R.id.tip))
+                    } else {
+                        split(findViewById(R.id.split))
+                    }
+                }
             }
         }
     }
@@ -434,7 +440,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Used to check for blank fields before auto-updating results
      * @return true if everything is filled in
      */
-    private fun fieldsAreCurrentlyFilled(): Boolean {
+    private fun fieldsAreFilled(): Boolean {
         if (!costIsEntered()) {    //false if cost is not entered
             return false
         } else if (!percentIsEntered()) {    //false if percent is not entered
