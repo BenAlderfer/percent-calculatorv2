@@ -182,7 +182,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                             editor?.putString(PrefConstants.PERCENT_START, newPercentStart.toString())
                             editor?.apply()
                         }
-                        else -> p.summary = resources.getString(R.string.percentStartDesc, percentStart)
+                        else -> p.summary = resources.getString(R.string.percentStartDesc, percentStart) + "%"
                     }
                 }
             }
@@ -212,7 +212,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                             editor?.putString(PrefConstants.PERCENT_MAX, newPercentMax.toString())
                             editor?.apply()
                         }
-                        else -> p.summary = resources.getString(R.string.percentLimitDesc, percentMax)
+                        else -> p.summary = resources.getString(R.string.percentLimitDesc, percentMax) + "%"
                     }
                 }
             }

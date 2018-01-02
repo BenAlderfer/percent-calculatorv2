@@ -78,7 +78,7 @@ class PercentLimitPopUp : BasePopUpPreference() {
                             editor.putString(PrefConstants.PERCENT_START, newPercentStart.toString() + "")
                             editor.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentStartDesc, shared.getString(PrefConstants.PERCENT_START, "0")))
+                        else -> p.summary = (resources.getString(R.string.percentStartDesc, shared.getString(PrefConstants.PERCENT_START, "0"))) + "%"
                     }
                 }
             }
@@ -105,7 +105,7 @@ class PercentLimitPopUp : BasePopUpPreference() {
                             editor.putString(PrefConstants.PERCENT_MAX, newPercentMax.toString() + "")
                             editor.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentLimitDesc, shared.getString(PrefConstants.PERCENT_MAX, "30")))
+                        else -> p.summary = (resources.getString(R.string.percentLimitDesc, shared.getString(PrefConstants.PERCENT_MAX, "30"))) + "%"
                     }
                 }
             }

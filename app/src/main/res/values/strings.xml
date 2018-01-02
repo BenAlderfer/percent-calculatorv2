@@ -79,10 +79,10 @@
     <string name="settingsText">Settings</string>
 
     <string name="percentStartLabel">Start percent:</string>
-    <string name="percentStartDesc">The starting percent is: %1$s\%</string>
+    <string name="percentStartDesc">The starting percent is: %1$s</string>
 
     <string name="percentLimitLabel">Max percent:</string>
-    <string name="percentLimitDesc">The max percent is: %1$s\%</string>
+    <string name="percentLimitDesc">The max percent is: %1$s</string>
 
     <string name="toggleTaxLabel">Enable tax?</string>
     <string name="enabledTaxDesc">Tax is being added</string>
