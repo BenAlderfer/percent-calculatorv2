@@ -89,7 +89,7 @@
     <string name="disabledTaxDesc">Tax is not being added</string>
 
     <string name="taxLabel">Tax %:</string>
-    <string name="taxDesc">The tax is: %1$s\%</string>
+    <string name="taxDesc">The tax is: %1$s</string>
 
     <string name="afterTaxLabel">Calculate after tax?</string>
     <string name="enabledAfterTaxDesc">The amount is being calculated after the tax is added</string>

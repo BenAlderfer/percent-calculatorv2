@@ -182,7 +182,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                             editor?.putString(PrefConstants.PERCENT_START, newPercentStart.toString())
                             editor?.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentStartDesc, percentStart))
+                        else -> p.summary = resources.getString(R.string.percentStartDesc, percentStart)
                     }
                 }
             }
@@ -212,7 +212,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                             editor?.putString(PrefConstants.PERCENT_MAX, newPercentMax.toString())
                             editor?.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentLimitDesc, percentMax))
+                        else -> p.summary = resources.getString(R.string.percentLimitDesc, percentMax)
                     }
                 }
             }
@@ -242,7 +242,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             if (isAdded) {    //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.TAX_INPUT)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.taxDesc, shared?.getString(PrefConstants.TAX_INPUT, "6")))
+                    p.summary = resources.getString(R.string.taxDesc, (shared?.getString(PrefConstants.TAX_INPUT, "6") ?: "6") + "%")
                 }
             }
         }
