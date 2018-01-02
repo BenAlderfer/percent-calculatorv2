@@ -173,9 +173,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                     }
                     when {
                         percentStart == "" -> MiscUtil.showToast(activity, getString(R.string.start_percent_incorrect))
-                        Integer.parseInt(percentStart) >= Integer.parseInt(percentMax) -> {
+                        percentStart.toInt() >= percentMax.toInt() -> {
                             MiscUtil.showToast(activity, getString(R.string.start_greater_than_max))
-                            var newPercentStart = Integer.parseInt(percentMax) - 1
+                            var newPercentStart = percentMax.toInt() - 1
                                 if (newPercentStart < 0) {    //percent start cannot be below 0
                                 newPercentStart = 0
                             }
@@ -203,9 +203,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                     }
                     when {
                         percentStart == "" -> MiscUtil.showToast(activity, getString(R.string.max_percent_incorrect))
-                        Integer.parseInt(percentMax) <= Integer.parseInt(percentStart) -> {
+                        percentMax.toInt() <= percentStart.toInt() -> {
                             MiscUtil.showToast(activity, getString(R.string.max_less_than_start))
-                            var newPercentMax = Integer.parseInt(percentStart) + 1
+                            var newPercentMax = percentStart.toInt() + 1
                             if (newPercentMax < 1) {    //percent max cannot be below 1
                                 newPercentMax = 1
                             }

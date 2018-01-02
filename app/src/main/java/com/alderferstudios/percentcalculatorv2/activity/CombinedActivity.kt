@@ -121,8 +121,8 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Applies preference settings
      */
     private fun applyPrefs() {
-        percentStart = Integer.parseInt(shared?.getString(PrefKeys.PERCENT_START, "0"))
-        percentMax = Integer.parseInt(shared?.getString(PrefKeys.PERCENT_MAX, "30"))
+        percentStart = shared?.getString(PrefKeys.PERCENT_START, "0")?.toInt() ?: 0
+        percentMax = shared?.getString(PrefKeys.PERCENT_MAX, "30")?.toInt() ?: 30
         if (bar?.max != percentMax) {   //refreshes the activity if the current max is not right
             bar?.max = percentMax - percentStart
         }
@@ -168,7 +168,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
                 if (percentage?.text.toString() == "") {
                     bar?.progress = 0
                 } else {
-                    bar?.progress = Integer.parseInt(percentage?.text.toString()) - percentStart
+                    bar?.progress = percentage?.text.toString().toInt() - percentStart
                 }
 
                 updateResultsWithChanges()    //updates the results text if possible as numbers change
@@ -203,12 +203,12 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         cost = PercentCalculator.roundDouble(costBox?.text.toString().toDouble())
 
         if (percent == 0) {    //if they didn't use the seekbar, the percent will be the default value
-            percent = Integer.parseInt(percentage?.text.toString())
+            percent = percentage?.text.toString().toInt()
         }
 
         val splitText = splitBox?.text.toString()
         if (splitText != "") {
-            split = Integer.parseInt(splitText)
+            split = splitText.toInt()
         }
 
         //editor.putBoolean("didSplit", willSplit);    //saves whether they will split or not

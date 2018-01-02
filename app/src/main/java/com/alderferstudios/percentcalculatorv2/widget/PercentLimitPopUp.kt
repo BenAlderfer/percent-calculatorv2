@@ -69,9 +69,9 @@ class PercentLimitPopUp : BasePopUpPreference() {
                     val percentMax = shared.getString(PrefKeys.PERCENT_MAX, "0")
                     when {
                         percentStart == "" -> Toast.makeText(activity, getString(R.string.start_percent_incorrect), Toast.LENGTH_SHORT).show()
-                        Integer.parseInt(percentStart) >= Integer.parseInt(percentMax) -> {
+                        percentStart.toInt() >= percentMax.toInt() -> {
                             Toast.makeText(activity, getString(R.string.start_greater_than_max), Toast.LENGTH_SHORT).show()
-                            var newPercentStart = Integer.parseInt(percentMax) - 1
+                            var newPercentStart = percentMax.toInt() - 1
                             if (newPercentStart < 0) {  //percent start cannot be below 0
                                 newPercentStart = 0
                             }
@@ -96,9 +96,9 @@ class PercentLimitPopUp : BasePopUpPreference() {
                     val percentMax = shared.getString(PrefKeys.PERCENT_MAX, "0")
                     when {
                         percentStart == "" -> Toast.makeText(activity, getString(R.string.max_percent_incorrect), Toast.LENGTH_SHORT).show()
-                        Integer.parseInt(percentMax) <= Integer.parseInt(percentStart) -> {
+                        percentMax.toInt() <= percentStart.toInt() -> {
                             Toast.makeText(activity, getString(R.string.max_less_than_start), Toast.LENGTH_SHORT).show()
-                            var newPercentMax = Integer.parseInt(percentStart) + 1
+                            var newPercentMax = percentStart.toInt() + 1
                             if (newPercentMax < 1) {    //percent max cannot be below 1
                                 newPercentMax = 1
                             }

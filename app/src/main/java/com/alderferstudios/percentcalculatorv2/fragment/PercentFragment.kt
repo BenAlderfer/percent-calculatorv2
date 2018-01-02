@@ -34,13 +34,13 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             override fun afterTextChanged(s: Editable) {
                 val percentText = percentage?.text.toString()
                 if (percentText != "" &&
-                        Integer.parseInt(percentText) <= percentMax &&
-                        Integer.parseInt(percentText) >= percentStart) {    //only update bar if its within the limits
+                        percentText.toInt() <= percentMax &&
+                        percentText.toInt() >= percentStart) {    //only update bar if its within the limits
 
                     if (percentText == "") {
                         bar?.progress = percentStart
                     } else {
-                        bar?.progress = Integer.parseInt(percentage?.text.toString()) - percentStart
+                        bar?.progress = percentage?.text.toString().toInt() - percentStart
                     }
 
                     percentage?.setSelection(percentage?.text?.length ?: 0)    //returns focus to end of text
@@ -99,7 +99,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     private fun applyPrefs() {
         var percentStart = 0
         try {
-            percentStart = Integer.parseInt((activity as BaseActivity).shared?.getString(PrefKeys.PERCENT_START, "0"))
+            percentStart = (activity as BaseActivity).shared?.getString(PrefKeys.PERCENT_START, "0")?.toInt() ?: 0
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get start percent")
             e.printStackTrace()
@@ -107,7 +107,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
         var percentMax = 30
         try {
-            percentMax = Integer.parseInt((activity as BaseActivity).shared?.getString(PrefKeys.PERCENT_MAX, "30"))
+            percentMax = (activity as BaseActivity).shared?.getString(PrefKeys.PERCENT_MAX, "30")?.toInt() ?: 30
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get max percent")
             e.printStackTrace()
@@ -147,11 +147,11 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 //            percentText = percentage?.text.toString()
 //        }
 //
-//        if (Integer.parseInt(percentText) > percentMax) {
+//        if (percentText.toInt() > percentMax) {
 //            percentage?.setText(percentMax)
 //            MiscUtil.showToast(activity as Context, "The percent cannot be greater than the max percent")
 //            return true
-//        } else if (Integer.parseInt(percentText) < percentStart) {
+//        } else if (percentText.toInt() < percentStart) {
 //            percentage?.setText(percentStart)
 //            MiscUtil.showToast(activity as Context, "The percent cannot be less than the start percent")
 //            return true
@@ -189,9 +189,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             percentText = percentage?.text.toString()
         }
 
-        if (Integer.parseInt(percentText) > percentMax) {
+        if (percentText.toInt() > percentMax) {
             percentage?.setText(percentMax)
-        } else if (Integer.parseInt(percentText) < percentStart) {
+        } else if (percentText.toInt() < percentStart) {
             percentage?.setText(percentStart)
         }
     }
