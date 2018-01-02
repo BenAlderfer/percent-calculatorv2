@@ -17,8 +17,6 @@ import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        shared = PreferenceManager.getDefaultSharedPreferences(this)
-
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_settings)
@@ -167,7 +165,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                 val p = findPreference(PrefConstants.PERCENT_START)
                 if (p != null) {
                     val percentStart = shared?.getString(PrefConstants.PERCENT_START, "0")
-                    val percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "0")
+                    val percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "30")
                     if (percentStart == null || percentMax == null) {
                         return
                     }
@@ -175,11 +173,11 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                         percentStart == "" -> MiscUtil.showToast(activity, getString(R.string.start_percent_incorrect))
                         percentStart.toInt() >= percentMax.toInt() -> {
                             MiscUtil.showToast(activity, getString(R.string.start_greater_than_max))
-                            var newPercentStart = percentMax.toInt() - 1
-                                if (newPercentStart < 0) {    //percent start cannot be below 0
-                                newPercentStart = 0
+                            if (percentMax.toInt() > 1) {
+                                editor?.putString(PrefConstants.PERCENT_START, (percentMax.toInt() - 1).toString())
+                            } else {
+                                editor?.putString(PrefConstants.PERCENT_START, "0")
                             }
-                            editor?.putString(PrefConstants.PERCENT_START, newPercentStart.toString())
                             editor?.apply()
                         }
                         else -> p.summary = resources.getString(R.string.percentStartDesc, percentStart) + "%"
@@ -197,7 +195,7 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                 val p = findPreference(PrefConstants.PERCENT_MAX)
                 if (p != null) {
                     val percentStart = shared?.getString(PrefConstants.PERCENT_START, "0")
-                    val percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "0")
+                    val percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "30")
                     if (percentStart == null || percentMax == null) {
                         return
                     }
@@ -205,11 +203,11 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
                         percentStart == "" -> MiscUtil.showToast(activity, getString(R.string.max_percent_incorrect))
                         percentMax.toInt() <= percentStart.toInt() -> {
                             MiscUtil.showToast(activity, getString(R.string.max_less_than_start))
-                            var newPercentMax = percentStart.toInt() + 1
-                            if (newPercentMax < 1) {    //percent max cannot be below 1
-                                newPercentMax = 1
+                            if (percentStart.toInt() > 0) {
+                                editor?.putString(PrefConstants.PERCENT_MAX, (percentStart.toInt() + 1).toString())
+                            } else {
+                                editor?.putString(PrefConstants.PERCENT_MAX, "1")
                             }
-                            editor?.putString(PrefConstants.PERCENT_MAX, newPercentMax.toString())
                             editor?.apply()
                         }
                         else -> p.summary = resources.getString(R.string.percentLimitDesc, percentMax) + "%"
@@ -286,7 +284,9 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             if (isAdded) {    //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.SPLIT_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.splitDesc, shared?.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)))
+                    p.summary = resources.getString(R.string.splitDesc,
+                            shared?.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)
+                                    ?: PrefConstants.SPLIT_TIP)
                 }
             }
         }
@@ -315,7 +315,8 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             if (isAdded) {    //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.THEME_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.themeDesc, shared?.getString(PrefConstants.THEME_LIST, "Light")))
+                    p.summary = resources.getString(R.string.themeDesc,
+                            shared?.getString(PrefConstants.THEME_LIST, "Light") ?: "Light")
                 }
             }
         }
@@ -329,7 +330,8 @@ class SettingsActivity : BaseActivity(), SharedPreferences.OnSharedPreferenceCha
             if (isAdded) {    //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.COLOR_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.colorDesc, shared?.getString(PrefConstants.COLOR_LIST, "Dynamic")))
+                    p.summary = resources.getString(R.string.colorDesc,
+                            shared?.getString(PrefConstants.COLOR_LIST, "Dynamic") ?: "Dynamic")
                 }
             }
         }

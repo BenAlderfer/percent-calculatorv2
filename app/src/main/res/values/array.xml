@@ -8,9 +8,9 @@
     </string-array>
 
     <string-array name="splitValues">
-        <item>split_tip</item>
-        <item>split_total</item>
-        <item>split_both</item>
+        <item>Split tip</item>
+        <item>Split total</item>
+        <item>Split both</item>
     </string-array>
 
     <string-array name="themeOptions">

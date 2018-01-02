@@ -25,9 +25,9 @@ class PrefConstants {
         val DISCOUNT = "discount"
         val SPLIT = "split"
 
-        val SPLIT_TIP = "split_tip"
-        val SPLIT_TOTAL = "split_total"
-        val SPLIT_BOTH = "split_both"
+        val SPLIT_TIP = "Split tip"
+        val SPLIT_TOTAL = "Split total"
+        val SPLIT_BOTH = "Split both"
 
         val TABLET = "tablet"
         val PHONE = "phone"
