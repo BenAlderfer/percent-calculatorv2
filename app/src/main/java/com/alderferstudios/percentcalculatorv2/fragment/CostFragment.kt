@@ -3,6 +3,7 @@ package com.alderferstudios.percentcalculatorv2.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.SettingsActivity
 
@@ -36,7 +37,8 @@ class CostFragment : BaseFragment() {
         }
 
     override fun fieldsAreValid(): Boolean {
-        return true
-        //TODO: fix functionality
+        val costBox = activity?.findViewById<EditText>(R.id.cost)
+        return costBox?.text.toString() != "" &&
+                costBox?.text.toString().toDouble() > 0.0
     }
 }

@@ -457,10 +457,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      */
     private fun costIsEntered(): Boolean {
         return costBox?.text.toString() != "" &&
-                costBox?.text.toString() != "0" &&
-                costBox?.text.toString() != "0.0" &&
-                costBox?.text.toString() != "0.00" &&
-                costBox?.text.toString() != "00.00"
+                costBox?.text.toString().toDouble() > 0.0
     }
 
     /**

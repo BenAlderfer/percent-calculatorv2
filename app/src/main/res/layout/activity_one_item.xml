@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.OneItemActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.alderferstudios.percentcalculatorv2.util.ValidatingViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

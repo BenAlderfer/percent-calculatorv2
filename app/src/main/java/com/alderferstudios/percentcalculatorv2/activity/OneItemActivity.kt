@@ -19,13 +19,15 @@ import android.view.View
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
 import com.alderferstudios.percentcalculatorv2.util.PrefConstants
+import android.support.v4.view.ViewPager.OnPageChangeListener
+
+
 
 /**
  * Main activity for 1 item at a time
  */
 class OneItemActivity : BaseCalcActivity() {
 
-    private val pageNum = 0
     private var viewPager: ViewPager? = null
     private var adapter: PagerAdapter? = null
 
@@ -38,11 +40,6 @@ class OneItemActivity : BaseCalcActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one_item)
-        try {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        } catch (e: NullPointerException) {
-            e.printStackTrace()
-        }
 
         if (!isTablet(this)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
@@ -55,6 +52,22 @@ class OneItemActivity : BaseCalcActivity() {
         viewPager = findViewById<View>(R.id.pager) as ViewPager
         adapter = PagerAdapter(supportFragmentManager)
         viewPager?.adapter = adapter
+
+        viewPager?.addOnPageChangeListener(object : OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                val showBack = (viewPager?.currentItem ?: 0) > 0
+                try {
+                    supportActionBar?.setDisplayHomeAsUpEnabled(showBack)
+                } catch (e: NullPointerException) {
+                    e.printStackTrace()
+                }
+
+                title = viewPager?.adapter?.getPageTitle(position)
+            }
+        })
     }
 
     /**
@@ -170,7 +183,7 @@ class OneItemActivity : BaseCalcActivity() {
      */
     override fun adjustButtons() {
         if (colorChoice == "Dynamic") {
-            when (pageNum) {
+            when (viewPager?.currentItem) {
                 0 -> for (b in buttons) {
                     b?.setBackgroundResource(R.drawable.btn_green)
                 }
@@ -191,17 +204,10 @@ class OneItemActivity : BaseCalcActivity() {
     /**
      * Custom FragmentPagerAdapter
      */
-    inner class PagerAdapter
-    /**
-     * Constructs the PagerAdapter
-     *
-     * @param fm the FragmentManager
-     */
-    (fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    inner class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         private val pages = arrayOfNulls<BaseFragment>(4)
 
         init {
-
             pages[0] = CostFragment()
             pages[1] = PercentFragment()
             pages[2] = SplitFragment()
@@ -216,6 +222,15 @@ class OneItemActivity : BaseCalcActivity() {
          */
         override fun getItem(position: Int): Fragment {
             return pages[position] ?: CostFragment()
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return when (position) {
+                0 -> getString(R.string.title_activity_cost)
+                1 -> getString(R.string.title_activity_percent)
+                2 -> getString(R.string.title_activity_split)
+                else -> getString(R.string.title_activity_results)
+            }
         }
 
         /**
