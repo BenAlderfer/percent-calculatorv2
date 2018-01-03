@@ -38,6 +38,7 @@
     <string name="subtractLabel">Discount</string>
     <string name="shortAddLabel">Add</string>
     <string name="shortSubtractLabel">Discount</string>
+    <string name="percentError">Select a percent</string>
 
     <!-- Split strings -->
     <string name="splitText">Split</string>

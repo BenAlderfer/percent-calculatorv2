@@ -22,6 +22,7 @@ class MiscUtil {
         /**
          * Checks if the device is in landscape
          *
+         * @param c the Context
          * @return true if in landscape
          */
         fun isLandscape(c: Context): Boolean {
@@ -31,7 +32,7 @@ class MiscUtil {
         /**
          * Checks if the device is a tablet
          *
-         * @param context the Context
+         * @param c the Context
          * @return true if device is a tablet
          */
         fun isTablet(c: Context): Boolean {

@@ -1,9 +1,11 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
+import com.alderferstudios.percentcalculatorv2.widget.SplitPopUp
 
 /**
  * Split screen
@@ -30,37 +32,34 @@ class SplitFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        /////////////////////////// finish this /////////////////////////////////////////
-        /*switch (item.getItemId())
-        {
-            case R.id.settings:
-                Intent settingsActivity = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(settingsActivity);
-                return true;
-
-            case R.id.split_options:
-                Intent popUp = new Intent(this, SplitPopUp.class);
-                startActivity(popUp);
-                return true;
-
-            default:
-                onBackPressed();
-                return true;
-        }*/
+        when (item?.itemId) {
+            R.id.split_options -> startActivity(Intent(activity, SplitPopUp::class.java))
+        }
         return true
     }
 
     /**
      * Applies preference settings
+     * Fills in last or default value
      */
     private fun applyPrefs() {
-        if (activity?.findViewById<View>(R.id.numPicker) != null) {    //fills in last or default value for split picker if it is there
-            activity?.findViewById<NumPicker>(R.id.numPicker)?.value = 4
+        if (numPick == null) {
+            numPick = activity?.findViewById(R.id.numPicker)
+        }
+        if (numPick != null) {  //make sure it was found
+            numPick?.value = 4
         }
     }
 
+    /**
+     * Cannot pick a bad value with the number picker
+     */
     override fun fieldsAreValid(): Boolean {
         return true
-        //TODO: fix functionality
     }
+
+    /**
+     * No possible error since no bad values possible
+     */
+    override fun showErrorMessage() {}
 }

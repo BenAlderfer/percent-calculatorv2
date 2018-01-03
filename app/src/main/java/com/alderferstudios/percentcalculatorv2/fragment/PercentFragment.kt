@@ -1,5 +1,7 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,8 +11,10 @@ import android.widget.EditText
 import android.widget.SeekBar
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
+import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
 
 /**
  * Percent screen
@@ -60,9 +64,10 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
     override fun onStart() {
         super.onStart()
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.tip))
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.split))
-        getBaseActivity().buttons.add(activity?.findViewById(R.id.discount))
+        val base = getBaseActivity()
+        base.buttons.add(activity?.findViewById(R.id.tip))
+        base.buttons.add(activity?.findViewById(R.id.split))
+        base.buttons.add(activity?.findViewById(R.id.discount))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -71,25 +76,9 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        //////////////////////////// finish this ////////////////////////////////////////////////////
-        /*switch (item.getItemId())
-        {
-            case R.id.settings:
-                Intent settingsActivity = new Intent(this, SettingsActivity.class);
-                settingsActivity.putExtra("caller", "percent");
-                startActivity(settingsActivity);
-                return true;
-
-            case R.id.bar_limits:
-                Intent popUp = new Intent(this, PercentLimitPopUp.class);
-                needsToRestart = true;
-                startActivity(popUp);
-                return true;
-
-            default:
-                onBackPressed();
-                return true;
-        }*/
+        when (item?.itemId) {
+            R.id.split_options -> startActivity(Intent(activity, PercentLimitPopUp::class.java))
+        }
         return true
     }
 
@@ -182,6 +171,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * @return true if it exceeds a limit; false otherwise
      */
     private fun resetAfterPrefChange() {
+        //TODO: check this
         var percentText = percentage?.text.toString()
         if (percentText == "") {    //updates bar if nothing was entered
             bar?.progress = percentStart
@@ -197,7 +187,10 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
     }
 
     override fun fieldsAreValid(): Boolean {
-        return true
-        //TODO: fix functionality
+        return percent > 0
+    }
+
+    override fun showErrorMessage() {
+        MiscUtil.showToast(activity as Context, getString(R.string.percentError))
     }
 }

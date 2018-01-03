@@ -23,4 +23,6 @@ abstract class BaseFragment : Fragment() {
     protected fun getBaseActivity(): BaseCalcActivity = activity as BaseCalcActivity
 
     abstract fun fieldsAreValid(): Boolean
+
+    abstract fun showErrorMessage()
 }

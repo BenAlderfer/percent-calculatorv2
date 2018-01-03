@@ -26,22 +26,6 @@ class ResultsFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        /////////////////////////// finish this /////////////////////////////////////////
-        /*switch (item.getItemId())
-        {
-            case R.id.settings:
-                Intent settingsActivity = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(settingsActivity);
-                return true;
-
-            default:
-                onBackPressed();
-                return true;
-        }*/
-        return true
-    }
-
     /**
      * Makes the results text
      * Puts all the values together with text
@@ -174,5 +158,13 @@ class ResultsFragment : BaseFragment() {
         resultsView?.text = resultsText
     }
 
+    /**
+     * Nothing to validate here
+     */
     override fun fieldsAreValid(): Boolean = true
+
+    /**
+     * No error message for this
+     */
+    override fun showErrorMessage() {}
 }
