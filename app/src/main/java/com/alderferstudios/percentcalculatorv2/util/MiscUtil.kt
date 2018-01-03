@@ -28,6 +28,16 @@ class MiscUtil {
             return c.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         }
 
+        /**
+         * Checks if the device is a tablet
+         *
+         * @param context the Context
+         * @return true if device is a tablet
+         */
+        fun isTablet(c: Context): Boolean {
+            return c.resources.configuration.screenLayout and
+                    Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
+        }
 
         /**
          * Displays a toast on the screen

@@ -1,27 +1,24 @@
 package com.alderferstudios.percentcalculatorv2.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PrefConstants
-import android.support.v4.view.ViewPager.OnPageChangeListener
-
-
 
 /**
  * Main activity for 1 item at a time
@@ -41,7 +38,7 @@ class OneItemActivity : BaseCalcActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_one_item)
 
-        if (!isTablet(this)) {
+        if (!MiscUtil.isTablet(this)) {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
         }
 
@@ -52,7 +49,6 @@ class OneItemActivity : BaseCalcActivity() {
         viewPager = findViewById<View>(R.id.pager) as ViewPager
         adapter = PagerAdapter(supportFragmentManager)
         viewPager?.adapter = adapter
-
         viewPager?.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -64,8 +60,6 @@ class OneItemActivity : BaseCalcActivity() {
                 } catch (e: NullPointerException) {
                     e.printStackTrace()
                 }
-
-                title = viewPager?.adapter?.getPageTitle(position)
             }
         })
     }
@@ -93,22 +87,8 @@ class OneItemActivity : BaseCalcActivity() {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 return true
             }
-        }/*case R.id.action_clear_all:
-                if (ets[tabNum] == null) {
-                    saveEditTexts();
-                }
-                clearAll();
-                return true;
-
-            case R.id.action_settings:
-                Intent settingsActivity = new Intent(this, SettingsActivity.class);
-                startActivity(settingsActivity);
-                return true;
-
-            case R.id.action_instructions:
-                Intent instructionActivity = new Intent(this, InstructionActivity.class);
-                startActivity(instructionActivity);
-                return true;*/
+            android.R.id.home -> onBackPressed()
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -201,6 +181,15 @@ class OneItemActivity : BaseCalcActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val current = viewPager?.currentItem ?: 0
+        if (current <= 0) {
+            finish()
+        } else {
+            viewPager?.currentItem = current - 1
+        }
+    }
+
     /**
      * Custom FragmentPagerAdapter
      */
@@ -224,15 +213,6 @@ class OneItemActivity : BaseCalcActivity() {
             return pages[position] ?: CostFragment()
         }
 
-        override fun getPageTitle(position: Int): CharSequence {
-            return when (position) {
-                0 -> getString(R.string.title_activity_cost)
-                1 -> getString(R.string.title_activity_percent)
-                2 -> getString(R.string.title_activity_split)
-                else -> getString(R.string.title_activity_results)
-            }
-        }
-
         /**
          * Gets the number of pages
          *
@@ -247,15 +227,5 @@ class OneItemActivity : BaseCalcActivity() {
 
         var shared: SharedPreferences? = null
         var editor: SharedPreferences.Editor? = null
-
-        /**
-         * Checks if the device is a tablet
-         *
-         * @param context the Context
-         * @return true if device is a tablet
-         */
-        fun isTablet(context: Context): Boolean {
-            return context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
-        }
     }
 }
