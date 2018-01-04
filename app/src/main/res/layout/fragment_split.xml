@@ -36,14 +36,11 @@
 
     <Button
         android:id="@+id/tip"
-        style="@style/NormalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/top_margin"
         android:onClick="split"
-        android:padding="@dimen/button_padding"
         android:text="@string/splitText"
-        android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/numPicker" />

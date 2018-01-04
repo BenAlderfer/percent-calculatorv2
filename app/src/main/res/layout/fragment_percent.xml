@@ -26,7 +26,8 @@
         android:maxLength="3"
         android:singleLine="true"
         app:layout_constraintBaseline_toBaselineOf="@id/percentTitle"
-        app:layout_constraintRight_toLeftOf="@+id/percentSign" />
+        app:layout_constraintRight_toLeftOf="@+id/percentSign"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@id/percentSign"
@@ -36,7 +37,8 @@
         android:text="%"
         app:layout_constraintTop_toTopOf="@id/percentNum"
         app:layout_constraintBottom_toBottomOf="@id/percentNum"
-        app:layout_constraintRight_toRightOf="@+id/percentBar" />
+        app:layout_constraintRight_toRightOf="@+id/percentBar"
+        tools:ignore="HardcodedText" />
 
     <SeekBar
         android:id="@id/percentBar"
@@ -52,13 +54,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/top_margin"
         android:weightSum="3"
         app:layout_constraintTop_toBottomOf="@id/percentBar">
 
         <Button
             android:id="@+id/tip"
-            style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/button_spacing"
@@ -66,11 +67,10 @@
             android:layout_weight="1"
             android:onClick="tip"
             android:text="@string/addLabel"
-            android:textColor="@color/white" />
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/split"
-            style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/button_spacing"
@@ -80,11 +80,10 @@
             android:layout_weight="1"
             android:onClick="switchToSplit"
             android:text="@string/splitText"
-            android:textColor="@color/white" />
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/discount"
-            style="@style/NormalText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/button_spacing"
@@ -92,7 +91,7 @@
             android:layout_weight="1"
             android:onClick="discount"
             android:text="@string/subtractLabel"
-            android:textColor="@color/white" />
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

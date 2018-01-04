@@ -72,7 +72,8 @@
         android:layout_height="wrap_content"
         android:text="%"
         app:layout_constraintBaseline_toBaselineOf="@id/percentTitle"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@id/percentNum"
@@ -85,7 +86,8 @@
         android:maxLength="3"
         android:nextFocusDown="@+id/splitNum"
         app:layout_constraintBaseline_toBaselineOf="@id/percentTitle"
-        app:layout_constraintRight_toLeftOf="@id/percentSign" />
+        app:layout_constraintRight_toLeftOf="@id/percentSign"
+        tools:ignore="HardcodedText" />
 
     <SeekBar
         android:id="@+id/percentBar"
@@ -126,57 +128,39 @@
     <!--button section-->
     <Button
         android:id="@+id/tip"
-        style="@style/NormalText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:onClick="tip"
-        android:padding="@dimen/button_padding"
         android:text="@string/addLabel"
-        android:textColor="@color/white"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/split"
-        app:layout_constraintTop_toBottomOf="@id/splitTitle"
-        tools:background="@drawable/btn_green" />
+        app:layout_constraintTop_toBottomOf="@id/splitTitle" />
 
     <Button
         android:id="@id/split"
-        style="@style/NormalText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/button_spacing"
         android:layout_marginLeft="@dimen/button_spacing"
         android:layout_marginRight="@dimen/button_spacing"
         android:layout_marginStart="@dimen/button_spacing"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:onClick="split"
-        android:padding="@dimen/button_padding"
         android:text="@string/splitText"
-        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/tip"
         app:layout_constraintLeft_toRightOf="@id/tip"
-        app:layout_constraintRight_toLeftOf="@id/discount"
-        tools:background="@drawable/btn_green" />
+        app:layout_constraintRight_toLeftOf="@id/discount" />
 
     <Button
         android:id="@+id/discount"
-        style="@style/NormalText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:onClick="discount"
-        android:padding="@dimen/button_padding"
         android:text="@string/subtractLabel"
-        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/tip"
         app:layout_constraintLeft_toRightOf="@id/split"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:background="@drawable/btn_green" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <!-- results section -->
     <TextView

@@ -57,7 +57,6 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
         buttons.add(findViewById<View>(R.id.tip) as Button)
         buttons.add(findViewById<View>(R.id.split) as Button)
         buttons.add(findViewById<View>(R.id.discount) as Button)
-        adjustButtons()
 
         willTax = shared?.getBoolean(PrefConstants.TAX_BOX, false) ?: false    //if the tax will be added
         costBox = findViewById<View>(R.id.cost) as EditText
@@ -523,20 +522,6 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             }
         } else {
             super.applyTheme()
-        }
-    }
-
-    /**
-     * Applies activity specific button
-     * If not dynamic, defer to super to set color from theme
-     */
-    override fun adjustButtons() {
-        if (colorChoice == "Dynamic") {
-            for (b in buttons) {
-                b?.setBackgroundResource(R.drawable.btn_green)
-            }
-        } else {
-            super.adjustButtons()
         }
     }
 

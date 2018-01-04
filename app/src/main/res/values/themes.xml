@@ -9,6 +9,7 @@
         <item name="android:textColor">@color/blackPrimary</item>
         <item name="android:editTextStyle">@style/EditTextBlack</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/BlackButton</item>
     </style>
 
     <style name="BlackAndWhitePopUp" parent="Theme.AppCompat.Dialog">
@@ -17,6 +18,7 @@
         <item name="android:textColor">@color/blackPrimary</item>
         <item name="android:editTextStyle">@style/EditTextBlack</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/BlackButton</item>
     </style>
 
     <!-- green theme -->
@@ -29,6 +31,7 @@
         <item name="android:textColor">@color/greenPrimary</item>
         <item name="android:editTextStyle">@style/greenEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/GreenButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
@@ -41,6 +44,7 @@
         <item name="android:textColorSecondary">@color/greenPrimary</item>
         <item name="android:textColor">@color/greenPrimaryDark</item>
         <item name="android:editTextStyle">@style/greenEditText</item>
+        <item name="android:buttonStyle">@style/GreenButton</item>
     </style>
 
     <style name="GreenDark" parent="Theme.AppCompat">
@@ -51,6 +55,7 @@
         <item name="android:textColor">@color/greenPrimary</item>
         <item name="android:editTextStyle">@style/greenEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/GreenButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
@@ -62,6 +67,7 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColor">@color/greenPrimary</item>
         <item name="android:editTextStyle">@style/greenEditText</item>
+        <item name="android:buttonStyle">@style/GreenButton</item>
     </style>
 
     <!-- orange theme -->
@@ -74,6 +80,7 @@
         <item name="android:textColor">@color/orangePrimary</item>
         <item name="android:editTextStyle">@style/orangeEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/OrangeButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
@@ -86,6 +93,7 @@
         <item name="android:textColorSecondary">@color/orangePrimary</item>
         <item name="android:textColor">@color/orangePrimaryDark</item>
         <item name="android:editTextStyle">@style/orangeEditText</item>
+        <item name="android:buttonStyle">@style/OrangeButton</item>
     </style>
 
     <style name="OrangeDark" parent="Theme.AppCompat">
@@ -96,6 +104,7 @@
         <item name="android:textColor">@color/orangePrimary</item>
         <item name="android:editTextStyle">@style/orangeEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/OrangeButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
@@ -107,6 +116,7 @@
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColor">@color/orangePrimary</item>
         <item name="android:editTextStyle">@style/orangeEditText</item>
+        <item name="android:buttonStyle">@style/OrangeButton</item>
     </style>
 
     <!-- red theme -->
@@ -119,6 +129,7 @@
         <item name="android:textColor">@color/redPrimary</item>
         <item name="android:editTextStyle">@style/redEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/RedButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
@@ -131,6 +142,7 @@
         <item name="android:textColorSecondary">@color/redPrimary</item>
         <item name="android:textColor">@color/redPrimaryDark</item>
         <item name="android:editTextStyle">@style/redEditText</item>
+        <item name="android:buttonStyle">@style/RedButton</item>
     </style>
 
     <style name="RedDark" parent="Theme.AppCompat">
@@ -141,85 +153,68 @@
         <item name="android:textColor">@color/redPrimary</item>
         <item name="android:editTextStyle">@style/redEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/RedButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
     <style name="RedDarkPopUp" parent="Theme.AppCompat.Dialog">
         <item name="colorPrimary">@color/redPrimary</item>
-        <!-- action bar -->
         <item name="colorPrimaryDark">@color/redPrimaryDark</item>
-        <!-- status bar -->
         <item name="colorAccent">@color/redPrimary</item>
-        <!-- checkboxes and text fields border-->
         <item name="android:textColorPrimary">@color/redPrimary</item>
-        <!-- activity name text color -->
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColor">@color/redPrimary</item>
-        <!-- header color -->
         <item name="android:editTextStyle">@style/redEditText</item>
+        <item name="android:buttonStyle">@style/RedButton</item>
     </style>
 
     <!-- blue theme -->
     <style name="BlueLight" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/bluePrimary</item>
-        <!-- action bar -->
         <item name="colorPrimaryDark">@color/bluePrimaryDark</item>
-        <!-- status bar -->
         <item name="colorAccent">@color/bluePrimary</item>
-        <!-- checkboxes and text fields border-->
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColor">@color/bluePrimary</item>
-        <!-- TextView color -->
         <item name="android:editTextStyle">@style/blueEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/BlueButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
     <style name="BlueLightPopUp" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/bluePrimary</item>
-        <!-- action bar -->
         <item name="colorPrimaryDark">@color/bluePrimaryDark</item>
-        <!-- status bar -->
         <item name="colorAccent">@color/bluePrimary</item>
-        <!-- checkboxes and text fields border-->
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColorSecondary">@color/bluePrimary</item>
-        <!-- summary text color -->
         <item name="android:textColor">@color/bluePrimaryDark</item>
-        <!-- header color -->
         <item name="android:editTextStyle">@style/blueEditText</item>
+        <item name="android:buttonStyle">@style/BlueButton</item>
     </style>
 
     <style name="BlueDark" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/bluePrimary</item>
-        <!-- action bar -->
         <item name="colorPrimaryDark">@color/bluePrimaryDark</item>
-        <!-- status bar -->
         <item name="colorAccent">@color/bluePrimary</item>
-        <!-- checkboxes and text fields border-->
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColor">@color/bluePrimary</item>
-        <!-- TextView color -->
         <item name="android:editTextStyle">@style/blueEditText</item>
         <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/BlueButton</item>
     </style>
 
     <!-- pop-up preferences theme -->
     <style name="BlueDarkPopUp" parent="Theme.AppCompat.Dialog">
         <item name="colorPrimary">@color/bluePrimary</item>
-        <!-- action bar -->
         <item name="colorPrimaryDark">@color/bluePrimaryDark</item>
-        <!-- status bar -->
         <item name="colorAccent">@color/bluePrimary</item>
-        <!-- checkboxes and text fields border-->
         <item name="android:textColorPrimary">@color/bluePrimary</item>
-        <!-- activity name text color -->
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:textColor">@color/bluePrimary</item>
-        <!-- header color -->
         <item name="android:editTextStyle">@style/blueEditText</item>
+        <item name="android:buttonStyle">@style/BlueButton</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

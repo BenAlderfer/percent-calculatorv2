@@ -148,36 +148,22 @@ class OneItemActivity : BaseCalcActivity() {
 
         if (colorChoice == "Dynamic") {
             when (themeChoice) {
-                "Dark" -> setTheme(R.style.GreenDark)
+                "Dark" -> when (viewPager?.currentItem) {
+                    0 -> setTheme(R.style.GreenDark)
+                    1 -> setTheme(R.style.OrangeDark)
+                    2 -> setTheme(R.style.RedDark)
+                    3 -> setTheme(R.style.BlueDark)
+                }
                 "Black and White" -> setTheme(R.style.BlackAndWhite)
-                else -> setTheme(R.style.GreenLight)
+                else -> when (viewPager?.currentItem) {
+                    0 -> setTheme(R.style.GreenLight)
+                    1 -> setTheme(R.style.OrangeLight)
+                    2 -> setTheme(R.style.RedLight)
+                    3 -> setTheme(R.style.BlueLight)
+                }
             }
         } else {
             super.applyTheme()
-        }
-    }
-
-    /**
-     * Applies activity specific button
-     * If not dynamic, defer to super to set color from theme
-     */
-    override fun adjustButtons() {
-        if (colorChoice == "Dynamic") {
-            when (viewPager?.currentItem) {
-                0 -> for (b in buttons) {
-                    b?.setBackgroundResource(R.drawable.btn_green)
-                }
-
-                1 -> for (b in buttons) {
-                    b?.setBackgroundResource(R.drawable.btn_orange)
-                }
-
-                2 -> for (b in buttons) {
-                    b?.setBackgroundResource(R.drawable.btn_red)
-                }
-            }
-        } else {
-            super.adjustButtons()
         }
     }
 

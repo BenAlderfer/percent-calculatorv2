@@ -103,26 +103,4 @@ abstract class BaseCalcActivity : BaseActivity() {
 
         return text == "" || text.toDouble() == 0.00
     }
-
-    /**
-     * Changes the button backgrounds based on color and api
-     * Lollipop gets ripple buttons
-     * Others get regular buttons using setBackgroundDrawable
-     * To prevent having to raise the min api
-     * Will be overridden if no color is chosen
-     */
-    open fun adjustButtons() {
-        for (b in buttons) {
-            if (themeChoice == "Black and White") {
-                b?.setBackgroundResource(R.drawable.btn_black)
-            } else {
-                when (colorChoice) {
-                    "Green" -> b?.setBackgroundResource(R.drawable.btn_green)
-                    "Orange" -> b?.setBackgroundResource(R.drawable.btn_orange)
-                    "Red" -> b?.setBackgroundResource(R.drawable.btn_red)
-                    "Blue" -> b?.setBackgroundResource(R.drawable.btn_blue)
-                }
-            }
-        }
-    }
 }
