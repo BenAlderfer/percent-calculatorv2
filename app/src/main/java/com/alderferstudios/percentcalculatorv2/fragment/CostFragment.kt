@@ -43,8 +43,4 @@ class CostFragment : BaseFragment() {
         return costBox?.text.toString() != "" &&
                 costBox?.text.toString().toDouble() > 0.0
     }
-
-    fun showErrorMessage() {
-        MiscUtil.showToast(activity as Context, getString(R.string.costError))
-    }
 }

@@ -116,8 +116,8 @@ class OneItemActivity : BaseCalcActivity() {
         viewPager?.currentItem = 3
     }
 
-    override fun switchToSplit(@Suppress("UNUSED_PARAMETER") v: View) {
-        super.switchToSplit(v)
+    override fun advanceToSplit(@Suppress("UNUSED_PARAMETER") v: View) {
+        super.advanceToSplit(v)
         viewPager?.currentItem = 2
     }
 

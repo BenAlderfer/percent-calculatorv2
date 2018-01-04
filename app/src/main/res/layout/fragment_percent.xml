@@ -78,7 +78,7 @@
             android:layout_marginRight="@dimen/button_spacing"
             android:layout_marginStart="@dimen/button_spacing"
             android:layout_weight="1"
-            android:onClick="switchToSplit"
+            android:onClick="advanceToSplit"
             android:text="@string/splitText"
             tools:ignore="ButtonStyle" />
 

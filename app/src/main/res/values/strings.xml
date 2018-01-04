@@ -29,7 +29,7 @@
     <string name="costTitle">Cost:</string>
     <string name="enterCost">What is the cost?</string>
     <string name="nextButton">Next</string>
-    <string name="costError">Enter a cost between 1 and 9 numbers</string>
+    <string name="costError">Please enter a cost between 1 and 9 numbers</string>
 
     <!-- Percent strings -->
     <string name="percentTitle">Percent:</string>
@@ -38,7 +38,7 @@
     <string name="subtractLabel">Discount</string>
     <string name="shortAddLabel">Add</string>
     <string name="shortSubtractLabel">Discount</string>
-    <string name="percentError">Select a percent</string>
+    <string name="percentError">Please enter a percent</string>
 
     <!-- Split strings -->
     <string name="splitText">Split</string>
@@ -46,6 +46,7 @@
     <string name="splitHint">How many?</string>
     <!-- the \n is a formatting mark, please add it to your translation -->
     <string name="splitTitle">Number \nof people:</string>
+    <string name="splitError">Please enter the split</string>
 
     <!-- Results strings, debugging only, these do NOT need to be translated -->
     <string name="largeTotal">Tip: $999999999.00 \n
@@ -114,10 +115,7 @@
     <string name="colorDesc">The color is: %1$s</string>
     <string name="title_activity_one_item">Percent Calculator</string>
 
-    <!-- Error strings -->
-    <string name="cost_not_entered">The cost has not been entered</string>
-    <string name="percent_not_entered">The percent has not been entered</string>
-    <string name="split_not_entered">The split has not been entered</string>
+    <!-- Misc errors -->
     <string name="one_person_split">One person cannot split the bill</string>
     <string name="start_percent_incorrect">The start percent was not input correctly</string>
     <string name="start_greater_than_max">The start percent cannot be more than the max percent</string>

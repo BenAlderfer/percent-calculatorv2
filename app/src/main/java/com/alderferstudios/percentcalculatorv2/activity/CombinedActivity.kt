@@ -376,6 +376,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      * Updates the results as the numbers are changed
      */
     private fun updateResultsWithChanges() {
+        //TODO: review
         if (fieldsAreFilled()) {    //if the info is already filled in, updates the results
             didJustUpdate = true
 
@@ -400,11 +401,11 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
      */
     private fun didEnterValues(): Boolean {
         if (!costIsEntered()) {
-            MiscUtil.showToast(this, getString(R.string.cost_not_entered))
+            MiscUtil.showToast(this, getString(R.string.costError))
             costBox?.requestFocus()
             return false
         } else if (!percentIsEntered()) {
-            MiscUtil.showToast(this, getString(R.string.percent_not_entered))
+            MiscUtil.showToast(this, getString(R.string.percentError))
             return false
         } else if (willSplit) {
             return didEnterSplit(false)
@@ -421,7 +422,7 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
     private fun didEnterSplit(willToast: Boolean): Boolean {
         if (splitIsEmpty()) {
             if (willToast) {
-                MiscUtil.showToast(this, getString(R.string.split_not_entered))
+                MiscUtil.showToast(this, getString(R.string.splitError))
             }
             return false
         } else if (splitIsOne()) {
