@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:key="prefScreen1">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefScreen1">
 
-	<PreferenceCategory
-		android:title="Functionality Tweaks"
+    <PreferenceCategory
+        android:title="@string/functionality_title"
         android:key="func_tweaks">
-		
-		<EditTextPreference
-		 android:defaultValue="0"
-		 android:inputType="number"
-		 android:key="percentStart"
-		 android:summary="@string/percentStartDesc"
-		 android:title="@string/percentStartLabel" />
-		
-		<EditTextPreference
-		 android:defaultValue="30"
-		 android:inputType="number"
-		 android:key="percentMax"
-		 android:summary="@string/percentLimitDesc"
-		 android:title="@string/percentLimitLabel" />	
-		
-		<CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="taxBox"
-		 android:summary="@string/disabledTaxDesc"
-		 android:title="@string/toggleTaxLabel" />
-		
-		<EditTextPreference
-		 android:defaultValue="6"
-		 android:inputType="numberDecimal"
-		 android:key="taxInput"
-		 android:summary="@string/taxDesc"
-		 android:title="@string/taxLabel" />
-		 
-		<CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="afterBox"
-		 android:summary="@string/disabledAfterTaxDesc"
-		 android:title="@string/afterTaxLabel" />
-		 
-		<CheckBoxPreference
-		 android:defaultValue="false"
-		 android:key="saveBox"
-		 android:summary="@string/disabledSaveDesc"
-		 android:title="@string/saveLabel" />
-		 
-	</PreferenceCategory>
-	 
+
+        <EditTextPreference
+            android:defaultValue="0"
+            android:inputType="number"
+            android:key="percent_start"
+            android:summary="@string/percentStartDesc"
+            android:title="@string/percentStartLabel" />
+
+        <EditTextPreference
+            android:defaultValue="30"
+            android:inputType="number"
+            android:key="percent_max"
+            android:summary="@string/percentLimitDesc"
+            android:title="@string/percentLimitLabel" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="tax_box"
+            android:summary="@string/disabledTaxDesc"
+            android:title="@string/toggleTaxLabel" />
+
+        <EditTextPreference
+            android:defaultValue="6"
+            android:inputType="numberDecimal"
+            android:key="tax_input"
+            android:summary="@string/taxDesc"
+            android:title="@string/taxLabel" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="after_box"
+            android:summary="@string/disabledAfterTaxDesc"
+            android:title="@string/afterTaxLabel" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="save_box"
+            android:summary="@string/disabledSaveDesc"
+            android:title="@string/saveLabel" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

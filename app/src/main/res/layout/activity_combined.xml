@@ -1,222 +1,178 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/mainView"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:fitsSystemWindows="true"
-tools:context=".CombinedActivity"
-android:orientation="vertical"
-android:weightSum="8">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    tools:context=".activity.CombinedActivity">
 
     <!--cost section-->
-    <RelativeLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/between_margin"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin"
-        android:layout_marginRight="@dimen/side_margin"
-        android:layout_marginEnd="@dimen/side_margin"
-        android:gravity="center_vertical">
+    <TextView
+        android:id="@+id/costTitle"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/inner_spacing"
+        android:layout_marginRight="@dimen/inner_spacing"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/costTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/costTitle"
-            style="@style/NormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/inner_spacing"
-            android:layout_marginEnd="@dimen/inner_spacing"
-            android:text="@string/costTitle"/>
+    <TextView
+        android:id="@+id/dollar"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/costTitle"
+        android:layout_marginEnd="@dimen/money_sign_spacing"
+        android:layout_marginRight="@dimen/money_sign_spacing"
+        android:layout_toLeftOf="@+id/cost"
+        android:layout_toStartOf="@+id/cost"
+        android:text="@string/money_sign"
+        app:layout_constraintBaseline_toBaselineOf="@id/costTitle"
+        app:layout_constraintRight_toLeftOf="@id/cost" />
 
-        <TextView
-            android:id="@+id/dollar"
-            style="@style/NormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignBaseline="@id/costTitle"
-            android:layout_marginRight="@dimen/money_sign_spacing"
-            android:layout_marginEnd="@dimen/money_sign_spacing"
-            android:layout_toLeftOf="@+id/cost"
-            android:layout_toStartOf="@+id/cost"
-            android:text="@string/money_sign"/>
+    <EditText
+        android:id="@+id/cost"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/costTitle"
+        android:hint="@string/enterCost"
+        android:inputType="numberDecimal"
+        android:lines="1"
+        android:maxLength="9"
+        android:nextFocusDown="@+id/percentNum"
+        app:layout_constraintBaseline_toBaselineOf="@id/costTitle"
+        app:layout_constraintRight_toRightOf="parent">
 
-        <EditText
-            android:id="@+id/cost"
-            style="@style/NormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_alignBaseline="@id/costTitle"
-            android:hint="@string/enterCost"
-            android:inputType="numberDecimal"
-            android:maxLength="9"
-            android:lines="1">
-
-            <requestFocus />
-        </EditText>
-    </RelativeLayout>
+        <requestFocus />
+    </EditText>
 
     <!--percent section-->
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/percentTitle"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/percentTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/costTitle" />
+
+    <TextView
+        android:id="@+id/percentSign"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="%"
+        app:layout_constraintBaseline_toBaselineOf="@id/percentTitle"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@id/percentNum"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="0"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="3"
+        android:nextFocusDown="@+id/splitNum"
+        app:layout_constraintBaseline_toBaselineOf="@id/percentTitle"
+        app:layout_constraintRight_toLeftOf="@id/percentSign"
+        tools:ignore="HardcodedText" />
+
+    <SeekBar
+        android:id="@+id/percentBar"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin"
-        android:layout_marginRight="@dimen/side_margin"
-        android:layout_marginEnd="@dimen/side_margin">
-
-        <TextView
-            android:id="@+id/percentTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            style="@style/NormalText"
-            android:text="@string/percentTitle"/>
-
-        <SeekBar
-            android:layout_weight="1"
-            android:id="@+id/percentBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:progress="0"
-            android:max="100" />
-
-        <EditText
-            android:id="@+id/percentNum"
-            style="@style/NormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:hint="0"
-            android:inputType="number"
-            android:maxLength="3"
-            android:lines="1" />
-
-        <TextView
-            android:id="@+id/percentSign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/below_percent_sign"
-            style="@style/NormalText"
-            android:text="%"/>
-
-    </LinearLayout>
+        android:max="100"
+        android:progress="0"
+        app:layout_constraintBottom_toBottomOf="@id/percentTitle"
+        app:layout_constraintLeft_toRightOf="@id/percentTitle"
+        app:layout_constraintRight_toLeftOf="@id/percentNum"
+        app:layout_constraintTop_toTopOf="@id/percentTitle" />
 
     <!--split section-->
-    <RelativeLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/side_margin"
-        android:layout_marginStart="@dimen/side_margin"
-        android:layout_marginRight="@dimen/side_margin"
-        android:layout_marginEnd="@dimen/side_margin"
-        android:gravity="center_vertical">
+    <TextView
+        android:id="@+id/splitTitle"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/splitPrompt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/percentTitle" />
 
-        <TextView
-            android:id="@+id/splitText"
-            style="@style/NormalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/splitPrompt" />
-
-        <EditText
-            android:id="@+id/splitNum"
-            style="@style/NormalText"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignBaseline="@id/splitText"
-            android:gravity="center"
-            android:hint="@string/splitHint"
-            android:inputType="number"
-            android:maxLength="3"
-            android:lines="1"/>
-
-    </RelativeLayout>
+    <EditText
+        android:id="@id/splitNum"
+        style="@style/NormalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/splitTitle"
+        android:gravity="center"
+        android:hint="@string/splitHint"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="3"
+        app:layout_constraintBaseline_toBaselineOf="@id/splitTitle"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <!--button section-->
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/inner_spacing"
-        android:weightSum="3"
-        android:gravity="center_vertical">
+    <Button
+        android:id="@+id/tip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:onClick="tip"
+        android:text="@string/addLabel"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/split"
+        app:layout_constraintTop_toBottomOf="@id/splitTitle" />
 
-        <Button
-            android:id="@+id/add"
-            style="@style/NormalText"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_marginLeft="@dimen/button_spacing"
-            android:layout_marginStart="@dimen/button_spacing"
-            android:padding="@dimen/button_padding"
-            android:layout_weight="1"
-            android:onClick="add"
-            android:text="@string/addLabel" />
-
-        <Button
-            android:id="@+id/split"
-            style="@style/NormalText"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_marginLeft="@dimen/button_spacing"
-            android:layout_marginStart="@dimen/button_spacing"
-            android:layout_marginRight="@dimen/button_spacing"
-            android:layout_marginEnd="@dimen/button_spacing"
-            android:padding="@dimen/button_padding"
-            android:layout_weight="1"
-            android:onClick="split"
-            android:text="@string/splitText" />
-
-        <Button
-            android:id="@+id/subtract"
-            style="@style/NormalText"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_marginRight="@dimen/button_spacing"
-            android:layout_marginEnd="@dimen/button_spacing"
-            android:padding="@dimen/button_padding"
-            android:layout_weight="1"
-            android:onClick="subtract"
-            android:text="@string/subtractLabel" />
-
-    </LinearLayout>
-
-    <!--results section-->
-    <LinearLayout
-        android:layout_weight="4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/side_margin"
+    <Button
+        android:id="@id/split"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/button_spacing"
         android:layout_marginLeft="@dimen/button_spacing"
-        android:layout_marginStart="@dimen/side_margin"
         android:layout_marginRight="@dimen/button_spacing"
-        android:layout_marginEnd="@dimen/side_margin"
-        android:layout_marginBottom="@dimen/between_margin" >
+        android:layout_marginStart="@dimen/button_spacing"
+        android:onClick="split"
+        android:text="@string/splitText"
+        app:layout_constraintBaseline_toBaselineOf="@id/tip"
+        app:layout_constraintLeft_toRightOf="@id/tip"
+        app:layout_constraintRight_toLeftOf="@id/discount" />
 
-        <TextView
-            android:id="@+id/results"
-            style="@style/NormalText"
-            android:lineSpacingMultiplier="1.5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/combinedResults"/>
+    <Button
+        android:id="@+id/discount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="discount"
+        android:text="@string/subtractLabel"
+        app:layout_constraintBaseline_toBaselineOf="@id/tip"
+        app:layout_constraintLeft_toRightOf="@id/split"
+        app:layout_constraintRight_toRightOf="parent" />
 
-    </LinearLayout>
-</LinearLayout>
+    <!-- results section -->
+    <TextView
+        android:id="@+id/results"
+        style="@style/NormalText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        app:layout_constraintTop_toBottomOf="@id/tip"
+        tools:text="@string/combinedResults" />
+
+</android.support.constraint.ConstraintLayout>

@@ -10,37 +10,22 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".CostActivity"
-            android:label="@string/title_activity_cost"
-            android:theme="@style/GreenLight" >
+            android:name=".activity.OneItemActivity"
+            android:label="@string/title_activity_one_item"
+            android:theme="@style/GreenLight">
         </activity>
         <activity
-            android:name=".PercentActivity"
-            android:label="@string/title_activity_percent"
-            android:theme="@style/OrangeLight" >
-        </activity>
-        <activity
-            android:name=".SplitActivity"
-            android:label="@string/title_activity_split"
-            android:theme="@style/RedLight" >
-        </activity>
-        <activity
-            android:name=".ResultsActivity"
-            android:label="@string/title_activity_results"
-            android:theme="@style/BlueLight" >
-        </activity>
-        <activity
-            android:name=".PrefsActivity"
+            android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_prefs"
             android:noHistory="true"
             android:theme="@style/GreenLight" >
         </activity>
         <activity
-            android:name=".CombinedActivity"
+            android:name=".activity.CombinedActivity"
             android:label="@string/app_name"
             android:theme="@style/GreenLight" >
         </activity>
@@ -55,19 +40,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplitPopUp"
+            android:name=".widget.SplitPopUp"
             android:label="@string/title_activity_split_pop_up"
             android:theme="@style/GreenLightPopUp">
         </activity>
         <activity
-            android:name=".PercentLimitPopUp"
+            android:name=".widget.PercentLimitPopUp"
             android:label="@string/title_activity_percent_limit_pop_up"
-            android:theme="@style/GreenLightPopUp"></activity>
-        <activity
-            android:name=".OneItemActivity"
-            android:label="@string/title_activity_one_item"
-            android:theme="@style/GreenLight">
-        </activity>
+            android:theme="@style/GreenLightPopUp" />
     </application>
 
 </manifest>

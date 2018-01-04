@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- English (US) version -->
+    <!-- Settings -->
+    <string name="functionality_title">Functionality Settings</string>
+    <string name="design_title">Design Settings</string>
 
     <!-- Activity Title strings -->
     <string name="app_name">Percent Calculator</string>
@@ -10,24 +12,24 @@
     <string name="title_activity_results">Results</string>
     <string name="title_activity_prefs">Preferences</string>
     <string name="title_activity_combined">Combined Screens</string>
-	<string name="title_activity_launcher">Launcher</string>
-	<string name="title_activity_split_pop_up">Split Options</string>
-	<string name="title_activity_percent_limit_pop_up">Percent Limits</string>
-	
-	<!-- Money strings -->
-	<string name="money_sign">$</string>
-    <string name="money_separator">.</string> 
-	
-	<!-- Action button strings -->
-	<string name="bar_limits">Percent limits</string>
-	 <string name="split_choices">Split Options</string> 
+    <string name="title_activity_launcher">Launcher</string>
+    <string name="title_activity_split_pop_up">Split Options</string>
+    <string name="title_activity_percent_limit_pop_up">Percent Limits</string>
+
+    <!-- Money strings -->
+    <string name="money_sign">$</string>
+    <string name="money_separator">.</string>
+
+    <!-- Action button strings -->
+    <string name="bar_limits">Percent limits</string>
+    <string name="split_choices">Split Options</string>
 
     <!-- Cost strings -->
     <string name="action_settings">Settings</string>
     <string name="costTitle">Cost:</string>
     <string name="enterCost">What is the cost?</string>
     <string name="nextButton">Next</string>
-	<string name="costError">Enter a cost between 1 and 9 numbers</string>
+    <string name="costError">Enter a cost between 1 and 9 numbers</string>
 
     <!-- Percent strings -->
     <string name="percentTitle">Percent:</string>
@@ -36,21 +38,22 @@
     <string name="subtractLabel">Discount</string>
     <string name="shortAddLabel">Add</string>
     <string name="shortSubtractLabel">Discount</string>
+    <string name="percentError">Select a percent</string>
 
     <!-- Split strings -->
     <string name="splitText">Split</string>
     <string name="splitPrompt">Split:</string>
     <string name="splitHint">How many?</string>
-	<!-- the \n is a formatting mark, please add it to your translation -->
-    <string name="splitTitle">Number \nof people:</string> 
+    <!-- the \n is a formatting mark, please add it to your translation -->
+    <string name="splitTitle">Number \nof people:</string>
 
     <!-- Results strings, debugging only, these do NOT need to be translated -->
     <string name="largeTotal">Tip: $999999999.00 \n
 							  Final cost: $2119999997.88</string>
-							  
-	<string name="largeTotalLand">Tip: $999999999.00 \n\n
+
+    <string name="largeTotalLand">Tip: $999999999.00 \n\n
 							  Final cost: $2119999997.88</string>
-							  
+
     <string name="theResults">The original cost is: $999999999.00 \n
 							  The tip percent is: 100% \n
 							  The tip is: $999999999.00 \n
@@ -59,57 +62,66 @@
 							  The tax is: $119999999.88 \n
 							  The final cost is: $2119999997.88 \n
 							  Each person pays: $2119999997.88</string>
-							  
+
     <string name="combinedResults">Tip: $999999999.00 \n
 								   Each tips: $999999999.00 \n
 								   Tax: $119999999.88 \n
 								   Final cost: $2119999997.88 \n
 								   Each pays: $2119999997.88</string>
-								   
-	<string name="combinedResults1">Tip: $999999999.00 \n
-								    Tax: $119999999.88 \n
-									Final cost: $2119999997.88</string>		
 
-	<string name="combinedResults2">Each tips: $999999999.00 \n
-								    Each pays: $2119999997.88</string>								   
+    <string name="combinedResults1">Tip: $999999999.00 \n
+								    Tax: $119999999.88 \n
+									Final cost: $2119999997.88</string>
+
+    <string name="combinedResults2">Each tips: $999999999.00 \n
+								    Each pays: $2119999997.88</string>
 
     <!-- Preferences strings -->
     <string name="settingsText">Settings</string>
-	
-	<string name="percentStartLabel">Start percent:</string>
-	<string name="percentStartDesc">The starting percent is:</string>
-	
-	<string name="percentLimitLabel">Max percent:</string>
-	<string name="percentLimitDesc">The max percent is:</string>
-	
-	<string name="toggleTaxLabel">Enable tax?</string>
-	<string name="enabledTaxDesc">Tax is being added</string>
-	<string name="disabledTaxDesc">Tax is not being added</string>
-	
+
+    <string name="percentStartLabel">Start percent:</string>
+    <string name="percentStartDesc">The starting percent is: %1$s</string>
+
+    <string name="percentLimitLabel">Max percent:</string>
+    <string name="percentLimitDesc">The max percent is: %1$s</string>
+
+    <string name="toggleTaxLabel">Enable tax?</string>
+    <string name="enabledTaxDesc">Tax is being added</string>
+    <string name="disabledTaxDesc">Tax is not being added</string>
+
     <string name="taxLabel">Tax %:</string>
-	<string name="taxDesc">The tax is:</string>
-	
-	<string name="afterTaxLabel">Calculate after tax?</string>
-	<string name="enabledAfterTaxDesc">The amount is being calculated after the tax is added</string>
-	<string name="disabledAfterTaxDesc">The amount is being calculated before the tax is added</string>	
-								
+    <string name="taxDesc">The tax is: %1$s</string>
+
+    <string name="afterTaxLabel">Calculate after tax?</string>
+    <string name="enabledAfterTaxDesc">The amount is being calculated after the tax is added</string>
+    <string name="disabledAfterTaxDesc">The amount is being calculated before the tax is added</string>
+
     <string name="saveLabel">Save values?</string>
-	<string name="enabledSaveDesc">The values are being saved</string>
-	<string name="disabledSaveDesc">The values are not being saved</string>
-	
-	<string name="splitLabel">Split Options</string>
-	<string name="splitDesc">The split preference is:</string>
-	
+    <string name="enabledSaveDesc">The values are being saved</string>
+    <string name="disabledSaveDesc">The values are not being saved</string>
+
+    <string name="splitLabel">Split Options</string>
+    <string name="splitDesc">The split preference is: %1$s</string>
+
     <string name="combinedLabel">Combine Screens?</string>
-	<string name="enabledCombinedDesc">Everything is on one screen</string>
-	<string name="disabledCombinedDesc">Everything is spread over multiple screens</string>
-							   
+    <string name="enabledCombinedDesc">Everything is on one screen</string>
+    <string name="disabledCombinedDesc">Everything is spread over multiple screens</string>
+
     <string name="themeLabel">Theme</string>
-	<string name="themeDesc">The theme is:</string>
-	
-	<string name="colorLabel">Color</string>
-	<string name="colorDesc">The color is:</string>
-	<string name="title_activity_one_item">Percent Calculator</string>
-	<string name="section_format">Hello World from section: %1$d</string>
+    <string name="themeDesc">The theme is: %1$s</string>
+
+    <string name="colorLabel">Color</string>
+    <string name="colorDesc">The color is: %1$s</string>
+    <string name="title_activity_one_item">Percent Calculator</string>
+
+    <!-- Error strings -->
+    <string name="cost_not_entered">The cost has not been entered</string>
+    <string name="percent_not_entered">The percent has not been entered</string>
+    <string name="split_not_entered">The split has not been entered</string>
+    <string name="one_person_split">One person cannot split the bill</string>
+    <string name="start_percent_incorrect">The start percent was not input correctly</string>
+    <string name="start_greater_than_max">The start percent cannot be more than the max percent</string>
+    <string name="max_percent_incorrect">The max percent was not input correctly</string>
+    <string name="max_less_than_start">The max percent cannot be less than the start percent</string>
 
 </resources>

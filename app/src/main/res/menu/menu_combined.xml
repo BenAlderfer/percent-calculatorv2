@@ -1,22 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<item
-		android:id="@+id/bar_limits"
-		android:icon="@drawable/percent_bar"
-		android:title="@string/bar_limits"
-		app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/bar_limits"
+        android:icon="@drawable/percent_bar"
+        android:title="@string/bar_limits"
+        app:showAsAction="ifRoom" />
 
-	<item
-		android:id="@+id/split_options"
-		android:icon="@drawable/split_icon"
-		android:title="@string/split_choices"
-		app:showAsAction="ifRoom" />
-	
+    <item
+        android:id="@+id/split_options"
+        android:icon="@drawable/split_icon"
+        android:title="@string/split_choices"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/settings"
         android:title="@string/settingsText"
-		app:showAsAction="never"
-    />	
-	
+        app:showAsAction="never" />
+
 </menu>
