@@ -15,11 +15,6 @@ class ValidatingViewPager(context: Context, attrs: AttributeSet) : ViewPager(con
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
         super.onTouchEvent(event)
-        val baseFrag = (adapter as FragmentPagerAdapter).getItem(currentItem) as BaseFragment
-        val valid = baseFrag.fieldsAreValid()
-        if (!valid) {
-            baseFrag.showErrorMessage()
-        }
-        return valid
+        return ((adapter as FragmentPagerAdapter).getItem(currentItem) as BaseFragment).fieldsAreValid()
     }
 }

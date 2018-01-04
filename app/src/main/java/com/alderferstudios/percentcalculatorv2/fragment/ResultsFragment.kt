@@ -162,9 +162,4 @@ class ResultsFragment : BaseFragment() {
      * Nothing to validate here
      */
     override fun fieldsAreValid(): Boolean = true
-
-    /**
-     * No error message for this
-     */
-    override fun showErrorMessage() {}
 }

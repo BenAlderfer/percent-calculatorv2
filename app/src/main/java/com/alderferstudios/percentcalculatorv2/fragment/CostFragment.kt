@@ -28,15 +28,15 @@ class CostFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean =
-        when (item?.itemId) {
-            R.id.settings -> {
-                val settingsActivity = Intent(activity, SettingsActivity::class.java)
-                startActivity(settingsActivity)
-                true
-            }
+            when (item?.itemId) {
+                R.id.settings -> {
+                    val settingsActivity = Intent(activity, SettingsActivity::class.java)
+                    startActivity(settingsActivity)
+                    true
+                }
 
-            else -> super.onOptionsItemSelected(item)
-        }
+                else -> super.onOptionsItemSelected(item)
+            }
 
     override fun fieldsAreValid(): Boolean {
         val costBox = activity?.findViewById<EditText>(R.id.cost)
@@ -44,7 +44,7 @@ class CostFragment : BaseFragment() {
                 costBox?.text.toString().toDouble() > 0.0
     }
 
-    override fun showErrorMessage() {
+    fun showErrorMessage() {
         MiscUtil.showToast(activity as Context, getString(R.string.costError))
     }
 }

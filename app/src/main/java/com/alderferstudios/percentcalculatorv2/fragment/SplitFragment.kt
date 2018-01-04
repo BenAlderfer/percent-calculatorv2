@@ -57,9 +57,4 @@ class SplitFragment : BaseFragment() {
     override fun fieldsAreValid(): Boolean {
         return true
     }
-
-    /**
-     * No possible error since no bad values possible
-     */
-    override fun showErrorMessage() {}
 }

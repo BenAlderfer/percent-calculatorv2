@@ -190,7 +190,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         return percent > 0
     }
 
-    override fun showErrorMessage() {
+    fun showErrorMessage() {
         MiscUtil.showToast(activity as Context, getString(R.string.percentError))
     }
 }

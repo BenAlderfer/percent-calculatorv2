@@ -76,7 +76,7 @@
             android:title="@string/themeLabel" />
 
         <ListPreference
-            android:defaultValue="Green"
+            android:defaultValue="Dynamic"
             android:entries="@array/colorOptions"
             android:entryValues="@array/colorValues"
             android:key="color_list"
