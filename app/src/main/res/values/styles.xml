@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="NormalText">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/normal_tx_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MediumText">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">@dimen/medium_tx_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="LargeText">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">@dimen/large_tx_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
