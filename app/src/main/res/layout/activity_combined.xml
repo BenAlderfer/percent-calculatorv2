@@ -133,6 +133,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:onClick="tip"
         android:text="@string/addLabel"
+        android:textSize="@dimen/btn_tx_size"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/split"
@@ -148,6 +149,7 @@
         android:layout_marginStart="@dimen/button_spacing"
         android:onClick="split"
         android:text="@string/splitText"
+        android:textSize="@dimen/btn_tx_size"
         app:layout_constraintBaseline_toBaselineOf="@id/tip"
         app:layout_constraintLeft_toRightOf="@id/tip"
         app:layout_constraintRight_toLeftOf="@id/discount" />
@@ -158,6 +160,7 @@
         android:layout_height="wrap_content"
         android:onClick="discount"
         android:text="@string/subtractLabel"
+        android:textSize="@dimen/btn_tx_size"
         app:layout_constraintBaseline_toBaselineOf="@id/tip"
         app:layout_constraintLeft_toRightOf="@id/split"
         app:layout_constraintRight_toRightOf="parent" />
