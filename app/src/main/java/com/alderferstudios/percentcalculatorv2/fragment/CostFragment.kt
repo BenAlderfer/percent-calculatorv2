@@ -1,13 +1,11 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.SettingsActivity
-import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 
 /**
  * Cost screen

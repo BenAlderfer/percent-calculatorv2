@@ -35,9 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="%"
-        app:layout_constraintTop_toTopOf="@id/percentNum"
         app:layout_constraintBottom_toBottomOf="@id/percentNum"
         app:layout_constraintRight_toRightOf="@+id/percentBar"
+        app:layout_constraintTop_toTopOf="@id/percentNum"
         tools:ignore="HardcodedText" />
 
     <SeekBar
@@ -67,6 +67,7 @@
             android:layout_weight="1"
             android:onClick="tip"
             android:text="@string/addLabel"
+            android:textSize="@dimen/btn_tx_size"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -80,6 +81,7 @@
             android:layout_weight="1"
             android:onClick="advanceToSplit"
             android:text="@string/splitText"
+            android:textSize="@dimen/btn_tx_size"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -91,6 +93,7 @@
             android:layout_weight="1"
             android:onClick="discount"
             android:text="@string/subtractLabel"
+            android:textSize="@dimen/btn_tx_size"
             tools:ignore="ButtonStyle" />
 
     </LinearLayout>

@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/resultsView"
     android:layout_width="match_parent"
@@ -17,6 +18,9 @@
         android:layout_marginRight="@dimen/side_margin"
         android:layout_marginStart="@dimen/side_margin"
         android:layout_marginTop="@dimen/top_margin"
+        app:autoSizeMaxTextSize="@dimen/xxlarge_tx_size"
+        app:autoSizeMinTextSize="@dimen/normal_tx_size"
+        app:autoSizeTextType="uniform"
         tools:text="@string/largeTotal" />
 
     <TextView
@@ -30,6 +34,9 @@
         android:layout_marginStart="@dimen/side_margin"
         android:layout_marginTop="@dimen/between_margin"
         android:lineSpacingMultiplier="2"
+        app:autoSizeMaxTextSize="@dimen/xxlarge_tx_size"
+        app:autoSizeMinTextSize="@dimen/normal_tx_size"
+        app:autoSizeTextType="uniform"
         tools:text="@string/theResults" />
 
 </LinearLayout>
