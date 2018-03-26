@@ -24,7 +24,7 @@ class SplitPopUp : BasePopUpPreference() {
      * The pop up fragment
      */
     class PopUpFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
-        private val shared = PreferenceManager.getDefaultSharedPreferences(activity)
+        private var shared: SharedPreferences? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -32,8 +32,10 @@ class SplitPopUp : BasePopUpPreference() {
             PreferenceManager.setDefaultValues(activity, R.xml.split_pref_pop_up, false)
             addPreferencesFromResource(R.xml.split_pref_pop_up)
 
+            shared = PreferenceManager.getDefaultSharedPreferences(activity)
+
             setSummary()
-            shared.registerOnSharedPreferenceChangeListener(this)
+            shared?.registerOnSharedPreferenceChangeListener(this)
         }
 
         /**
@@ -59,7 +61,7 @@ class SplitPopUp : BasePopUpPreference() {
             if (isAdded) {    //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.SPLIT_LIST)
                 if (p != null) {
-                    p.summary = (resources.getString(R.string.splitDesc, shared.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)))
+                    p.summary = (resources.getString(R.string.splitDesc, shared?.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)))
                 }
             }
         }
