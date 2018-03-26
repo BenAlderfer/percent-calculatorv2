@@ -5,18 +5,18 @@
     <!-- TODO: try include with <intent android:action="com.example.PREFERENCE_2" /> -->
 
     <PreferenceCategory
-        android:title="@string/functionality_title"
-        android:key="func_tweaks">
+        android:key="func_tweaks"
+        android:title="@string/functionality_title">
 
         <EditTextPreference
-            android:defaultValue="0"
+            android:defaultValue="@string/default_min_percent"
             android:inputType="number"
             android:key="percent_start"
             android:summary="@string/percentStartDesc"
             android:title="@string/percentStartLabel" />
 
         <EditTextPreference
-            android:defaultValue="30"
+            android:defaultValue="@string/default_max_percent"
             android:inputType="number"
             android:key="percent_max"
             android:summary="@string/percentLimitDesc"
@@ -58,8 +58,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/design_title"
-        android:key="des_tweaks">
+        android:key="des_tweaks"
+        android:title="@string/design_title">
 
         <CheckBoxPreference
             android:defaultValue="false"

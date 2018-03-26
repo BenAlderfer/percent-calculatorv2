@@ -3,14 +3,14 @@
     android:key="percentLimitPopUp">
 
     <EditTextPreference
-        android:defaultValue="0"
+        android:defaultValue="@string/default_min_percent"
         android:inputType="number"
         android:key="percent_start"
         android:summary="@string/percentStartDesc"
         android:title="@string/percentStartLabel" />
 
     <EditTextPreference
-        android:defaultValue="30"
+        android:defaultValue="@string/default_max_percent"
         android:inputType="number"
         android:key="percent_max"
         android:summary="@string/percentLimitDesc"

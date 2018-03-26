@@ -122,4 +122,7 @@
     <string name="max_percent_incorrect">The max percent was not input correctly</string>
     <string name="max_less_than_start">The max percent cannot be less than the start percent</string>
 
+    <string name="default_min_percent">15</string>
+    <string name="default_max_percent">30</string>
+
 </resources>

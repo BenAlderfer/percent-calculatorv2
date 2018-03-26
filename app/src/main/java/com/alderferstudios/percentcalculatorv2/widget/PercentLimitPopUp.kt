@@ -26,8 +26,8 @@ class PercentLimitPopUp : BasePopUpPreference() {
      * The pop up fragment
      */
     class PopUpFragment : PreferenceFragment(), SharedPreferences.OnSharedPreferenceChangeListener {
-        private val shared = PreferenceManager.getDefaultSharedPreferences(activity)
-        private val editor = shared.edit()
+        private var shared: SharedPreferences? = null
+        private var editor: SharedPreferences.Editor? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -35,8 +35,11 @@ class PercentLimitPopUp : BasePopUpPreference() {
             PreferenceManager.setDefaultValues(activity, R.xml.percent_limit_pref_pop_up, false)
             addPreferencesFromResource(R.xml.percent_limit_pref_pop_up)
 
+            shared = PreferenceManager.getDefaultSharedPreferences(activity)
+            editor = shared?.edit()
+
             setSummaries()
-            shared.registerOnSharedPreferenceChangeListener(this)
+            shared?.registerOnSharedPreferenceChangeListener(this)
         }
 
         /**
@@ -65,8 +68,8 @@ class PercentLimitPopUp : BasePopUpPreference() {
             if (isAdded) {  //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.PERCENT_START)
                 if (p != null) {
-                    val percentStart = shared.getString(PrefConstants.PERCENT_START, "0")
-                    val percentMax = shared.getString(PrefConstants.PERCENT_MAX, "0")
+                    val percentStart = shared?.getString(PrefConstants.PERCENT_START, "15") ?: "15"
+                    val percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "30") ?: "30"
                     when {
                         percentStart == "" -> Toast.makeText(activity, getString(R.string.start_percent_incorrect), Toast.LENGTH_SHORT).show()
                         percentStart.toInt() >= percentMax.toInt() -> {
@@ -75,10 +78,10 @@ class PercentLimitPopUp : BasePopUpPreference() {
                             if (newPercentStart < 0) {  //percent start cannot be below 0
                                 newPercentStart = 0
                             }
-                            editor.putString(PrefConstants.PERCENT_START, newPercentStart.toString() + "")
-                            editor.apply()
+                            editor?.putString(PrefConstants.PERCENT_START, newPercentStart.toString() + "")
+                            editor?.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentStartDesc, shared.getString(PrefConstants.PERCENT_START, "0"))) + "%"
+                        else -> p.summary = (resources.getString(R.string.percentStartDesc, shared?.getString(PrefConstants.PERCENT_START, "0"))) + "%"
                     }
                 }
             }
@@ -92,8 +95,8 @@ class PercentLimitPopUp : BasePopUpPreference() {
             if (isAdded) {  //must check if the fragment is added to the activity
                 val p = findPreference(PrefConstants.PERCENT_MAX)
                 if (p != null) {
-                    val percentStart = shared.getString(PrefConstants.PERCENT_START, "0")
-                    val percentMax = shared.getString(PrefConstants.PERCENT_MAX, "0")
+                    val percentStart = shared?.getString(PrefConstants.PERCENT_START, "15") ?: "15"
+                    val percentMax = shared?.getString(PrefConstants.PERCENT_MAX, "30") ?: "30"
                     when {
                         percentStart == "" -> Toast.makeText(activity, getString(R.string.max_percent_incorrect), Toast.LENGTH_SHORT).show()
                         percentMax.toInt() <= percentStart.toInt() -> {
@@ -102,10 +105,10 @@ class PercentLimitPopUp : BasePopUpPreference() {
                             if (newPercentMax < 1) {    //percent max cannot be below 1
                                 newPercentMax = 1
                             }
-                            editor.putString(PrefConstants.PERCENT_MAX, newPercentMax.toString() + "")
-                            editor.apply()
+                            editor?.putString(PrefConstants.PERCENT_MAX, newPercentMax.toString() + "")
+                            editor?.apply()
                         }
-                        else -> p.summary = (resources.getString(R.string.percentLimitDesc, shared.getString(PrefConstants.PERCENT_MAX, "30"))) + "%"
+                        else -> p.summary = (resources.getString(R.string.percentLimitDesc, shared?.getString(PrefConstants.PERCENT_MAX, "30"))) + "%"
                     }
                 }
             }
