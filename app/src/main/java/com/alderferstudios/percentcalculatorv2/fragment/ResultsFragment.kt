@@ -41,7 +41,9 @@ class ResultsFragment : BaseFragment() {
         }
 
         val pc = PercentCalculator(getBaseActivity())
-        val calcFields = CalcFields(getBaseActivity().cost, getBaseActivity().percent, getBaseActivity().split, "")    //TODO: add button string
+        val calcFields = CalcFields(getBaseActivity().cost, getBaseActivity().percent, getBaseActivity().split,
+                getBaseActivity().shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP)
+                        ?: "")
         val results = pc.calculate(calcFields, getString(R.string.money_separator))
 
         /**

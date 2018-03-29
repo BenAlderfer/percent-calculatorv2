@@ -4,14 +4,8 @@
     android:id="@+id/resultsView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginBottom="@dimen/side_margin"
-    android:layout_marginEnd="@dimen/side_margin"
-    android:layout_marginLeft="@dimen/side_margin"
-    android:layout_marginRight="@dimen/side_margin"
-    android:layout_marginStart="@dimen/side_margin"
-    android:layout_marginTop="@dimen/side_margin"
     android:orientation="vertical"
+    android:padding="@dimen/side_margin"
     tools:context=".fragment.ResultsFragment">
 
     <TextView
@@ -19,6 +13,7 @@
         style="@style/LargeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="@dimen/side_margin"
         app:autoSizeMaxTextSize="@dimen/xxlarge_tx_size"
         app:autoSizeMinTextSize="@dimen/normal_tx_size"
@@ -30,6 +25,7 @@
         style="@style/NormalText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginTop="@dimen/side_margin"
         android:lineSpacingMultiplier="2"
         app:autoSizeMaxTextSize="@dimen/xxlarge_tx_size"

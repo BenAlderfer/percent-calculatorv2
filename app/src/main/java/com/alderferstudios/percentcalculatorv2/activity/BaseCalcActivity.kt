@@ -37,7 +37,7 @@ abstract class BaseCalcActivity : BaseActivity() {
     }
 
     /**
-     * 
+     * Save tip action
      *
      * @param v the View
      */
@@ -50,7 +50,7 @@ abstract class BaseCalcActivity : BaseActivity() {
     }
 
     /**
-     *
+     * Save discount action
      *
      * @param v the View
      */
@@ -63,7 +63,7 @@ abstract class BaseCalcActivity : BaseActivity() {
     }
 
     /**
-     *
+     * Advance from to split page
      *
      * @param v the View
      */
@@ -76,7 +76,7 @@ abstract class BaseCalcActivity : BaseActivity() {
     }
 
     /**
-     *
+     * Save split action
      *
      * @param v the View
      */

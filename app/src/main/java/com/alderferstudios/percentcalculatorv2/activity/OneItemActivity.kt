@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
@@ -108,17 +109,34 @@ class OneItemActivity : BaseCalcActivity() {
 
     override fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
         super.tip(v)
+        savePercent()
         viewPager?.currentItem = 3
     }
 
     override fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
         super.discount(v)
+        savePercent()
         viewPager?.currentItem = 3
     }
 
     override fun advanceToSplit(@Suppress("UNUSED_PARAMETER") v: View) {
         super.advanceToSplit(v)
+        savePercent()
         viewPager?.currentItem = 2
+    }
+
+    /**
+     * Checks for percent input
+     * Saves data
+     */
+    private fun savePercent() {
+        val percentText = findViewById<View>(R.id.percentNum) as EditText
+        if (containsAnError(percentText)) {
+            MiscUtil.showToast(this, getString(R.string.percentError))
+            percentText.requestFocus()
+        } else {
+            percent = percentText.text.toString().toInt()
+        }
     }
 
     override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
