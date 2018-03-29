@@ -1,6 +1,5 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -11,7 +10,6 @@ import android.widget.EditText
 import android.widget.SeekBar
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
-import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 import com.alderferstudios.percentcalculatorv2.widget.NumPicker
 import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
@@ -23,15 +21,27 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
     private var percentage: EditText? = null
     private var percent: Int = 0
-    private val percentStart: Int = 0
-    private val percentMax: Int = 0
+    private var percentStart: Int = 15
+    private var percentMax: Int = 30
     private var numPick: NumPicker? = null
     private var bar: SeekBar? = null
     private val needsToRestart: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_percent, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val base = getBaseActivity()
+        base.buttons.add(activity?.findViewById(R.id.tip))
+        base.buttons.add(activity?.findViewById(R.id.split))
+        base.buttons.add(activity?.findViewById(R.id.discount))
+
         bar = activity?.findViewById(R.id.percentBar)
         bar?.setOnSeekBarChangeListener(this)
+
+        applyPrefs()
 
         percentage = activity?.findViewById(R.id.percentNum)
         percentage?.addTextChangedListener(object : TextWatcher {
@@ -47,7 +57,8 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
                         bar?.progress = percentage?.text.toString().toInt() - percentStart
                     }
 
-                    percentage?.setSelection(percentage?.text?.length ?: 0)    //returns focus to end of text
+                    percentage?.setSelection(percentage?.text?.length
+                            ?: 0)    //returns focus to end of text
                 }
             }
 
@@ -55,19 +66,6 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
-
-        //shared.registerOnSharedPreferenceChangeListener(this);
-        applyPrefs()
-
-        return inflater.inflate(R.layout.fragment_percent, container, false)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val base = getBaseActivity()
-        base.buttons.add(activity?.findViewById(R.id.tip))
-        base.buttons.add(activity?.findViewById(R.id.split))
-        base.buttons.add(activity?.findViewById(R.id.discount))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -86,17 +84,17 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * Applies preference settings
      */
     private fun applyPrefs() {
-        var percentStart = 0
         try {
-            percentStart = (activity as BaseActivity).shared?.getString(PrefConstants.PERCENT_START, "0")?.toInt() ?: 0
+            percentStart = (activity as BaseActivity).shared?.getString(PrefConstants.PERCENT_START,
+                    getString(R.string.default_min_percent))?.toInt() ?: getString(R.string.default_min_percent).toInt()
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get start percent")
             e.printStackTrace()
         }
 
-        var percentMax = 30
         try {
-            percentMax = (activity as BaseActivity).shared?.getString(PrefConstants.PERCENT_MAX, "30")?.toInt() ?: 30
+            percentMax = (activity as BaseActivity).shared?.getString(PrefConstants.PERCENT_MAX,
+                    getString(R.string.default_max_percent))?.toInt() ?: getString(R.string.default_max_percent).toInt()
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get max percent")
             e.printStackTrace()
@@ -152,6 +150,12 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
      * Updates the percent text as the bar changes
      */
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+//        if (didJustTypePercent) {
+//            didJustTypePercent = false
+//        } else {
+//            imm?.hideSoftInputFromWindow(splitBox?.windowToken, 0)    //hides keyboard if not typing
+//        }
+
         percent = progress + percentStart
         if (percent > percentMax) {
             percent = percentMax

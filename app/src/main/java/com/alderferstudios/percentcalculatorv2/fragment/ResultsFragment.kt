@@ -17,13 +17,17 @@ import java.text.DecimalFormat
 class ResultsFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        makeResults()
         return inflater.inflate(R.layout.fragment_results, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_cost, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        makeResults()
     }
 
     /**
