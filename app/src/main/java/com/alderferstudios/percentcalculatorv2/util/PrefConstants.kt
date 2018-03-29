@@ -5,7 +5,6 @@ class PrefConstants {
         val SPLIT_LIST = "split_list"
         val PERCENT_START = "percent_start"
         val PERCENT_MAX = "percent_max"
-        val DID_SPLIT = "did_split"
         val TAX_INPUT = "tax_input"
         val TAX_BOX = "tax_box"
         val AFTER_BOX = "after_box"

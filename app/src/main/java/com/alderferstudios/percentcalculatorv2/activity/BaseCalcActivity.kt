@@ -44,7 +44,6 @@ abstract class BaseCalcActivity : BaseActivity() {
     open fun tip(@Suppress("UNUSED_PARAMETER") v: View) {
         //TODO: review
         editor?.putString("button", "add")
-        editor?.putBoolean(PrefConstants.DID_SPLIT, false)
         editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.TIP)
         editor?.apply()
     }
@@ -57,7 +56,6 @@ abstract class BaseCalcActivity : BaseActivity() {
     open fun discount(@Suppress("UNUSED_PARAMETER") v: View) {
         //TODO: review
         editor?.putString("button", "subtract")
-        editor?.putBoolean(PrefConstants.DID_SPLIT, false)
         editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.DISCOUNT)
         editor?.apply()
     }
@@ -70,7 +68,6 @@ abstract class BaseCalcActivity : BaseActivity() {
     open fun advanceToSplit(@Suppress("UNUSED_PARAMETER") v: View) {
         //TODO: review
         editor?.putString("button", "add")
-        editor?.putBoolean(PrefConstants.DID_SPLIT, false)
         editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.SPLIT)
         editor?.apply()
     }
@@ -82,7 +79,7 @@ abstract class BaseCalcActivity : BaseActivity() {
      */
     open fun split(@Suppress("UNUSED_PARAMETER") v: View) {
         //TODO: review
-        editor?.putBoolean(PrefConstants.DID_SPLIT, true)
+        editor?.putString(PrefConstants.LAST_ACTION, PrefConstants.SPLIT)
         editor?.putBoolean(PrefConstants.DID_JUST_GO_BACK, false)
         editor?.apply()
     }

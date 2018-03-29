@@ -16,6 +16,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.NumberPicker
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.fragment.*
 import com.alderferstudios.percentcalculatorv2.util.MiscUtil
@@ -141,7 +142,10 @@ class OneItemActivity : BaseCalcActivity() {
 
     override fun split(@Suppress("UNUSED_PARAMETER") v: View) {
         super.split(v)
+        split = findViewById<NumberPicker>(R.id.numPicker).value
         viewPager?.currentItem = 3
+        //remake results with new split value
+        ((viewPager?.adapter as PagerAdapter).getItem(3) as ResultsFragment).makeResults()
     }
 
     /**

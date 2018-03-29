@@ -210,9 +210,6 @@ class CombinedActivity : BaseCalcActivity(), SeekBar.OnSeekBarChangeListener, Sh
             split = splitText.toInt()
         }
 
-        editor?.putBoolean(PrefConstants.DID_SPLIT, willSplit)    //saves whether they will split or not
-        editor?.apply()
-
         val calcFields = CalcFields(cost, percent, split, shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP) ?: "")
         return PercentCalculator(this).calculate(calcFields, getString(R.string.money_separator))
     }

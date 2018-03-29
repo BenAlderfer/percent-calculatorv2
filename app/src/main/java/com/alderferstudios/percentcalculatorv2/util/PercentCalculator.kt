@@ -57,7 +57,7 @@ class PercentCalculator(c: Context) {
 
         var eachTip = percentAmount //if only 1 person, they pay all tip
         var eachTotal = results.total   //if only 1 person, they pay all total
-        val didSplit = shared.getBoolean(PrefConstants.DID_SPLIT, false)
+        val didSplit = shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP) == PrefConstants.SPLIT
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
         when (shared.getString(PrefConstants.SPLIT_LIST, PrefConstants.SPLIT_TIP)) {

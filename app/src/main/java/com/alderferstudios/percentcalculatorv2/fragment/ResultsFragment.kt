@@ -34,7 +34,7 @@ class ResultsFragment : BaseFragment() {
      * Makes the results text
      * Puts all the values together with text
      */
-    private fun makeResults() {
+    fun makeResults() {
         var orientation = "portrait"
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             orientation = "landscape"
@@ -71,7 +71,7 @@ class ResultsFragment : BaseFragment() {
             String.format("%n%n")    //extra space in landscape
         }
 
-        val didSplit = (activity as BaseActivity).shared?.getBoolean(PrefConstants.DID_SPLIT, false)
+        val didSplit = (activity as BaseActivity).shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP) == PrefConstants.SPLIT
 
         val willSplitTip: Boolean
         val willSplitTotal: Boolean
