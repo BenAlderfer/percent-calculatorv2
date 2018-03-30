@@ -194,7 +194,14 @@ class OneItemActivity : BaseCalcActivity() {
         if (current <= 0) {
             finish()
         } else {
-            viewPager?.currentItem = current - 1
+            //if results page and last action was not split
+            if (viewPager?.currentItem == 3 &&
+                    shared?.getString(PrefConstants.LAST_ACTION,
+                            PrefConstants.TIP) != PrefConstants.SPLIT) {
+                viewPager?.currentItem = current - 2
+            } else {
+                viewPager?.currentItem = current - 1
+            }
         }
     }
 

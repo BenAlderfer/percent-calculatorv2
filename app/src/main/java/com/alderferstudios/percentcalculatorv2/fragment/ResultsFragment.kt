@@ -1,12 +1,12 @@
 package com.alderferstudios.percentcalculatorv2.fragment
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import com.alderferstudios.percentcalculatorv2.R
 import com.alderferstudios.percentcalculatorv2.activity.BaseActivity
 import com.alderferstudios.percentcalculatorv2.util.CalcFields
+import com.alderferstudios.percentcalculatorv2.util.MiscUtil
 import com.alderferstudios.percentcalculatorv2.util.PercentCalculator
 import com.alderferstudios.percentcalculatorv2.util.PrefConstants
 import java.text.DecimalFormat
@@ -35,11 +35,6 @@ class ResultsFragment : BaseFragment() {
      * Puts all the values together with text
      */
     fun makeResults() {
-        var orientation = "portrait"
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            orientation = "landscape"
-        }
-
         val pc = PercentCalculator(getBaseActivity())
         val calcFields = CalcFields(getBaseActivity().cost, getBaseActivity().percent, getBaseActivity().split,
                 getBaseActivity().shared?.getString(PrefConstants.LAST_ACTION, PrefConstants.TIP)
@@ -64,8 +59,7 @@ class ResultsFragment : BaseFragment() {
          * Header Section
          */
         val totalText = activity?.findViewById<TextView>(R.id.total)
-        var spacing: String
-        spacing = if (orientation == "portrait") {
+        var spacing = if (!MiscUtil.isLandscape(getBaseActivity())) {
             String.format("%n")
         } else {    //(orientation.equals("landscape"))
             String.format("%n%n")    //extra space in landscape
@@ -91,7 +85,7 @@ class ResultsFragment : BaseFragment() {
         }
 
         if (didAdd) {
-            if (didSplit == true && willSplitTip) {    //if they split and chose to split the tip, tip amount + split cost
+            if (didSplit && willSplitTip) {    //if they split and chose to split the tip, tip amount + split cost
                 totalText?.text = String.format("Tip: " + getString(R.string.money_sign) + results.percent + spacing +
                         getString(R.string.money_sign) + results.eachTip + " each")
 
@@ -126,7 +120,7 @@ class ResultsFragment : BaseFragment() {
 
                     "The tip is: " + getString(R.string.money_sign) + results.percent + spacing)    //adds tip amount $
 
-            if (didSplit == true && willSplitTip) {    //if they split and chose to split the tip
+            if (didSplit && willSplitTip) {    //if they split and chose to split the tip
                 resultsText += String.format("Each person tips: " +
                         getString(R.string.money_sign) + results.eachTip + spacing)    //add line for each person tips
             }
@@ -157,7 +151,7 @@ class ResultsFragment : BaseFragment() {
 
         resultsText += String.format("The final cost is: " + getString(R.string.money_sign) + results.total)    //adds line for total
 
-        if (didSplit == true && willSplitTotal) {    //if they split and chose to split the total
+        if (didSplit && willSplitTotal) {    //if they split and chose to split the total
             resultsText += String.format(spacing + "Each person pays: " + getString(R.string.money_sign) + results.eachTotal)    //add line for each person pays (of total)
         }
 
