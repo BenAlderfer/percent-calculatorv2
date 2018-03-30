@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_prefs"
+            android:label="@string/title_prefs"
             android:noHistory="true"
             android:theme="@style/GreenLight" >
         </activity>
@@ -41,12 +41,12 @@
         </activity>
         <activity
             android:name=".widget.SplitPopUp"
-            android:label="@string/title_activity_split_pop_up"
+            android:label="@string/title_split_pop_up"
             android:theme="@style/GreenLightPopUp">
         </activity>
         <activity
             android:name=".widget.PercentLimitPopUp"
-            android:label="@string/title_activity_percent_limit_pop_up"
+            android:label="@string/title_percent_limit_pop_up"
             android:theme="@style/GreenLightPopUp" />
     </application>
 

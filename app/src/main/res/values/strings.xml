@@ -6,15 +6,15 @@
 
     <!-- Activity Title strings -->
     <string name="app_name">Percent Calculator</string>
-    <string name="title_activity_cost">Cost</string>
-    <string name="title_activity_percent">Percent</string>
-    <string name="title_activity_split">Split</string>
-    <string name="title_activity_results">Results</string>
-    <string name="title_activity_prefs">Preferences</string>
-    <string name="title_activity_combined">Combined Screens</string>
-    <string name="title_activity_launcher">Launcher</string>
-    <string name="title_activity_split_pop_up">Split Options</string>
-    <string name="title_activity_percent_limit_pop_up">Percent Limits</string>
+    <string name="title_cost">Cost</string>
+    <string name="title_percent">Percent</string>
+    <string name="title_split">Split</string>
+    <string name="title_results">Results</string>
+    <string name="title_prefs">Preferences</string>
+    <string name="title_combined">Combined Screens</string>
+    <string name="title_launcher">Launcher</string>
+    <string name="title_split_pop_up">Split Options</string>
+    <string name="title_percent_limit_pop_up">Percent Limits</string>
 
     <!-- Money strings -->
     <string name="money_sign">$</string>

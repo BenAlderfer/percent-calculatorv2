@@ -20,7 +20,7 @@ import com.alderferstudios.percentcalculatorv2.widget.PercentLimitPopUp
 class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
 
     private var percentage: EditText? = null
-    private var percent: Int = 0
+    private var percent: Int = 15
     private var percentStart: Int = 15
     private var percentMax: Int = 30
     private var numPick: NumPicker? = null
@@ -87,6 +87,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
         try {
             percentStart = (activity as BaseActivity).shared?.getString(PrefConstants.PERCENT_START,
                     getString(R.string.default_min_percent))?.toInt() ?: getString(R.string.default_min_percent).toInt()
+            percent = percentStart
         } catch (e: NullPointerException) {
             Log.e("failure", "failed to get start percent")
             e.printStackTrace()
@@ -100,6 +101,7 @@ class PercentFragment : BaseFragment(), SeekBar.OnSeekBarChangeListener {
             e.printStackTrace()
         }
 
+        //set percent bar max
         if (bar?.max != percentMax) {
             bar?.max = percentMax - percentStart
         }

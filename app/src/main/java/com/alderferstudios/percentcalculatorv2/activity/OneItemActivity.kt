@@ -56,14 +56,16 @@ class OneItemActivity : BaseCalcActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
             override fun onPageSelected(position: Int) {
-                val showBack = (viewPager?.currentItem ?: 0) > 0
+                val current = viewPager?.currentItem ?: 0
                 try {
-                    supportActionBar?.setDisplayHomeAsUpEnabled(showBack)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(current > 0)
                 } catch (e: NullPointerException) {
                     e.printStackTrace()
                 }
+                title = adapter?.getPageTitle(current) ?: getString(R.string.app_name)
             }
         })
+        title = adapter?.getPageTitle(0) ?: getString(R.string.app_name)
     }
 
     /**
@@ -228,6 +230,16 @@ class OneItemActivity : BaseCalcActivity() {
             return pages[position] ?: CostFragment()
         }
 
+        override fun getPageTitle(position: Int): CharSequence {
+            return when (position) {
+                0 -> getString(R.string.title_cost)
+                1 -> getString(R.string.title_percent)
+                2 -> getString(R.string.title_split)
+                3 -> getString(R.string.title_results)
+                else -> getString(R.string.app_name)
+            }
+        }
+
         /**
          * Gets the number of pages
          *
@@ -239,7 +251,6 @@ class OneItemActivity : BaseCalcActivity() {
     }
 
     companion object {
-
         var shared: SharedPreferences? = null
         var editor: SharedPreferences.Editor? = null
     }
