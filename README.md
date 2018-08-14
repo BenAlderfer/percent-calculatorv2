@@ -1,6 +1,5 @@
 # Percent Calculator V2
 
-Copyright (c) 2018 Benjamin Alderfer.
 See the license file for copying permission.
 
 _**Work in progress**_
